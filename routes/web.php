@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/login', function () {
+    return view('login');
+});
+Route::prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin.template.index');
+    });
+    Route::prefix('group_user')->group(function () {
+        Route::get('/', function () {
+            return view('admin.group_user.index');
+        });
+    });
+});
