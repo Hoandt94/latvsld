@@ -13,15 +13,9 @@
                 <li class="m-nav__separator">-</li>
                 <li class="m-nav__item">
                     <a href="" class="m-nav__link">
-                        <span class="m-nav__link-text">Quản lý nhóm người dùng</span>
+                        <span class="m-nav__link-text">Quản lý người dùng</span>
                     </a>
                 </li>
-                <!-- <li class="m-nav__separator">-</li>
-                <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                        <span class="m-nav__link-text">Danh sách</span>
-                    </a>
-                </li> -->
             </ul>
         </div>
         <div>
@@ -47,7 +41,7 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Danh sách nhóm người dùng
+                            Danh sách người dùng
                         </h3>
                     </div>
                 </div>
@@ -59,10 +53,13 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Tên</th>
-                                    <th>Mã</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Ngày sửa</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Họ và tên</th>
+                                    <th>Công ty</th>
+                                    <th>Điện thoại</th>
+                                    <th>Tình trạng</th>
+                                    <th>Ngày đăng ký</th>
+                                    <th>Gói đang dùng</th>
                                     <th>Thao tác</th>
                                 </tr>
                             </thead>
@@ -71,6 +68,9 @@
                                     <th scope="row">1</th>
                                     <td>Jhon</td>
                                     <td>Stone</td>
+                                    <td>@jhon</td>
+                                    <td>@jhon</td>
+                                    <td>@jhon</td>
                                     <td>@jhon</td>
                                     <td>@jhon</td>
                                     <td>
