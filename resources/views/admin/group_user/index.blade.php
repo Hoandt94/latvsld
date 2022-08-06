@@ -16,21 +16,15 @@
                         <span class="m-nav__link-text">Quản lý nhóm người dùng</span>
                     </a>
                 </li>
-                <!-- <li class="m-nav__separator">-</li>
-                <li class="m-nav__item">
-                    <a href="" class="m-nav__link">
-                        <span class="m-nav__link-text">Danh sách</span>
-                    </a>
-                </li> -->
             </ul>
         </div>
         <div>
             <div class="pull-right">
-                <a href="#"
+                <a href=""
                     class="m-portlet__nav-link btn btn-lg btn-danger m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill">
                     <i class="la la-trash"></i>
                 </a>
-                <a href="#"
+                <a href="{{route('create_group_user')}}"
                     class="m-portlet__nav-link btn btn-lg btn-primary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill">
                     <i class="la la-plus"></i>
                 </a>

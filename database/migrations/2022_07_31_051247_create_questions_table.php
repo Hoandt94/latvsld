@@ -14,10 +14,10 @@ class CreateQuestionsTable extends Migration
     public function up()
     {
         Schema::create('questions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('code');
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('category');
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('guide_attachment');
             $table->string('sample_attachment');
             $table->string('content');

@@ -24,7 +24,7 @@
                     class="m-portlet__nav-link btn btn-lg btn-danger m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill">
                     <i class="la la-trash"></i>
                 </a>
-                <a href="#"
+                <a href="{{route('create_user')}}"
                     class="m-portlet__nav-link btn btn-lg btn-primary m-btn m-btn--outline-2x m-btn--air m-btn--icon m-btn--icon-only m-btn--pill">
                     <i class="la la-plus"></i>
                 </a>

@@ -12,7 +12,7 @@ class GroupUserController extends Controller
     }
 
     public function create(){
-
+        return view('admin.group_user.create');
     }
 
     public function detail(){

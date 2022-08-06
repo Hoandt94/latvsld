@@ -15,19 +15,11 @@
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
                         <li class="m-menu__item " aria-haspopup="true">
-                            <a href="components/base/state.html" class="m-menu__link ">
+                            <a href="{{route('user')}}" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
                                 <span class="m-menu__link-text">Quản lý người dùng</span>
-                            </a>
-                        </li>
-                        <li class="m-menu__item " aria-haspopup="true">
-                            <a href="components/base/state.html" class="m-menu__link ">
-                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
-                                    <span></span>
-                                </i>
-                                <span class="m-menu__link-text">Quản lý nhóm người dùng</span>
                             </a>
                         </li>
                     </ul>
@@ -43,7 +35,7 @@
                     <span class="m-menu__arrow"></span>
                     <ul class="m-menu__subnav">
                         <li class="m-menu__item " aria-haspopup="true">
-                            <a href="components/base/state.html" class="m-menu__link ">
+                            <a href="{{route('category')}}" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>
@@ -51,7 +43,7 @@
                             </a>
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
-                            <a href="components/base/state.html" class="m-menu__link ">
+                            <a href="{{route('question')}}" class="m-menu__link ">
                                 <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                     <span></span>
                                 </i>

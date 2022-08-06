@@ -19,11 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('phone');
-            $table->unsignedInterger('group_user');
-            $table->foreign('group_user')->references('id')->on('group_users');
+            $table->string('email');
+            $table->string('role');
             $table->string('status');
             $table->string('license_type');
-            // $table->timestamp('email_verified_at')->nullable();
+            $table->string('specific_professions');
+            $table->string('position');
+            $table->string('company');
             $table->rememberToken();
             $table->timestamps();
         });
