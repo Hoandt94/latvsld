@@ -1,4 +1,4 @@
-<ul>
+<ul class="wtree">
     @foreach($categories as $category)
     <li class="wtree-item">
         <span>

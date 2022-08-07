@@ -37,8 +37,7 @@
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item">
                             <a href="#"
-                                class="m-portlet__nav-link btn btn-secondary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
-                                data-toggle="modal" data-target="#modal_category">
+                                class="m-portlet__nav-link btn btn-secondary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="add_category">
                                 <i class="la la-plus"></i>
                             </a>
                         </li>
@@ -48,30 +47,7 @@
             <div class="m-portlet__body">
                 <div class="m-section">
                     <div class="m-section__content">
-                        <ul class="wtree">
-                            @foreach($categories as $category)
-                            <li class="wtree-item">
-                                <span>
-                                    <a href="#">{{$category->code}} - {{$category->name}}</a>
-                                </span>
-                                <div class="folow-up"
-                                    style=" position: absolute; right: 30px;top: 5px; cursor: pointer;">
-                                    <button class="btn btn-sm btn-success create_sub" data-id="{{$category->id}}">
-                                        <i class="la la-plus"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-success edit_category" data-id="{{$category->id}}">
-                                        <i class="la la-edit"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-danger">
-                                        <i class="la la-trash delete_category" data-id="{{$category->id}}"></i>
-                                    </button>
-                                </div>
-                                @if(!empty($category->getSubCategory))
-                                    @include('admin.category.list_sub_category', ['categories' => $category->getSubCategory])
-                                @endif
-                            </li>
-                            @endforeach
-                        </ul>
+                        @include('admin.category.list_category', ['categories' => $categories])
                     </div>
                 </div>
             </div>
@@ -93,8 +69,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="form-control-label">Tên nhóm danh mục cha:</label>
-                                    <input type="text" name="parent_name" class="form-control" disabled value="Không có">
+                                    <label for="recipient-name" class="form-control-label">Tên nhóm danh mục
+                                        cha:</label>
+                                    <input type="text" name="parent_name" class="form-control" disabled
+                                        value="Không có">
                                     <input type="hidden" value="" name="parent_id">
                                 </div>
                             </div>
@@ -116,6 +94,19 @@
                                     <input type="text" class="form-control" name="order" placeholder="Thứ tự hiển thị">
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="message-text" class="col-3 col-form-label">Trạng thái:</label>
+                                    <div class="col-9">
+                                        <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="status">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -131,34 +122,46 @@
 @section('footer_asset')
 <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 <script>
+    edit_id = '';
     $(document).ready(function () {
         listCategory = JSON.parse('{!!json_encode($categories)!!}');
-        console.log(listCategory);
         $('#form_create_category').on('submit', function (event) {
             event.preventDefault();
             dataSending = $(this).serializeArray();
+            if (edit_id) {
+                url = '{{ route("update_category", ":id") }}';
+                url = url.replace(':id', edit_id);
+            }
+            else url = '{{route("create_category")}}'
             $.ajax({
-                url: $(this).attr('action'),
+                url: url,
                 method: "POST",
                 data: dataSending,
-                success: function(result){
-                    if(result.status) {
+                success: function (result) {
+                    if (result.status) {
                         $('#modal_category').modal('hide');
-                        showNotification("Thành công", "Thêm danh mục thành công", 'success');
+                        updateView();
+                        showNotification("Thành công", edit_id ? "Sửa danh mục thành công" : "Thêm danh mục thành công", 'success');
                     }
                     else showNotification("Lỗi", result.msg, 'danger');
+                    edit_id = '';
+                    $('input[name="parent_name"]').val('');
+                    $('input[name="parent_id"]').val('');
+                    $('input[name="name"]').val('');
+                    $('input[name="code"]').val('');
+                    $('input[name="order"]').val('');
                 },
             })
         })
-        $('.wtree').on('click', '.create_sub', function(){
+        $('.m-section__content').on('click', '.create_sub', function () {
             id = $(this).attr('data-id');
             url = '{{ route("get_category", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
                 method: "GET",
-                success: function(result){
-                    if(result.data){
+                success: function (result) {
+                    if (result.data) {
                         category = result.data;
                         $('input[name="parent_name"]').val(category.name);
                         $('input[name="parent_id"]').val(category.id);
@@ -171,28 +174,74 @@
             })
         })
 
-        $('.wtree').on('click', '.delete_category', function(){
-            
+        $('.m-section__content').on('click', '.delete_category', function () {
+            id = $(this).attr('data-id');
+            url = '{{ route("delete_category", ":id") }}';
+            url = url.replace(':id', id);
+            swal({
+                title: "Xác nhận?",
+                text: "Xóa danh mục này",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: "Đồng ý",
+                cancelButtonText: "Hủy",
+                reverseButtons: !0
+            }).then(function (e) {
+                if (e.value) {
+                    $.ajax({
+                        url: url,
+                        method: "GET",
+                        success: function (result) {
+                            if (result.status) {
+                                $('#modal_category').modal('hide');
+                                showNotification("Thành công", "Xóa danh mục thành công", 'success');
+                            }
+                            else showNotification("Lỗi", result.msg, 'danger');
+                        }
+                    })
+                }
+            })
         })
 
-        $('.wtree').on('click', '.edit_category', function(){
+        $('.m-section__content').on('click', '.edit_category', function () {
             id = $(this).attr('data-id');
+            edit_id = id;
             url = '{{ route("get_category", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
                 method: "GET",
-                success: function(result){
-                    if(result.data){
+                success: function (result) {
+                    if (result.data) {
                         category = result.data;
                         $('input[name="name"]').val(category.name);
                         $('input[name="code"]').val(category.code);
                         $('input[name="order"]').val(category.order);
+                        $('input[name="status"]').prop('checked', category.status ? true : false);
                         $('#modal_category').modal('show');
                     }
                 }
             })
         })
+
+        $('#add_category').on('click', function () {
+            $('input[name="name"]').val('');
+            $('input[name="parent_name"]').val('Không có');
+            $('input[name="code"]').val('');
+            $('input[name="order"]').val();
+            $('input[name="status"]').prop('checked', true);
+            $('#modal_category').modal('show');
+        })
+
+        function updateView() {
+            $.ajax({
+                url: '{{route("reload_category")}}',
+                method: "GET",
+                success: function (html) {
+                    $('.m-section__content').html(html)
+                }
+            })
+        }
     })
 </script>
 @endsection

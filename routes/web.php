@@ -37,10 +37,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () 
         Route::any('/create', 'CategoryController@create')->name('create_category');
         Route::any('/{id}/update', 'CategoryController@update')->name('update_category');
         Route::get('/{id}/detail', 'CategoryController@detail')->name('get_category');
+        Route::get('/{id}/delete', 'CategoryController@delete')->name('delete_category');
+        Route::get('/reload', 'CategoryController@reload')->name('reload_category');
     });
     Route::prefix('question')->group(function () {
         Route::get('/', 'QuestionController@index')->name('question');
-        Route::post('/create', 'QuestionController@create')->name('create_question');
+        Route::any('/create', 'QuestionController@create')->name('create_question');
         Route::any('/{id}/update', 'QuestionController@update')->name('update_question');
+        Route::get('/{id}/detail', 'QuestionController@detail')->name('get_question');
+        Route::get('/{id}/delete', 'QuestionController@delete')->name('delete_question');
+        Route::get('/reload', 'QuestionController@reload')->name('reload_question');
     });
 });
