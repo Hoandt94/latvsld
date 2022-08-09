@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'username' => 'admin',
             'password' => bcrypt('123456'),
+            'role' => 'system_admin'
         ]);
     }
 }
