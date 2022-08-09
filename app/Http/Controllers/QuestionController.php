@@ -35,7 +35,6 @@ class QuestionController extends Controller
                     return redirect()->back()->withErrors(['msg' => $errors->all()[0]]);
                 }
                 $result = Question::create([
-                    'name' => $request->name,
                     'code' => $request->code,
                     'category_id' => $request->category_id,
                     'guide_attachment' => !empty($request->guide_attachment) ? $request->guide_attachment : '',
@@ -46,7 +45,7 @@ class QuestionController extends Controller
                     'penalty' => $request->term,
                     'guide' => $request->term,
                     'answer_expression' => !empty($request->answer_expression) ? $request->answer_expression : '',
-                    'tags' => !empty($request->tags) ? $request->tags : '',
+                    'tags' => !empty($request->tag) ? json_encode($request->tag) : '',
                     'status' => isset($request->status) ? 1 : 0
                 ]);
                 return redirect()->route('question');
@@ -65,9 +64,13 @@ class QuestionController extends Controller
         try{
             if($request->isMethod('POST')){
                 $rules = [
-                    'name' => 'required',
                     'code' => 'required',
-                    'order' => 'required'
+                    'category_id' => 'required',
+                    'content' => 'required',
+                    'approve_help' => 'required',
+                    'term' => 'required',
+                    'penalty' => 'required',
+                    'guide' => 'required',
                 ];
                 $messages = [
                     'required'  => ':attribute không được để trống.',
@@ -75,15 +78,28 @@ class QuestionController extends Controller
                 $validator = Validator::make($request->all(), $rules, $messages);
                 if ($validator->fails()) {
                     $errors = $validator->errors();
-                    return response()->json(['status' => 0, 'msg' => $errors->all()[0]], 200);
+                    return redirect()->back()->withErrors(['msg' => $errors->all()[0]]);
                 }
-                $result = Category::where(['id' => $id])->update([
-                    'name' => $request->name,
+                $result = Question::where(['id' => $id])->update([
                     'code' => $request->code,
-                    'order' => (int)$request->order,
+                    'category_id' => $request->category_id,
+                    'guide_attachment' => !empty($request->guide_attachment) ? $request->guide_attachment : '',
+                    'sample_attachment' => !empty($request->sample_attachment) ? $request->sample_attachment : '',
+                    'content' => $request->content,
+                    'approve_help' => $request->approve_help,
+                    'term' => $request->term,
+                    'penalty' => $request->term,
+                    'guide' => $request->term,
+                    'answer_expression' => !empty($request->answer_expression) ? $request->answer_expression : '',
+                    'tags' => !empty($request->tag) ? json_encode($request->tag) : '',
                     'status' => isset($request->status) ? 1 : 0
                 ]);
-                return response()->json(['status' => $result], 200);
+                return redirect()->route('question');
+            }
+            else{
+                $categories = Category::doesntHave('getSubCategory')->get();
+                $question = Question::find($id);
+                return view('admin.question.update', ['categories' => $categories, 'question' => $question]);
             }
         }
         catch(Exception $ex){

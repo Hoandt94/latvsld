@@ -117,15 +117,23 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-3 col-form-label">Tài liệu hướng dẫn kèm theo:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="guide_attachment" class="form-control m-input"
-                                    placeholder="Tài liệu hướng dẫn kèm theo">
+                                <div class="input-group">
+									<input type="text" class="form-control" name="guide_attachment" id="guide_attachment" placeholder="Tài liệu hướng dẫn kèm theo">
+									<div class="input-group-append">
+										<button class="btn btn-primary" id="choose_guide_attachments" data-input="guide_attachment" type="button">Chọn</button>
+									</div>
+								</div>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-lg-3 col-form-label">Tài liệu biểu mẫu tham khảo:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="sample_attachment" class="form-control m-input"
-                                    placeholder="Tài liệu biểu mẫu tham khảo">
+                                <div class="input-group">
+                                <input type="text" name="sample_attachment" id="sample_attachment" class="form-control m-input" placeholder="Tài liệu biểu mẫu tham khảo">
+									<div class="input-group-append">
+										<button class="btn btn-primary" id="choose_sample_attachment" data-input="sample_attachment" type="button">Chọn</button>
+									</div>
+								</div>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
@@ -170,6 +178,7 @@
 </div>
 @endsection
 @section('footer_asset')
+<script src="/vendor/laravel-filemanager/js/lfm.js"></script>
 <script>
     $(document).ready(function () {
         $('#category_id').select2({
@@ -179,6 +188,8 @@
 			placeholder: "Thêm tag câu hỏi",
 			tags: !0
 		})
+        $('#choose_guide_attachments').filemanager('file');
+        $('#choose_sample_attachment').filemanager('file');
     })
 </script>
 @endsection

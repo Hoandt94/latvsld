@@ -13,7 +13,7 @@
                 <li class="m-nav__separator">-</li>
                 <li class="m-nav__item">
                     <a href="" class="m-nav__link">
-                        <span class="m-nav__link-text">Quản lý người dùng</span>
+                        <span class="m-nav__link-text">Quản lý câu hỏi</span>
                     </a>
                 </li>
                 <!-- <li class="m-nav__separator">-</li>
@@ -28,15 +28,6 @@
 </div>
 @endsection
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 <div class="row">
     <div class="col-xl-12">
         <div class="m-portlet">
@@ -47,107 +38,125 @@
                             <i class="la la-gear"></i>
                         </span>
                         <h3 class="m-portlet__head-text">
-                            Update thông tin người dùng
+                            Sửa câu hỏi pháp luật
                         </h3>
                     </div>
                 </div>
             </div>
 
             <!--begin::Form-->
-            <form class="m-form" action="{{route('update_user', [$user->id])}}" method="post">
+            <form class="m-form" action="{{route('update_question', [$question->id])}}" method="post">
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
+                        @if(!empty($errors->any()))
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                            </ul>
+                        @endif
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Tên đăng nhập:</label>
+                            <label class="col-lg-3 col-form-label">Mã danh mục:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="username" class="form-control m-input" placeholder="Tên đăng nhập" value="{{$user->username}}">
-                            </div>
-                        </div>
-                        <!-- <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Mật khẩu:</label>
-                            <div class="col-lg-6">
-                                <input type="password" name="password" class="form-control m-input" placeholder="Mật khẩu" value="{{$user->username}}>
-                            </div>
-                        </div> -->
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Họ và tên:</label>
-                            <div class="col-lg-6">
-                                <input type="text" name="name" class="form-control m-input" placeholder="Họ và tên" value="{{$user->name}}">
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Điện thoại:</label>
-                            <div class="col-lg-6">
-                                <input type="text" name="phone" class="form-control m-input" placeholder="Điện thoại" value="{{$user->phone}}">
+                                <select class="form-control m-select2" id="category_id" name="category_id">
+                                    <option value="" disabled>Chọn danh mục</option>
+                                    @foreach( $categories as $category)
+                                    <option value="{{$category->id}}">{{$category->code}} - {{$category->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Email:</label>
+                            <label class="col-lg-3 col-form-label">Mã câu hỏi:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="email" class="form-control m-input" placeholder="Email" value="{{$user->email}}">
+                                <input type="text" name="code" value="{{$question->code}}" class="form-control m-input" placeholder="Mã câu hỏi">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Ngành nghề đặc thù:</label>
+                            <label class="col-lg-3 col-form-label">Nội dung:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="specific_profession" class="form-control m-input" placeholder="Ngành nghề đặc thù" value="{{$user->specific_professions}}">
+                                <textarea type="text" name="content" class="form-control m-input"
+                                    placeholder="Nội dung">{{$question->content}}</textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Bộ phận chức vụ:</label>
+                            <label class="col-lg-3 col-form-label">Bằng chứng tuân thủ:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="position" class="form-control m-input" placeholder="Bộ phận chức vụ" value="{{$user->position}}">
+                                <textarea type="text" name="approve_help" class="form-control m-input"
+                                    placeholder="Bằng chứng tuân thủ">{{$question->approve_help}}</textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Công ty:</label>
+                            <label class="col-lg-3 col-form-label">Điều khoản căn cứ:</label>
                             <div class="col-lg-6">
-                                <input type="text" name="company" class="form-control m-input" placeholder="Công ty" value="{{$user->company}}">
+                                <textarea type="text" name="term" class="form-control m-input"
+                                    placeholder="Điều khoản căn cứ">{{$question->term}}</textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Tình trạng:</label>
+                            <label class="col-lg-3 col-form-label">Hình thức xử phạt:</label>
                             <div class="col-lg-6">
-                                <div class="m-checkbox-list">
-                                    <label class="m-checkbox">
-                                        @if(!empty($user->status))
-                                        <input type="checkbox" name ="status" checked="1" value="1"> Đang hoạt động
-                                        @else
-                                        <input type="checkbox" name ="status" checked="0" value="1"> Đang hoạt động
-                                        @endif
-                                        <span></span>
-                                    </label>
-                                </div>
+                                <textarea type="text" name="penalty" class="form-control m-input"
+                                    placeholder="Hình thức xử phạt">{{$question->penalty}}</textarea>
                             </div>
                         </div>
-                        <div class="m-form__group form-group row">
-                            <label class="col-3 col-form-label">Loại tài khoản</label>
-                            <div class="col-9">
-                                <div class="m-radio-list">
-                                    <label class="m-radio">
-                                        @if($user->role == 'user')
-                                        <input type="radio" name="role" value="user" checked="1"> Tài khoản thường
-                                        @else
-                                        <input type="radio" name="role" value="user"> Tài khoản thường
-                                        @endif
-                                        <span></span>
-                                    </label>
-                                    <label class="m-radio">
-                                        @if($user->role == 'admin')
-                                        <input type="radio" name="role" value="user" checked="1"> Tài khoản admin công ty
-                                        @else
-                                        <input type="radio" name="role" value="user"> Tài khoản admin công ty
-                                        @endif
-                                        <span></span>
-                                    </label>
-                                    <label class="m-radio">
-                                        @if($user->role == 'system_admin')
-                                        <input type="radio" name="role" value="user" checked="1"> Tài khoản admin hệ thống
-                                        @else
-                                        <input type="radio" name="role" value="user"> Tài khoản admin hệ thống
-                                        @endif
-                                        <span></span>
-                                    </label>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-3 col-form-label">Yêu cầu/Hướng dẫn thực hiện:</label>
+                            <div class="col-lg-6">
+                                <textarea type="text" name="guide" class="form-control m-input"
+                                    placeholder="Yêu cầu/Hướng dẫn thực hiện">{{$question->guide}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-3 col-form-label">Công thức:</label>
+                            <div class="col-lg-6">
+                                <textarea type="text" name="answer_expression" class="form-control m-input"
+                                    placeholder="Công thức">{{$question->answer_expression}}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-3 col-form-label">Tài liệu hướng dẫn kèm theo:</label>
+                            <div class="col-lg-6">
+                                <div class="input-group">
+									<input type="text" class="form-control" value="{{$question->guide_attachment}}" name="guide_attachment" id="guide_attachment" placeholder="Tài liệu hướng dẫn kèm theo">
+									<div class="input-group-append">
+										<button class="btn btn-primary" id="choose_guide_attachments" data-input="guide_attachment" type="button">Chọn</button>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-3 col-form-label">Tài liệu biểu mẫu tham khảo:</label>
+                            <div class="col-lg-6">
+                                <div class="input-group">
+                                <input type="text" name="sample_attachment" value="{{$question->sample_attachment}}" id="sample_attachment" class="form-control m-input" placeholder="Tài liệu biểu mẫu tham khảo">
+									<div class="input-group-append">
+										<button class="btn btn-primary" id="choose_sample_attachment" data-input="sample_attachment" type="button">Chọn</button>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-3 col-form-label">Tag:</label>
+                            <div class="col-lg-6">
+                                <select class="form-control m-select2" id="tag" multiple name="tag[]">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label for="message-text" class="col-3 col-form-label">Trạng thái:</label>
+                                <div class="col-9">
+                                    <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
+                                        <label>
+                                            @if($question->status)
+                                            <input type="checkbox" checked="checked" name="status">
+                                            @else
+                                            <input type="checkbox" name="status">
+                                            @endif
+                                            <span></span>
+                                        </label>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -159,8 +168,8 @@
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-success">Lưu</button>
+                                <button type="reset" class="btn btn-secondary">Hủy</button>
                             </div>
                         </div>
                     </div>
@@ -171,4 +180,20 @@
         </div>
     </div>
 </div>
+@endsection
+@section('footer_asset')
+<script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#category_id').select2({
+			placeholder: "Chọn danh mục"
+		});
+        $("#tag").select2({
+			placeholder: "Thêm tag câu hỏi",
+			tags: !0
+		})
+        $('#choose_guide_attachments').filemanager('file');
+        $('#choose_sample_attachment').filemanager('file');
+    })
+</script>
 @endsection
