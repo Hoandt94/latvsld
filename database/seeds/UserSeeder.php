@@ -15,6 +15,13 @@ class UserSeeder extends Seeder
             'name' => 'admin',
             'username' => 'admin',
             'password' => bcrypt('123456'),
+            'phone' => '',
+             'email' => '',
+             'company' => '',
+             'position' => '',
+             'specific_professions' => '',
+             'status' => 1,
+             'license_type' => 1,
             'role' => 'system_admin'
         ]);
     }

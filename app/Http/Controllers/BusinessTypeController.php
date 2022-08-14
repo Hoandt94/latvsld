@@ -3,16 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
-use App\User;
+use App\BusinessType;
 use Validator;
 
-class UserController extends Controller
+class BusinessTypeController extends Controller
 {
     //
     public function index(){
-        $users = User::paginate(15);
-        return view('admin.user.index', ['users' => $users]);
+        $businessTypes = BusinessType::paginate(15);
+        return view('admin.business_type.index', ['types' => $businessTypes]);
     }
 
     public function create(Request $request){
