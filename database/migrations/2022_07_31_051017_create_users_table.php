@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('role');
-            $table->string('status');
+            $table->integer('status');
             $table->string('license_type');
             $table->string('specific_professions');
             $table->string('position');

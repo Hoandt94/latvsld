@@ -34,7 +34,7 @@
     display: none;
 }
 
-.wtree li span {
+.wtree li span.wtree-item-text {
     display: block;
     border: 1px solid #ddd;
     padding: 10px;
@@ -42,23 +42,23 @@
     text-decoration: none;
 }
 
-.wtree li span:hover,
-.wtree li span:focus {
+.wtree li span.wtree-item-text:hover,
+.wtree li span.wtree-item-text:focus {
     background: #eee;
     color: #000;
     border: 1px solid #aaa;
 }
 
-.wtree li span:hover+ul li span,
-.wtree li span:focus+ul li span {
+.wtree li span.wtree-item-text:hover+ul li span,
+.wtree li span.wtree-item-text:focus+ul li span {
     background: #eee;
     color: #000;
     border: 1px solid #aaa;
 }
 
-.wtree li span:hover+ul li:after,
-.wtree li span:focus+ul li:after,
-.wtree li span:hover+ul li:before,
-.wtree li span:focus+ul li:before {
+.wtree li span.wtree-item-text:hover+ul li:after,
+.wtree li span.wtree-item-text:focus+ul li:after,
+.wtree li span.wtree-item-text:hover+ul li:before,
+.wtree li span.wtree-item-text:focus+ul li:before {
     border-color: #aaa;
 }

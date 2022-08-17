@@ -9,6 +9,6 @@ class BusinessType extends Model
     //
     protected $table = 'business_types';
     protected $fillable = [
-        'name', 'code', 
+        'name', 'code', 'status'
     ];
 }

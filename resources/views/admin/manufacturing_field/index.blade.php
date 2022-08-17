@@ -13,7 +13,7 @@
                 <li class="m-nav__separator">-</li>
                 <li class="m-nav__item">
                     <a href="" class="m-nav__link">
-                        <span class="m-nav__link-text">Quản lý loại hình cơ sở</span>
+                        <span class="m-nav__link-text">Quản lý lĩnh vực sản xuất</span>
                     </a>
                 </li>
             </ul>
@@ -29,7 +29,7 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Danh sách loại hình cơ sở
+                            Danh sách lĩnh vực sản xuất
                         </h3>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item">
                             <a href="#"
-                                class="m-portlet__nav-link btn btn-primary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="add_business_type">
+                                class="m-portlet__nav-link btn btn-primary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="add_manufacturing_field">
                                 <i class="la la-plus"></i>
                             </a>
                         </li>
@@ -47,19 +47,19 @@
             <div class="m-portlet__body">
                 <div class="m-section">
                     <div class="m-section__content">
-                        @include('admin.business_type.list', ['types' => $types])
+                        @include('admin.manufacturing_field.list', ['fields' => $fields])
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal_business_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modal_manufacturing_field" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="post" action="{{route('create_user')}}" id="form_create_business_type">
+            <form method="post" action="{{route('create_user')}}" id="form_create_manufacturing_field">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm loại hình cơ sở</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Thêm lĩnh vực sản xuất</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -83,7 +83,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="save_business_type">Lưu</button>
+                        <button type="submit" class="btn btn-primary" id="save_manufacturing_field">Lưu</button>
                     </div>
                 </div>
             </form>
@@ -96,23 +96,23 @@
 <script>
     edit_id = '';
     $(document).ready(function () {
-        $('#form_create_business_type').on('submit', function (event) {
+        $('#form_create_manufacturing_field').on('submit', function (event) {
             event.preventDefault();
             dataSending = $(this).serializeArray();
             if (edit_id) {
-                url = '{{ route("update_business_type", ":id") }}';
+                url = '{{ route("update_manufacturing_field", ":id") }}';
                 url = url.replace(':id', edit_id);
             }
-            else url = '{{route("create_business_type")}}'
+            else url = '{{route("create_manufacturing_field")}}'
             $.ajax({
                 url: url,
                 method: "POST",
                 data: dataSending,
                 success: function (result) {
                     if (result.status) {
-                        $('#modal_business_type').modal('hide');
+                        $('#modal_manufacturing_field').modal('hide');
                         updateView();
-                        showNotification("Thành công", edit_id ? "Sửa loại hình cơ sở thành công" : "Thêm loại hình cơ sở thành công", 'success');
+                        showNotification("Thành công", edit_id ? "Sửa lĩnh vực sản xuất thành công" : "Thêm lĩnh vực sản xuất thành công", 'success');
                     }
                     else showNotification("Lỗi", result.msg, 'danger');
                     edit_id = '';
@@ -122,13 +122,13 @@
             })
         })
 
-        $('.m-section__content').on('click', '.delete_business_type', function () {
+        $('.m-section__content').on('click', '.delete_manufacturing_field', function () {
             id = $(this).attr('data-id');
-            url = '{{ route("delete_business_type", ":id") }}';
+            url = '{{ route("delete_manufacturing_field", ":id") }}';
             url = url.replace(':id', id);
             swal({
                 title: "Xác nhận?",
-                text: "Xóa loại hình cơ sở này",
+                text: "Xóa lĩnh vực sản xuất này",
                 type: "warning",
                 showCancelButton: !0,
                 confirmButtonText: "Đồng ý",
@@ -141,8 +141,8 @@
                         method: "GET",
                         success: function (result) {
                             if (result.status) {
-                                $('#modal_business_type').modal('hide');
-                                showNotification("Thành công", "Xóa loại hình cơ sở thành công", 'success');
+                                $('#modal_manufacturing_field').modal('hide');
+                                showNotification("Thành công", "Xóa lĩnh vực sản xuất thành công", 'success');
                             }
                             else showNotification("Lỗi", result.msg, 'danger');
                         }
@@ -151,10 +151,10 @@
             })
         })
 
-        $('.m-section__content').on('click', '.edit_business_type', function () {
+        $('.m-section__content').on('click', '.edit_manufacturing_field', function () {
             id = $(this).attr('data-id');
             edit_id = id;
-            url = '{{ route("get_business_type", ":id") }}';
+            url = '{{ route("get_manufacturing_field", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -164,21 +164,21 @@
                         type = result.data;
                         $('input[name="code"]').val(type.code);
                         $('input[name="name"]').val(type.name);
-                        $('#modal_business_type').modal('show');
+                        $('#modal_manufacturing_field').modal('show');
                     }
                 }
             })
         })
 
-        $('#add_business_type').on('click', function () {
+        $('#add_manufacturing_field').on('click', function () {
             $('input[name="code"]').val('');
             $('input[name="name"]').val('');
-            $('#modal_business_type').modal('show');
+            $('#modal_manufacturing_field').modal('show');
         })
 
         function updateView() {
             $.ajax({
-                url: '{{route("reload_business_type")}}',
+                url: '{{route("reload_manufacturing_field")}}',
                 method: "GET",
                 success: function (html) {
                     $('.m-section__content').html(html)

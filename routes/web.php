@@ -21,12 +21,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () 
     Route::get('/', function () {
         return view('admin.template.index');
     });
-    Route::prefix('group_user')->group(function () {
-        Route::get('/', 'GroupUserController@index')->name('group_user');
-        Route::any('/create', 'GroupUserController@create')->name('create_group_user');
-        Route::get('/:id', 'GroupUserController@detail')->name('detail_group_user');
-        Route::any('/:id/update', 'GroupUserController@update')->name('update_group_user');
+
+    Route::prefix('set_question')->group(function () {
+        Route::get('/', 'SetQuestionController@index')->name('set_question');
+        Route::any('/create', 'SetQuestionController@create')->name('create_set_question');
+        Route::any('/{id}/update', 'SetQuestionController@update')->name('update_set_question');
+        Route::any('/{id}/detail', 'SetQuestionController@detail')->name('get_set_question');
+        Route::any('/{id}/config', 'SetQuestionController@config')->name('config_set_question');
+        Route::get('/{id}/delete', 'SetQuestionController@delete')->name('delete_set_question');
+        Route::get('/reload', 'SetQuestionController@reload')->name('reload_set_question');
     });
+
     Route::prefix('users')->group(function () {
         Route::get('/', 'UserController@index')->name('user');
         Route::any('/create', 'UserController@create')->name('create_user');
@@ -35,6 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () 
         Route::get('/{id}/delete', 'UserController@delete')->name('delete_user');
         Route::get('/reload', 'UserController@reload')->name('reload_user');
     });
+
     Route::prefix('category')->group(function () {
         Route::get('/', 'CategoryController@index')->name('category');
         Route::any('/create', 'CategoryController@create')->name('create_category');
@@ -70,13 +76,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () 
         Route::get('/reload', 'BusinessTypeController@reload')->name('reload_business_type');
     });
 
-    Route::prefix('manufactoring_field')->group(function () {
-        Route::get('/', 'ManufactoringFieldController@index')->name('manufactoring_field');
-        Route::any('/create', 'ManufactoringFieldController@create')->name('create_manufactoring_field');
-        Route::any('/{id}/update', 'ManufactoringFieldController@update')->name('update_manufactoring_field');
-        Route::get('/{id}/detail', 'ManufactoringFieldController@detail')->name('get_manufactoring_field');
-        Route::get('/{id}/delete', 'ManufactoringFieldController@delete')->name('delete_manufactoring_field');
-        Route::get('/reload', 'ManufactoringFieldController@reload')->name('reload_manufactoring_field');
+    Route::prefix('manufacturing_field')->group(function () {
+        Route::get('/', 'ManufacturingFieldController@index')->name('manufacturing_field');
+        Route::any('/create', 'ManufacturingFieldController@create')->name('create_manufacturing_field');
+        Route::any('/{id}/update', 'ManufacturingFieldController@update')->name('update_manufacturing_field');
+        Route::get('/{id}/detail', 'ManufacturingFieldController@detail')->name('get_manufacturing_field');
+        Route::get('/{id}/delete', 'ManufacturingFieldController@delete')->name('delete_manufacturing_field');
+        Route::get('/reload', 'ManufacturingFieldController@reload')->name('reload_manufacturing_field');
     });
 
     Route::prefix('specific_profession')->group(function () {
