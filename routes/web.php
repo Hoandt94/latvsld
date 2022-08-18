@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/login', 'UserController@login');
+Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
-Route::get('/logout', 'UserController@logout');
+Route::get('/logout', 'UserController@logout')->name('logout');
 Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () {
     Route::get('/', function () {
         return view('admin.template.index');

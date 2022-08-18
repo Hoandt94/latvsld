@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use DB;
 use Validator;
 
 class UserController extends Controller
@@ -93,9 +94,16 @@ class UserController extends Controller
         return response()->json(['data' => $user], 200);
     }
 
-    public function reload(){
-        $users = User::paginate(15);
-        return view('admin.user.list_category', ['users' => $users])->render();
+    public function reload(Request $request){
+        $result = DB::table('users');
+        if(!empty($request->name)) $result->where('name', 'like', '%' . $request->name . '%');
+        if(!empty($request->username)) $result->where('username', 'like', '%' . $request->username . '%');
+        if(!empty($request->phone)) $result->where('phone', 'like', '%' . $request->phone . '%');
+        if(!empty($request->company)) $result->where('company', 'like', '%' . $request->company . '%');
+        if(!empty($request->status)) $result->where('status', (int)$request->company);
+        if(!empty($request->role)) $result->where('role', (int)$request->role);
+        $users = $result->paginate(15);
+        return view('admin.user.list', ['users' => $users])->render();
     }
 
     public function login(){
@@ -112,5 +120,10 @@ class UserController extends Controller
         } else {
             return redirect()->back()->with('status', 'Email hoặc Password không chính xác');
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

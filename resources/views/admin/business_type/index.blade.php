@@ -45,6 +45,25 @@
                 </div>
             </div>
             <div class="m-portlet__body">
+                <div class="form-group m-form__group row m--margin-bottom-30">
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Mã loại hình:</label>
+                                <input type="text" name="search_code" class="form-control m-input" placeholder="Mã loại hình">
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Tên loại hình:</label>
+                                <input type="text" name="search_name" class="form-control m-input" placeholder="Tên loại hình">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="row m--margin-bottom-20">
+                            <button class="btn btn-success m--margin-top-25" id="search_type">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="m-section">
                     <div class="m-section__content">
                         @include('admin.business_type.list', ['types' => $types])
@@ -176,10 +195,19 @@
             $('#modal_business_type').modal('show');
         })
 
+        $('#search_type').on('click', function(){
+            updateView();
+        })
+
         function updateView() {
+            data_filter = {
+                code: $('input[name="search_code"]').val(),
+                name: $('input[name="search_name"]').val(),
+            };
             $.ajax({
                 url: '{{route("reload_business_type")}}',
                 method: "GET",
+                data: data_filter,
                 success: function (html) {
                     $('.m-section__content').html(html)
                 }

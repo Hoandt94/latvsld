@@ -37,7 +37,8 @@
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item">
                             <a href="#"
-                                class="m-portlet__nav-link btn btn-primary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="add_user">
+                                class="m-portlet__nav-link btn btn-primary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill"
+                                id="add_user">
                                 <i class="la la-plus"></i>
                             </a>
                         </li>
@@ -45,51 +46,55 @@
                 </div>
             </div>
             <div class="m-portlet__body">
+                <div class="form-group m-form__group row m--margin-bottom-30">
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Họ tên:</label>
+                                <input type="text" name="search_name" class="form-control m-input" placeholder="Họ tên">
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Tên đăng nhập:</label>
+                                <input type="text" name="search_username" class="form-control m-input" placeholder="Tên đăng nhập">
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Điện thoại:</label>
+                                <input type="text" name="search_phone" class="form-control m-input" placeholder="Điện thoại">
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-lg-4">
+                                <label>Công ty:</label>
+                                <input type="text" name="search_company" class="form-control m-input" placeholder="Tên công ty">
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="">Loại tài khoản:</label>
+                                <select class="form-control" name="search_role">
+                                    <option value="">Chọn loại tài khoản</option>
+                                    <option value="system_admin">Tài khoản admin hệ thống</option>
+                                    <option value="admin">Tài khoản admin công ty</option>
+                                    <option value="user">Tài khoản thường</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="">Tình trạng:</label>
+                                <select class="form-control" name="search_status">
+                                    <option value="">Chọn trạng thái tài khoản</option>
+                                    <option value="1">Hoạt động</option>
+                                    <option value="0">Không hoạt động</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="row mt-5">
+                            <button class="btn btn-success m--margin-top-25" id="search_user">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="m-section">
                     <div class="m-section__content">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Tên đăng nhập</th>
-                                    <th>Họ và tên</th>
-                                    <th>Công ty</th>
-                                    <th>Điện thoại</th>
-                                    <th>Tình trạng</th>
-                                    <th>Ngày đăng ký</th>
-                                    <th>Loại tài khoản</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($users as $user)
-                                <tr>
-                                    <th scope="row">{{$user->id}}</th>
-                                    <td>{{$user->username}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->company}}</td>
-                                    <td>{{$user->phone}}</td>
-                                    @if($user->status)
-                                    <td><button class="btn btn-success btn-sm">Đang hoạt động</button></td>
-                                    @else
-                                    <td><button class="btn btn-danger btn-sm">Ngừng hoạt động</button></td>
-                                    @endif
-                                    @if($user->role == 'system_admin')
-                                    <td>Tài khoản admin hệ thống</td>
-                                    @elseif($user->role == 'admin')
-                                    <td>Tài khoản admin công ty</td>
-                                    @else
-                                    <td>Tài khoản thường</td>
-                                    @endif
-                                    <td>{{$user->created_at}}</td>
-                                    <td>
-                                        <button class="btn btn-danger btn-sm delete_user" data-id="{{$user->id}}">Delete</button>
-                                        <button class="btn btn-success btn-sm edit_user" data-id="{{$user->id}}">Edit</button>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @include('admin.user.list', ['users' => $users])
                     </div>
                 </div>
             </div>
@@ -112,14 +117,16 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="recipient-name" class="form-control-label">Tên đăng nhập:</label>
-                                    <input type="text" name="username" class="form-control m-input" placeholder="Tên đăng nhập">
+                                    <input type="text" name="username" class="form-control m-input"
+                                        placeholder="Tên đăng nhập">
                                     <input type="hidden" value="" name="parent_id">
                                 </div>
                             </div>
                             <div class="col-md-12" id="row_password">
                                 <div class="form-group">
                                     <label for="recipient-name" class="form-control-label">Mật khẩu:</label>
-                                    <input type="password" name="password" class="form-control m-input" placeholder="Mật khẩu">
+                                    <input type="password" name="password" class="form-control m-input"
+                                        placeholder="Mật khẩu">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -131,7 +138,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Điện thoại</label>
-                                    <input type="text" name="phone" class="form-control m-input" placeholder="Điện thoại">
+                                    <input type="text" name="phone" class="form-control m-input"
+                                        placeholder="Điện thoại">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -143,28 +151,32 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Ngành nghề đặc thù</label>
-                                    <input type="text" name="specific_profession" class="form-control m-input" placeholder="Ngành nghề đặc thù">
+                                    <input type="text" name="specific_profession" class="form-control m-input"
+                                        placeholder="Ngành nghề đặc thù">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Bộ phận chức vụ</label>
-                                    <input type="text" name="position" class="form-control m-input" placeholder="Bộ phận chức vụ">
+                                    <input type="text" name="position" class="form-control m-input"
+                                        placeholder="Bộ phận chức vụ">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Công ty</label>
-                                    <input type="text" name="company" class="form-control m-input" placeholder="Công ty">
+                                    <input type="text" name="company" class="form-control m-input"
+                                        placeholder="Công ty">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                <label class="col-lg-3 col-form-label">Tình trạng:</label>
+                                    <label class="col-lg-3 col-form-label">Tình trạng:</label>
                                     <div class="col-lg-6">
                                         <div class="m-checkbox-list">
                                             <label class="m-checkbox">
-                                                <input type="checkbox" name ="status" checked="1" value="1"> Đang hoạt động
+                                                <input type="checkbox" name="status" checked="1" value="1"> Đang hoạt
+                                                động
                                                 <span></span>
                                             </label>
                                         </div>
@@ -177,7 +189,8 @@
                                     <div class="col-9">
                                         <div class="m-radio-list">
                                             <label class="m-radio">
-                                                <input type="radio" name="role" value="user" checked="1"> Tài khoản thường
+                                                <input type="radio" name="role" value="user" checked="1"> Tài khoản
+                                                thường
                                                 <span></span>
                                             </label>
                                             <label class="m-radio">
@@ -185,7 +198,8 @@
                                                 <span></span>
                                             </label>
                                             <label class="m-radio">
-                                                <input type="radio" name="role" value="system_admin"> Tài khoản admin hệ thống
+                                                <input type="radio" name="role" value="system_admin"> Tài khoản admin hệ
+                                                thống
                                                 <span></span>
                                             </label>
                                         </div>
@@ -307,10 +321,23 @@
             $('#modal_user').modal('show');
         })
 
+        $('#search_user').on('click', function(){
+            updateView();
+        })
+
         function updateView() {
+            data_filter = {
+                role: $('select[name="search_role"]').val(),
+                name: $('input[name="search_name"]').val(),
+                username: $('input[name="search_username"]').val(),
+                phone: $('input[name="search_phone"]').val(),
+                company: $('input[name="search_company"]').val(),
+                status: $('select[name="search_status"]').val(),
+            };
             $.ajax({
                 url: '{{route("reload_user")}}',
                 method: "GET",
+                data: data_filter,
                 success: function (html) {
                     $('.m-section__content').html(html)
                 }

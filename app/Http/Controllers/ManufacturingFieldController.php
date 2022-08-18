@@ -71,8 +71,11 @@ class ManufacturingFieldController extends Controller
         return response()->json(['data' => $type], 200);
     }
 
-    public function reload(){
-        $fields = ManufacturingField::paginate(15);
+    public function reload(Request $request){
+        $fields = ManufacturingField::query();
+        if(!empty($request->code)) $fields->where('code', 'like', '%' . $request->code . '%');
+        if(!empty($request->name)) $fields->where('name', 'like', '%' . $request->name . '%');
+        $fields = $fields->paginate(15);
         return view('admin.manufacturing_field.list', ['fields' => $fields])->render();
     }
 }

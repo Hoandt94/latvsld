@@ -1,7 +1,7 @@
 <ul>
     @foreach($categories as $category)
     <li class="wtree-item">
-        <span>
+        <span class="wtree-item-text">
             {{$category->code}} - {{$category->name}}
         </span>
         <div class="folow-up" style=" position: absolute; right: 30px;top: 5px; cursor: pointer;">

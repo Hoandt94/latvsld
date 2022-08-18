@@ -71,8 +71,11 @@ class SpecificProfessionController extends Controller
         return response()->json(['data' => $type], 200);
     }
 
-    public function reload(){
-        $jobs = SpecificProfession::paginate(15);
+    public function reload(Request $request){
+        $jobs = SpecificProfession::query();
+        if(!empty($request->code)) $jobs->where('code', 'like', '%' . $request->code . '%');
+        if(!empty($request->name)) $jobs->where('name', 'like', '%' . $request->name . '%');
+        $jobs = $jobs->paginate(15);
         return view('admin.specific_profession.list', ['jobs' => $jobs])->render();
     }
 }

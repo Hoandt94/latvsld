@@ -45,41 +45,72 @@
                 </div>
             </div>
             <div class="m-portlet__body">
+            <div class="form-group m-form__group row m--margin-bottom-30">
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <label>Danh mục:</label>
+                                <select class="form-control m-select2" id="category_id" name="category_id">
+                                    <option value="">Chọn danh mục</option>
+                                    @foreach( $categories as $category)
+                                    <option value="{{$category->id}}">{{$category->code}} - {{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Mã câu hỏi:</label>
+                                <input type="text" name="search_code" class="form-control m-input" placeholder="Mã câu hỏi">
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Nội dung:</label>
+                                <input type="text" name="search_content" class="form-control m-input" placeholder="Nội dung">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="row m--margin-bottom-20">
+                            <button class="btn btn-success m--margin-top-25" id="search_user">Tìm kiếm</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="m-section">
                     <div class="m-section__content">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Mã danh mục</th>
-                                    <th>Danh mục</th>
-                                    <th>Mã câu hỏi</th>
-                                    <th>Nội dung câu hỏi</th>
-                                    <th>Ngày sửa</th>
-                                    <th>File đính kèm</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($questions as $question)
-                                <tr>
-                                    <td>{{$question->category_id}}</td>
-                                    <td>{{$question->getCategory->name}}</td>
-                                    <td>{{$question->code}}</td>
-                                    <td>{{$question->content}}</td>
-                                    <td>{{$question->updated_at}}</td>
-                                    <td>{{$question->sample_attachment}}</td>
-                                    <td>
-                                        <button class="btn btn-danger btn-sm">Delete</button>
-                                        <a class="btn btn-success btn-sm" href="{{route('update_question', [$question->id])}}">Edit</a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        @include('admin.question.list', ['questions' => $questions])
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('footer_asset')
+<script>
+    edit_id = '';
+    $(document).ready(function () {
+        $('#category_id').select2({
+			placeholder: "Chọn danh mục"
+		});
+
+        $('#search_user').on('click', function(){
+            updateView();
+        })
+
+        function updateView() {
+            data_filter = {
+                category_id: $('#category_id').val(),
+                code: $('input[name="search_code"]').val(),
+                content: $('input[name="search_content"]').val(),
+            };
+            console.log(data_filter);
+            $.ajax({
+                url: '{{route("reload_question")}}',
+                method: "GET",
+                data: data_filter,
+                success: function (html) {
+                    $('.m-section__content').html(html)
+                }
+            })
+        }
+    })
+</script>
 @endsection

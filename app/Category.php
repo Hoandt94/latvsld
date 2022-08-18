@@ -19,4 +19,8 @@ class Category extends Model
     public function getQuestion(){
         return $this->hasMany('App\Question', 'category_id', 'id');
     }
+
+    public function parentCategory(){
+        return $this->belongsTo('App\Category', 'parent_id', 'id');
+    }
 }

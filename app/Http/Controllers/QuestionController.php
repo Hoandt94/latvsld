@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Question;
 use App\Category;
 use Validator;
-
+use DB;
 class QuestionController extends Controller
 {
     public function index(){
         $questions = Question::paginate(20);
-        return view('admin.question.index', ['questions' => $questions]);
+        $categories = Category::doesntHave('getSubCategory')->get();
+        return view('admin.question.index', ['questions' => $questions, 'categories' => $categories]);
     }
 
     public function create(Request $request){
@@ -123,8 +124,12 @@ class QuestionController extends Controller
         else return response()->json(['status' => 0, 'msg' => "Không thể xóa. Danh mục có câu hỏi hoặc danh mục con."], 200);
     }
 
-    public function reload(){
-        $categories = Category::whereNull('parent_id')->get();
-        return view('admin.category.list_category', ['categories' => $categories])->render();
+    public function reload(Request $request){
+        $result = Question::query();
+        if(!empty($request->category_id)) $result->where('category_id', (int)$request->category_id);
+        if(!empty($request->code)) $result->where('code', 'like', '%' . $request->code . '%');
+        if(!empty($request->content)) $result->where('content', 'like', '%' . $request->content . '%');
+        $questions = $result->paginate(15);
+        return view('admin.question.list', ['questions' => $questions])->render();
     }
 }

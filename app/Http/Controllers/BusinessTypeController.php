@@ -73,8 +73,11 @@ class BusinessTypeController extends Controller
         return response()->json(['data' => $type], 200);
     }
 
-    public function reload(){
-        $types = BusinessType::paginate(15);
+    public function reload(Request $request){
+        $types = BusinessType::query();
+        if(!empty($request->code)) $types->where('code', 'like', '%' . $request->code . '%');
+        if(!empty($request->name)) $types->where('name', 'like', '%' . $request->name . '%');
+        $types = $types->paginate(15);
         return view('admin.business_type.list', ['types' => $types])->render();
     }
 }
