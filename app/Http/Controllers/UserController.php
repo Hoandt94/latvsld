@@ -80,7 +80,7 @@ class UserController extends Controller
                 'role' => !empty($request->role) ? $request->role : 'user',
                 'license_type' => !empty($request->license_type) ? $request->license_type : 1,
                 'specific_professions' => !empty($request->specific_professions) ? $request->specific_professions : '',
-                'status' => !empty($request->status) ? (int)$request->status : 1,
+                'status' => !empty($request->status) ? (int)$request->status : 0,
             ]);
             return response()->json(['status' => $result], 200);
         }

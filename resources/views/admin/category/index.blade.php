@@ -1,4 +1,8 @@
 @extends('admin.template.index')
+@section('meta_section')
+<title>ATVSLD | Quản lý danh mục</title>
+<meta name="description" content="Quản lý danh mục">
+@endsection
 @section('subheader')
 <div class="m-subheader ">
     <div class="d-flex align-items-center">

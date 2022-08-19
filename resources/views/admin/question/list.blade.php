@@ -1,3 +1,4 @@
+<div class="table-responsive">
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -18,7 +19,7 @@
             <td>{{$question->code}}</td>
             <td>{{$question->content}}</td>
             <td>{{$question->updated_at}}</td>
-            <td>{{$question->sample_attachment}}</td>
+            <td><a href="{{url('/') . $question->sample_attachment}}">{{basename($question->sample_attachment)}}</a></td>
             <td>
                 <button class="btn btn-danger btn-sm">Delete</button>
                 <a class="btn btn-success btn-sm" href="{{route('update_question', [$question->id])}}">Edit</a>
@@ -27,6 +28,7 @@
         @endforeach
     </tbody>
 </table>
+</div>
 <div class="row">
     <div class="col-lg-12 pull-right">
         {{ $questions->links() }}

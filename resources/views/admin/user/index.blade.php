@@ -1,4 +1,8 @@
 @extends('admin.template.index')
+@section('meta_section')
+<title>ATVSLD | Quản lý người dùng</title>
+<meta name="description" content="Quản lý người dùng">
+@endsection
 @section('subheader')
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
@@ -47,7 +51,7 @@
             </div>
             <div class="m-portlet__body">
                 <div class="form-group m-form__group row m--margin-bottom-30">
-                    <div class="col-lg-10">
+                    <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-4">
                                 <label>Họ tên:</label>
@@ -55,17 +59,20 @@
                             </div>
                             <div class="col-lg-4">
                                 <label>Tên đăng nhập:</label>
-                                <input type="text" name="search_username" class="form-control m-input" placeholder="Tên đăng nhập">
+                                <input type="text" name="search_username" class="form-control m-input"
+                                    placeholder="Tên đăng nhập">
                             </div>
                             <div class="col-lg-4">
                                 <label>Điện thoại:</label>
-                                <input type="text" name="search_phone" class="form-control m-input" placeholder="Điện thoại">
+                                <input type="text" name="search_phone" class="form-control m-input"
+                                    placeholder="Điện thoại">
                             </div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-lg-4">
                                 <label>Công ty:</label>
-                                <input type="text" name="search_company" class="form-control m-input" placeholder="Tên công ty">
+                                <input type="text" name="search_company" class="form-control m-input"
+                                    placeholder="Tên công ty">
                             </div>
                             <div class="col-lg-4">
                                 <label class="">Loại tài khoản:</label>
@@ -85,10 +92,11 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="row mt-5">
-                            <button class="btn btn-success m--margin-top-25" id="search_user">Tìm kiếm</button>
+                        <div class="row mt-2">
+                            <div class="col-lg-12">
+                                <button class="btn btn-success m--margin-top-25 pull-right" id="search_user">Tìm
+                                    kiếm</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -102,7 +110,7 @@
     </div>
     <div class="modal fade" id="modal_user" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <form method="post" action="{{route('create_user')}}" id="form_create_user">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -114,7 +122,7 @@
                     <div class="modal-body">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="recipient-name" class="form-control-label">Tên đăng nhập:</label>
                                     <input type="text" name="username" class="form-control m-input"
@@ -122,64 +130,63 @@
                                     <input type="hidden" value="" name="parent_id">
                                 </div>
                             </div>
-                            <div class="col-md-12" id="row_password">
+                            <div class="col-md-6" id="row_password">
                                 <div class="form-group">
                                     <label for="recipient-name" class="form-control-label">Mật khẩu:</label>
                                     <input type="password" name="password" class="form-control m-input"
                                         placeholder="Mật khẩu">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Họ và tên</label>
                                     <input type="text" name="name" class="form-control m-input" placeholder="Họ và tên">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Điện thoại</label>
                                     <input type="text" name="phone" class="form-control m-input"
                                         placeholder="Điện thoại">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Email</label>
                                     <input type="text" name="email" class="form-control m-input" placeholder="Email">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Ngành nghề đặc thù</label>
                                     <input type="text" name="specific_profession" class="form-control m-input"
                                         placeholder="Ngành nghề đặc thù">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Bộ phận chức vụ</label>
                                     <input type="text" name="position" class="form-control m-input"
                                         placeholder="Bộ phận chức vụ">
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Công ty</label>
                                     <input type="text" name="company" class="form-control m-input"
                                         placeholder="Công ty">
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label">Tình trạng:</label>
-                                    <div class="col-lg-6">
-                                        <div class="m-checkbox-list">
-                                            <label class="m-checkbox">
-                                                <input type="checkbox" name="status" checked="1" value="1"> Đang hoạt
-                                                động
+                            <div class="col-md-6">
+                                <div class="m-form__group form-group">
+                                    <label for="">Tình trạng:</label>
+                                    <div class="m-checkbox-list">
+                                        <span class="m-switch m-switch--outline m-switch--success">
+                                            <label>
+                                                <input type="checkbox" name="status" checked="1" value="1">
                                                 <span></span>
                                             </label>
-                                        </div>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +308,8 @@
                         $('input[name="specific_profession"]').val(user.specific_profession);
                         $('input[name="position"]').val(user.position);
                         $('input[name="company"]').val(user.company);
-                        $('input[name="status"]').prop('checked', user.status ? true : false);
+                        $('input[name="status"]').prop('checked', parseInt(user.status) ? true : false);
+                        $('input[name="role"][value="' + user.role + '"]').prop('checked', true);
                         $('#modal_user').modal('show');
                     }
                 }
@@ -321,7 +329,7 @@
             $('#modal_user').modal('show');
         })
 
-        $('#search_user').on('click', function(){
+        $('#search_user').on('click', function () {
             updateView();
         })
 

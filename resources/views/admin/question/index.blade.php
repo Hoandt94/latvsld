@@ -1,4 +1,8 @@
 @extends('admin.template.index')
+@section('meta_section')
+<title>ATVSLD | Quản lý câu hỏi</title>
+<meta name="description" content="Quản lý câu hỏi">
+@endsection
 @section('subheader')
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
@@ -45,8 +49,8 @@
                 </div>
             </div>
             <div class="m-portlet__body">
-            <div class="form-group m-form__group row m--margin-bottom-30">
-                    <div class="col-lg-10">
+                <div class="form-group m-form__group row m--margin-bottom-30">
+                    <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-4">
                                 <label>Danh mục:</label>
@@ -66,10 +70,11 @@
                                 <input type="text" name="search_content" class="form-control m-input" placeholder="Nội dung">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="row m--margin-bottom-20">
-                            <button class="btn btn-success m--margin-top-25" id="search_user">Tìm kiếm</button>
+                        <div class="row mt-2">
+                            <div class="col-lg-12">
+                                <button class="btn btn-success m--margin-top-25 pull-right" id="search_user">Tìm
+                                    kiếm</button>
+                            </div>
                         </div>
                     </div>
                 </div>
