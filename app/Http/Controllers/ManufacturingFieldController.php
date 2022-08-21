@@ -8,7 +8,7 @@ use Validator;
 class ManufacturingFieldController extends Controller
 {
     public function index(){
-        $fields = ManufacturingField::paginate(15);
+        $fields = ManufacturingField::paginate(10);
         return view('admin.manufacturing_field.index', ['fields' => $fields]);
     }
 
@@ -75,7 +75,7 @@ class ManufacturingFieldController extends Controller
         $fields = ManufacturingField::query();
         if(!empty($request->code)) $fields->where('code', 'like', '%' . $request->code . '%');
         if(!empty($request->name)) $fields->where('name', 'like', '%' . $request->name . '%');
-        $fields = $fields->paginate(15);
+        $fields = $fields->paginate(10);
         return view('admin.manufacturing_field.list', ['fields' => $fields])->render();
     }
 }

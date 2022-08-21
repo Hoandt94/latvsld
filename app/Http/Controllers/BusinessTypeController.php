@@ -10,7 +10,7 @@ class BusinessTypeController extends Controller
 {
     //
     public function index(){
-        $businessTypes = BusinessType::paginate(15);
+        $businessTypes = BusinessType::paginate(1);
         return view('admin.business_type.index', ['types' => $businessTypes]);
     }
 
@@ -77,7 +77,7 @@ class BusinessTypeController extends Controller
         $types = BusinessType::query();
         if(!empty($request->code)) $types->where('code', 'like', '%' . $request->code . '%');
         if(!empty($request->name)) $types->where('name', 'like', '%' . $request->name . '%');
-        $types = $types->paginate(15);
+        $types = $types->paginate(10);
         return view('admin.business_type.list', ['types' => $types])->render();
     }
 }

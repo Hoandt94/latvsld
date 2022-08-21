@@ -62,3 +62,6 @@
 .wtree li span.wtree-item-text:focus+ul li:before {
     border-color: #aaa;
 }
+.pagination{
+    float: right;
+}

@@ -189,10 +189,24 @@
             $('#modal_set_question').modal('show');
         })
 
-        function updateView() {
+        $('.m-section__content').on('click', 'a.page-link', function(e){
+            e.preventDefault();
+            $('li').removeClass('active');
+            $(this).parent('li').addClass('active');
+  
+            myurl = $(this).attr('href');
+            page = $(this).attr('href').split('page=')[1];
+            updateView(page);
+        })
+
+        function updateView(page = 1) {
+            data_filter = {
+                page: page
+            }
             $.ajax({
                 url: '{{route("reload_set_question")}}',
                 method: "GET",
+                data: data_filter
                 success: function (html) {
                     $('.m-section__content').html(html)
                 }

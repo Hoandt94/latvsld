@@ -11,7 +11,7 @@ class SetQuestionController extends Controller
 {
     //
     public function index(){
-        $setQuestions = SetQuestion::paginate(15);
+        $setQuestions = SetQuestion::paginate(10);
         return view('admin.set_question.index', ['setQuestions' => $setQuestions]);
     }
 
@@ -89,7 +89,7 @@ class SetQuestionController extends Controller
     }
 
     public function reload(){
-        $setQuestions = SetQuestion::paginate(15);
+        $setQuestions = SetQuestion::paginate(10);
         return view('admin.set_question.index', ['setQuestions' => $setQuestions])->render();
     }
 

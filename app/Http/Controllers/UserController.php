@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     //
     public function index(){
-        $users = User::paginate(15);
+        $users = User::paginate(10);
         return view('admin.user.index', ['users' => $users]);
     }
 
@@ -102,7 +102,7 @@ class UserController extends Controller
         if(!empty($request->company)) $result->where('company', 'like', '%' . $request->company . '%');
         if(!empty($request->status)) $result->where('status', (int)$request->company);
         if(!empty($request->role)) $result->where('role', (int)$request->role);
-        $users = $result->paginate(15);
+        $users = $result->paginate(10);
         return view('admin.user.list', ['users' => $users])->render();
     }
 

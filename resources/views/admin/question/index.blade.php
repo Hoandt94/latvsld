@@ -100,11 +100,22 @@
             updateView();
         })
 
-        function updateView() {
+        $('.m-section__content').on('click', 'a.page-link', function(e){
+            e.preventDefault();
+            $('li').removeClass('active');
+            $(this).parent('li').addClass('active');
+  
+            myurl = $(this).attr('href');
+            page = $(this).attr('href').split('page=')[1];
+            updateView(page);
+        })
+
+        function updateView(page = 1) {
             data_filter = {
                 category_id: $('#category_id').val(),
                 code: $('input[name="search_code"]').val(),
                 content: $('input[name="search_content"]').val(),
+                page: page,
             };
             console.log(data_filter);
             $.ajax({

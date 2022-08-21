@@ -8,7 +8,7 @@ use Validator;
 class SpecificProfessionController extends Controller
 {
     public function index(){
-        $jobs = SpecificProfession::paginate(15);
+        $jobs = SpecificProfession::paginate(10);
         return view('admin.specific_profession.index', ['jobs' => $jobs]);
     }
 
@@ -75,7 +75,7 @@ class SpecificProfessionController extends Controller
         $jobs = SpecificProfession::query();
         if(!empty($request->code)) $jobs->where('code', 'like', '%' . $request->code . '%');
         if(!empty($request->name)) $jobs->where('name', 'like', '%' . $request->name . '%');
-        $jobs = $jobs->paginate(15);
+        $jobs = $jobs->paginate(10);
         return view('admin.specific_profession.list', ['jobs' => $jobs])->render();
     }
 }

@@ -129,7 +129,7 @@ class QuestionController extends Controller
         if(!empty($request->category_id)) $result->where('category_id', (int)$request->category_id);
         if(!empty($request->code)) $result->where('code', 'like', '%' . $request->code . '%');
         if(!empty($request->content)) $result->where('content', 'like', '%' . $request->content . '%');
-        $questions = $result->paginate(15);
+        $questions = $result->paginate(10);
         return view('admin.question.list', ['questions' => $questions])->render();
     }
 }
