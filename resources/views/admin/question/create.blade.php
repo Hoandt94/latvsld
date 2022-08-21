@@ -1,4 +1,8 @@
 @extends('admin.template.index')
+@section('meta_section')
+<title>ATVSLD | Thêm câu hỏi</title>
+<meta name="description" content="Thêm câu hỏi">
+@endsection
 @section('subheader')
 <div class="m-subheader ">
     <div class="d-flex align-items-center">

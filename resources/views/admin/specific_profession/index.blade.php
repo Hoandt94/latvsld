@@ -1,4 +1,8 @@
 @extends('admin.template.index')
+@section('meta_section')
+<title>ATVSLD | Quản lý ngành nghề đặc trưng</title>
+<meta name="description" content="Quản lý ngành nghề đặc trưng">
+@endsection
 @section('subheader')
 <div class="m-subheader ">
     <div class="d-flex align-items-center">
