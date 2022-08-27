@@ -14,7 +14,7 @@ class CreateSpecificProfessionsTable extends Migration
     public function up()
     {
         Schema::create('specific_professions', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('code');
             $table->integer('status');

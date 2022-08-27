@@ -22,6 +22,22 @@
                                 <span class="m-menu__link-text">Quản lý người dùng</span>
                             </a>
                         </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{route('company')}}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">Quản lý công ty</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{route('service_pack')}}" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i>
+                                <span class="m-menu__link-text">Quản lý gói tài khoản</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>

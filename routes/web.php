@@ -68,6 +68,24 @@ Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () 
         Route::get('/reload', 'BusinessTypeController@reload')->name('reload_business_type');
     });
 
+    Route::prefix('service_pack')->group(function () {
+        Route::get('/', 'ServicePackController@index')->name('service_pack');
+        Route::any('/create', 'ServicePackController@create')->name('create_service_pack');
+        Route::any('/{id}/update', 'ServicePackController@update')->name('update_service_pack');
+        Route::get('/{id}/detail', 'ServicePackController@detail')->name('get_service_pack');
+        Route::get('/{id}/delete', 'ServicePackController@delete')->name('delete_service_pack');
+        Route::get('/reload', 'ServicePackController@reload')->name('reload_service_pack');
+    });
+
+    Route::prefix('company')->group(function () {
+        Route::get('/', 'CompanyController@index')->name('company');
+        Route::any('/create', 'CompanyController@create')->name('create_company');
+        Route::any('/{id}/update', 'CompanyController@update')->name('update_company');
+        Route::get('/{id}/detail', 'CompanyController@detail')->name('get_company');
+        Route::get('/{id}/delete', 'CompanyController@delete')->name('delete_company');
+        Route::get('/reload', 'CompanyController@reload')->name('reload_company');
+    });
+
     Route::prefix('business_type')->group(function () {
         Route::get('/', 'BusinessTypeController@index')->name('business_type');
         Route::any('/create', 'BusinessTypeController@create')->name('create_business_type');

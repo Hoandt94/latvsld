@@ -14,7 +14,7 @@ class CreateManufacturingFieldsTable extends Migration
     public function up()
     {
         Schema::create('manufacturing_fields', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name');
             $table->string('code');
             $table->integer('status');

@@ -1,7 +1,7 @@
 @extends('admin.template.index')
 @section('meta_section')
-<title>ATVSLD | Quản lý loại hình cơ sở</title>
-<meta name="description" content="Quản lý loại hình cơ sở">
+<title>ATVSLD | Quản lý công ty</title>
+<meta name="description" content="Quản lý công ty">
 @endsection
 @section('subheader')
 <div class="m-subheader ">
@@ -17,7 +17,7 @@
                 <li class="m-nav__separator">-</li>
                 <li class="m-nav__item">
                     <a href="" class="m-nav__link">
-                        <span class="m-nav__link-text">Quản lý loại hình cơ sở</span>
+                        <span class="m-nav__link-text">Quản lý công ty</span>
                     </a>
                 </li>
             </ul>
@@ -33,7 +33,7 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Danh sách loại hình cơ sở
+                            Danh sách công ty
                         </h3>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                     <ul class="m-portlet__nav">
                         <li class="m-portlet__nav-item">
                             <a href="#"
-                                class="m-portlet__nav-link btn btn-primary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="add_business_type">
+                                class="m-portlet__nav-link btn btn-primary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="add_company">
                                 <i class="la la-plus"></i>
                             </a>
                         </li>
@@ -53,12 +53,12 @@
                     <div class="col-lg-10">
                         <div class="row">
                             <div class="col-lg-4">
-                                <label>Mã loại hình:</label>
-                                <input type="text" name="search_code" class="form-control m-input" placeholder="Mã loại hình">
+                                <label>Mã công ty:</label>
+                                <input type="text" name="search_code" class="form-control m-input" placeholder="Mã công ty">
                             </div>
                             <div class="col-lg-4">
-                                <label>Tên loại hình:</label>
-                                <input type="text" name="search_name" class="form-control m-input" placeholder="Tên loại hình">
+                                <label>Tên công ty:</label>
+                                <input type="text" name="search_name" class="form-control m-input" placeholder="Tên công ty">
                             </div>
                         </div>
                     </div>
@@ -70,19 +70,19 @@
                 </div>
                 <div class="m-section">
                     <div class="m-section__content">
-                        @include('admin.business_type.list', ['types' => $types])
+                        @include('admin.company.list', ['companies' => $companies])
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal_business_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modal_company" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="post" action="{{route('create_user')}}" id="form_create_business_type">
+            <form method="post" action="{{route('create_user')}}" id="form_create_company">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modal-type-title">Thêm loại hình cơ sở</h5>
+                        <h5 class="modal-title" id="modal-type-title">Thêm công ty</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -92,14 +92,14 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Mã loại hình</label>
-                                    <input type="text" name="code" class="form-control m-input" placeholder="Mã loại hình">
+                                    <label for="message-text" class="form-control-label">Mã công ty <span class="m--font-danger">*</span></label>
+                                    <input type="text" name="code" class="form-control m-input" placeholder="Mã công ty">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Tên loại hình</label>
-                                    <input type="text" name="name" class="form-control m-input" placeholder="Tên loại hình">
+                                    <label for="message-text" class="form-control-label">Tên công ty <span class="m--font-danger">*</span></label>
+                                    <input type="text" name="name" class="form-control m-input" placeholder="Tên công ty">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -119,7 +119,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="save_business_type">Lưu</button>
+                        <button type="submit" class="btn btn-primary" id="save_company">Lưu</button>
                     </div>
                 </div>
             </form>
@@ -132,23 +132,23 @@
 <script>
     edit_id = '';
     $(document).ready(function () {
-        $('#form_create_business_type').on('submit', function (event) {
+        $('#form_create_company').on('submit', function (event) {
             event.preventDefault();
             dataSending = $(this).serializeArray();
             if (edit_id) {
-                url = '{{ route("update_business_type", ":id") }}';
+                url = '{{ route("update_company", ":id") }}';
                 url = url.replace(':id', edit_id);
             }
-            else url = '{{route("create_business_type")}}'
+            else url = '{{route("create_company")}}'
             $.ajax({
                 url: url,
                 method: "POST",
                 data: dataSending,
                 success: function (result) {
                     if (result.status) {
-                        $('#modal_business_type').modal('hide');
+                        $('#modal_company').modal('hide');
                         updateView();
-                        showNotification("Thành công", edit_id ? "Sửa loại hình cơ sở thành công" : "Thêm loại hình cơ sở thành công", 'success');
+                        showNotification("Thành công", edit_id ? "Sửa công ty thành công" : "Thêm công ty thành công", 'success');
                     }
                     else showNotification("Lỗi", result.msg, 'danger');
                     edit_id = '';
@@ -158,13 +158,13 @@
             })
         })
 
-        $('.m-section__content').on('click', '.delete_business_type', function () {
+        $('.m-section__content').on('click', '.delete_company', function () {
             id = $(this).attr('data-id');
-            url = '{{ route("delete_business_type", ":id") }}';
+            url = '{{ route("delete_company", ":id") }}';
             url = url.replace(':id', id);
             swal({
                 title: "Xác nhận?",
-                text: "Xóa loại hình cơ sở này",
+                text: "Xóa công ty này",
                 type: "warning",
                 showCancelButton: !0,
                 confirmButtonText: "Đồng ý",
@@ -177,8 +177,8 @@
                         method: "GET",
                         success: function (result) {
                             if (result.status) {
-                                $('#modal_business_type').modal('hide');
-                                showNotification("Thành công", "Xóa loại hình cơ sở thành công", 'success');
+                                $('#modal_company').modal('hide');
+                                showNotification("Thành công", "Xóa công ty thành công", 'success');
                             }
                             else showNotification("Lỗi", result.msg, 'danger');
                         }
@@ -187,11 +187,11 @@
             })
         })
 
-        $('.m-section__content').on('click', '.edit_business_type', function () {
-            $('#modal-type-title').text('Sửa loại hình cơ sở');
+        $('.m-section__content').on('click', '.edit_company', function () {
+            $('#modal-type-title').text('Sửa công ty');
             id = $(this).attr('data-id');
             edit_id = id;
-            url = '{{ route("get_business_type", ":id") }}';
+            url = '{{ route("get_company", ":id") }}';
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -201,17 +201,17 @@
                         type = result.data;
                         $('input[name="code"]').val(type.code);
                         $('input[name="name"]').val(type.name);
-                        $('#modal_business_type').modal('show');
+                        $('#modal_company').modal('show');
                     }
                 }
             })
         })
 
-        $('#add_business_type').on('click', function () {
-            $('#modal-type-title').text('Thêm loại hình cơ sở')
+        $('#add_company').on('click', function () {
+            $('#modal-type-title').text('Thêm công ty')
             $('input[name="code"]').val('');
             $('input[name="name"]').val('');
-            $('#modal_business_type').modal('show');
+            $('#modal_company').modal('show');
         })
 
         $('#search_type').on('click', function(){
@@ -235,7 +235,7 @@
                 page: page
             };
             $.ajax({
-                url: '{{route("reload_business_type")}}',
+                url: '{{route("reload_company")}}',
                 method: "GET",
                 data: data_filter,
                 success: function (html) {
