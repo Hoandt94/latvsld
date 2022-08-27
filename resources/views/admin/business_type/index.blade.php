@@ -78,7 +78,7 @@
             <form method="post" action="{{route('create_user')}}" id="form_create_business_type">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm loại hình cơ sở</h5>
+                        <h5 class="modal-title" id="modal-type-title">Thêm loại hình cơ sở</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -184,6 +184,7 @@
         })
 
         $('.m-section__content').on('click', '.edit_business_type', function () {
+            $('#modal-type-title').text('Sửa loại hình cơ sở');
             id = $(this).attr('data-id');
             edit_id = id;
             url = '{{ route("get_business_type", ":id") }}';
@@ -203,13 +204,10 @@
         })
 
         $('#add_business_type').on('click', function () {
+            $('#modal-type-title').text('Thêm loại hình cơ sở')
             $('input[name="code"]').val('');
             $('input[name="name"]').val('');
             $('#modal_business_type').modal('show');
-        })
-
-        $('#search_type').on('click', function(){
-            updateView();
         })
 
         $('#search_type').on('click', function(){

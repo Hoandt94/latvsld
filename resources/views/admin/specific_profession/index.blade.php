@@ -82,7 +82,7 @@
             <form method="post" action="{{route('create_user')}}" id="form_create_specific_profession">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm ngành nghề đặc thù</h5>
+                        <h5 class="modal-title" id="modal_job_title">Thêm ngành nghề đặc thù</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -188,6 +188,7 @@
         })
 
         $('.m-section__content').on('click', '.edit_specific_profession', function () {
+            $('#modal_job_title').text('Sửa ngành nghề đặc thù')
             id = $(this).attr('data-id');
             edit_id = id;
             url = '{{ route("get_specific_profession", ":id") }}';
@@ -207,6 +208,7 @@
         })
 
         $('#add_specific_profession').on('click', function () {
+            $('#modal_job_title').text('Thêm ngành nghề đặc thù')
             $('input[name="code"]').val('');
             $('input[name="name"]').val('');
             $('#modal_specific_profession').modal('show');

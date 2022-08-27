@@ -82,7 +82,7 @@
             <form method="post" action="{{route('create_user')}}" id="form_create_manufacturing_field">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm lĩnh vực sản xuất</h5>
+                        <h5 class="modal-title" id="modal_field_title">Thêm lĩnh vực sản xuất</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -188,6 +188,7 @@
         })
 
         $('.m-section__content').on('click', '.edit_manufacturing_field', function () {
+            $('#modal_field_title').text('Sửa lĩnh vực sản xuất')
             id = $(this).attr('data-id');
             edit_id = id;
             url = '{{ route("get_manufacturing_field", ":id") }}';
@@ -207,6 +208,7 @@
         })
 
         $('#add_manufacturing_field').on('click', function () {
+            $('#modal_field_title').text('Thêm lĩnh vực sản xuất')
             $('input[name="code"]').val('');
             $('input[name="name"]').val('');
             $('#modal_manufacturing_field').modal('show');
