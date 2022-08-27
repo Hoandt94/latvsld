@@ -88,7 +88,7 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Mã danh mục <span class="m--font-danger">*</span></label>
+                                    <label for="message-text" class="form-control-label">Mã danh mục</label>
                                     <input type="text" class="form-control" name="code" placeholder="Mã danh mục">
                                 </div>
                             </div>

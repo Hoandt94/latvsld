@@ -19,22 +19,31 @@ class QuestionController extends Controller
         try{
             if($request->isMethod('POST')){
                 $rules = [
-                    'code' => 'required',
+                    'order' => 'required',
                     'category_id' => 'required',
                     'content' => 'required',
                     'approve_help' => 'required',
                     'term' => 'required',
                     'penalty' => 'required',
                     'guide' => 'required',
+                    'required' => 'required',
                 ];
                 $messages = [
-                    'required'  => ':attribute không được để trống.',
+                    'category_id.required'  => 'Danh mục không được để trống.',
+                    'content.required'  => 'Nội dung không được để trống.',
+                    'approve_help.required'  => 'Bằng chứng tuân thủ không được để trống.',
+                    'term.required'  => 'Điều khoản căn cứ không được để trống.',
+                    'penalty.required'  => 'Hình thức xử phạt không được để trống.',
+                    'guide.required'  => 'Hướng dẫn thực hiện không được để trống.',
+                    'required.required'  => 'Yêu cầu thực hiện không được để trống.',
+                    'order.required'  => 'Vị trí không được để trống.',
                 ];
                 $validator = Validator::make($request->all(), $rules, $messages);
                 if ($validator->fails()) {
                     $errors = $validator->errors();
                     return redirect()->back()->withErrors(['msg' => $errors->all()[0]]);
                 }
+                if(count($request->penalty) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
                 $result = Question::create([
                     'code' => $request->code,
                     'category_id' => $request->category_id,
@@ -42,9 +51,11 @@ class QuestionController extends Controller
                     'sample_attachment' => !empty($request->sample_attachment) ? $request->sample_attachment : '',
                     'content' => $request->content,
                     'approve_help' => $request->approve_help,
-                    'term' => $request->term,
-                    'penalty' => $request->term,
-                    'guide' => $request->term,
+                    'term' => json_encode($request->term),
+                    'penalty' => json_encode($request->penalty),
+                    'guide' => $request->guide,
+                    'required' => $request->required,
+                    'order' => $request->order,
                     'answer_expression' => !empty($request->answer_expression) ? $request->answer_expression : '',
                     'tags' => !empty($request->tag) ? json_encode($request->tag) : '',
                     'status' => isset($request->status) ? 1 : 0
@@ -65,22 +76,32 @@ class QuestionController extends Controller
         try{
             if($request->isMethod('POST')){
                 $rules = [
-                    'code' => 'required',
+                    // 'code' => 'required',
                     'category_id' => 'required',
                     'content' => 'required',
                     'approve_help' => 'required',
                     'term' => 'required',
                     'penalty' => 'required',
                     'guide' => 'required',
+                    'required' => 'required',
+                    'order' => 'required',
                 ];
                 $messages = [
-                    'required'  => ':attribute không được để trống.',
+                    'category_id.required'  => 'Danh mục không được để trống.',
+                    'content.required'  => 'Nội dung không được để trống.',
+                    'approve_help.required'  => 'Bằng chứng tuân thủ không được để trống.',
+                    'term.required'  => 'Điều khoản căn cứ không được để trống.',
+                    'penalty.required'  => 'Hình thức xử phạt không được để trống.',
+                    'guide.required'  => 'Hướng dẫn thực hiện không được để trống.',
+                    'required.required'  => 'Yêu cầu thực hiện không được để trống.',
+                    'order.required'  => 'Vị trí không được để trống.',
                 ];
                 $validator = Validator::make($request->all(), $rules, $messages);
                 if ($validator->fails()) {
                     $errors = $validator->errors();
                     return redirect()->back()->withErrors(['msg' => $errors->all()[0]]);
                 }
+                if(count($request->penalty) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
                 $result = Question::where(['id' => $id])->update([
                     'code' => $request->code,
                     'category_id' => $request->category_id,
@@ -88,9 +109,11 @@ class QuestionController extends Controller
                     'sample_attachment' => !empty($request->sample_attachment) ? $request->sample_attachment : '',
                     'content' => $request->content,
                     'approve_help' => $request->approve_help,
-                    'term' => $request->term,
-                    'penalty' => $request->term,
-                    'guide' => $request->term,
+                    'term' => json_encode($request->term),
+                    'penalty' => json_encode($request->penalty),
+                    'guide' => $request->guide,
+                    'required' => $request->required,
+                    'order' => $request->order,
                     'answer_expression' => !empty($request->answer_expression) ? $request->answer_expression : '',
                     'tags' => !empty($request->tag) ? json_encode($request->tag) : '',
                     'status' => isset($request->status) ? 1 : 0

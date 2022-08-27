@@ -9,7 +9,11 @@ class Category extends Model
     protected $table = 'categories';
 
     protected $fillable = [
-        'name', 'code', 'parent_id', 'order', 'status',
+        'name', 
+        // 'code', 
+        'parent_id', 
+        'order', 
+        'status',
     ];
 
     public function getSubCategory(){
@@ -22,5 +26,13 @@ class Category extends Model
 
     public function parentCategory(){
         return $this->belongsTo('App\Category', 'parent_id', 'id');
+    }
+
+    public function getCode(){
+        if(empty($this->parent_id)) return $this->order;
+        else{
+            $parent = $this->parentCategory;
+            return $parent->getCode() . '.' . $this->order;
+        }
     }
 }

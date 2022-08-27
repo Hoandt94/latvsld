@@ -24,6 +24,6 @@
                         </table>
                         <div class="row">
                             <div class="col-lg-12">
-                            {{ $types->links() }}
-</div>
+                                {{ $types->links() }}
+                            </div>
                         </div>

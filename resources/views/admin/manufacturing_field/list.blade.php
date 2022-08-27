@@ -15,8 +15,8 @@
                                     <td>{{$field->code}}</td>
                                     <td>{{$field->name}}</td>
                                     <td>
+                                    <button class="btn btn-success btn-sm edit_manufacturing_field" data-id="{{$field->id}}">Edit</button>
                                         <button class="btn btn-danger btn-sm delete_manufacturing_field" data-id="{{$field->id}}">Delete</button>
-                                        <button class="btn btn-success btn-sm edit_manufacturing_field" data-id="{{$field->id}}">Edit</button>
                                     </td>
                                 </tr>
                                 @endforeach

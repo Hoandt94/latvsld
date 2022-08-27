@@ -60,67 +60,89 @@
                             </ul>
                         @endif
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Mã danh mục:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Mã danh mục <span class="m--font-danger">*</span></label>
+                            <div class="col-lg-10">
                                 <select class="form-control m-select2" id="category_id" name="category_id">
                                     <option value="" disabled>Chọn danh mục</option>
                                     @foreach( $categories as $category)
-                                    <option value="{{$category->id}}">{{$category->code}} - {{$category->name}}</option>
+                                    <option value="{{$category->id}}">{{$category->getCode()}} - {{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Mã câu hỏi:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Mã câu hỏi</label>
+                            <div class="col-lg-10">
                                 <input type="text" name="code" class="form-control m-input" placeholder="Mã câu hỏi">
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Nội dung:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Vị trí <span class="m--font-danger">*</span></label>
+                            <div class="col-lg-10">
+                                <input type="number" name="order" class="form-control m-input" placeholder="Vị trí">
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Nội dung <span class="m--font-danger">*</span></label>
+                            <div class="col-lg-10">
                                 <textarea type="text" name="content" class="form-control m-input"
                                     placeholder="Nội dung"></textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Bằng chứng tuân thủ:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Bằng chứng tuân thủ <span class="m--font-danger">*</span></label>
+                            <div class="col-lg-10">
                                 <textarea type="text" name="approve_help" class="form-control m-input"
                                     placeholder="Bằng chứng tuân thủ"></textarea>
                             </div>
                         </div>
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Điều khoản căn cứ:</label>
-                            <div class="col-lg-6">
-                                <textarea type="text" name="term" class="form-control m-input"
-                                    placeholder="Điều khoản căn cứ"></textarea>
+                        <div class="row form-group m-form__group">
+                            <div class="col-md-12">
+                                <div class="row form-group m-form__group form-term">
+                                    <label class="col-lg-2 col-form-label">Điều khoản căn cứ <span class="m--font-danger">*</span></label>
+                                    <div class="col-lg-3">
+                                        <textarea type="text" name="term[]" class="form-control m-input"
+                                            placeholder="Điều khoản căn cứ"></textarea>
+                                    </div>
+                                    <label class="col-lg-2 col-form-label">Hình thức xử phạt <span class="m--font-danger">*</span></label>
+                                    <div class="col-lg-3">
+                                        <textarea type="text" name="penalty[]" class="form-control m-input"
+                                            placeholder="Hình thức xử phạt"></textarea>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <button type="button" class="btn btn-success btn-sm add_term"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm remove_term"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- <div class="form-group m-form__group row">
+                            
+                        </div> -->
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Hình thức xử phạt:</label>
-                            <div class="col-lg-6">
-                                <textarea type="text" name="penalty" class="form-control m-input"
-                                    placeholder="Hình thức xử phạt"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Yêu cầu/Hướng dẫn thực hiện:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Yêu cầu thực hiện <span class="m--font-danger">*</span></label>
+                            <div class="col-lg-10">
                                 <textarea type="text" name="guide" class="form-control m-input"
                                     placeholder="Yêu cầu/Hướng dẫn thực hiện"></textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Công thức:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Hướng dẫn thực hiện <span class="m--font-danger">*</span></label>
+                            <div class="col-lg-10">
+                                <textarea type="text" name="required" class="form-control m-input"
+                                    placeholder="Yêu cầu/Hướng dẫn thực hiện"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group m-form__group row">
+                            <label class="col-lg-2 col-form-label">Công thức</label>
+                            <div class="col-lg-10">
                                 <textarea type="text" name="answer_expression" class="form-control m-input"
                                     placeholder="Công thức"></textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Tài liệu hướng dẫn kèm theo:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Tài liệu hướng dẫn kèm theo:</label>
+                            <div class="col-lg-10">
                                 <div class="input-group">
 									<input type="text" class="form-control" name="guide_attachment" id="guide_attachment" placeholder="Tài liệu hướng dẫn kèm theo">
 									<div class="input-group-append">
@@ -130,8 +152,8 @@
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Tài liệu biểu mẫu tham khảo:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Tài liệu biểu mẫu tham khảo:</label>
+                            <div class="col-lg-10">
                                 <div class="input-group">
                                 <input type="text" name="sample_attachment" id="sample_attachment" class="form-control m-input" placeholder="Tài liệu biểu mẫu tham khảo">
 									<div class="input-group-append">
@@ -141,15 +163,15 @@
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
-                            <label class="col-lg-3 col-form-label">Tag:</label>
-                            <div class="col-lg-6">
+                            <label class="col-lg-2 col-form-label">Tag:</label>
+                            <div class="col-lg-10">
                                 <select class="form-control m-select2" id="tag" multiple name="tag">
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label for="message-text" class="col-3 col-form-label">Trạng thái:</label>
+                                <label for="message-text" class="col-3 col-form-label">Trạng thái <span class="m--font-danger">*</span></label>
                                 <div class="col-9">
                                     <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                                         <label>
@@ -166,8 +188,8 @@
                 <div class="m-portlet__foot m-portlet__foot--fit">
                     <div class="m-form__actions m-form__actions">
                         <div class="row">
-                            <div class="col-lg-3"></div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-10">
                                 <button type="submit" class="btn btn-success">Lưu</button>
                                 <button type="reset" class="btn btn-secondary">Hủy</button>
                             </div>
@@ -194,6 +216,16 @@
 		})
         $('#choose_guide_attachments').filemanager('file');
         $('#choose_sample_attachment').filemanager('file');
+
+        $('.m-form').on('click', '.add_term', function(){
+            parent = $(this).parent().parent();
+            $($(parent).parent()).append($(parent).clone());
+        })
+
+        $('.m-form').on('click', '.remove_term', function(){
+            parent = $(this).parent().parent();
+            if($($(parent).parent()).find('.form-term').length > 1) $(parent).remove();
+        })
     })
 </script>
 @endsection

@@ -15,9 +15,9 @@
                                     <td>{{$setQuestion->code}}</td>
                                     <td>{{$setQuestion->name}}</td>
                                     <td>
-                                        <button class="btn btn-danger btn-sm delete_set_question" data-id="{{$setQuestion->id}}">Delete</button>
                                         <button class="btn btn-success btn-sm edit_set_question" data-id="{{$setQuestion->id}}">Edit</button>
-                                        <a href="{{route('config_set_question', [$setQuestion->id])}}" class="btn btn-success btn-sm">Config</a>
+                                        <a href="{{route('config_set_question', [$setQuestion->id])}}" class="btn btn-info btn-sm">Config</a>
+                                        <button class="btn btn-danger btn-sm delete_set_question" data-id="{{$setQuestion->id}}">Delete</button>
                                     </td>
                                 </tr>
                                 @endforeach

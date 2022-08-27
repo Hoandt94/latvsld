@@ -15,8 +15,8 @@
                                     <td>{{$job->code}}</td>
                                     <td>{{$job->name}}</td>
                                     <td>
+                                    <button class="btn btn-success btn-sm edit_specific_profession" data-id="{{$job->id}}">Edit</button>
                                         <button class="btn btn-danger btn-sm delete_specific_profession" data-id="{{$job->id}}">Delete</button>
-                                        <button class="btn btn-success btn-sm edit_specific_profession" data-id="{{$job->id}}">Edit</button>
                                     </td>
                                 </tr>
                                 @endforeach

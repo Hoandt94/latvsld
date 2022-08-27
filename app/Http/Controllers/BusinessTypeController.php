@@ -10,7 +10,7 @@ class BusinessTypeController extends Controller
 {
     //
     public function index(){
-        $businessTypes = BusinessType::paginate(1);
+        $businessTypes = BusinessType::paginate(10);
         return view('admin.business_type.index', ['types' => $businessTypes]);
     }
 

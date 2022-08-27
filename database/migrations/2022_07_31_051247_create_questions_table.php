@@ -15,7 +15,8 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('code');
+            $table->string('code')->nullable();
+            $table->string('order')->nullable();
             $table->integer('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('guide_attachment')->nullable();
@@ -25,6 +26,7 @@ class CreateQuestionsTable extends Migration
             $table->string('term');
             $table->string('penalty');
             $table->string('guide');
+            $table->string('required');
             $table->string('answer_expression')->nullable();
             $table->string('tags')->nullable();
             $table->integer('status')->nullable();

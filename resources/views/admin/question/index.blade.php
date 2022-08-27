@@ -57,7 +57,7 @@
                                 <select class="form-control m-select2" id="category_id" name="category_id">
                                     <option value="">Chọn danh mục</option>
                                     @foreach( $categories as $category)
-                                    <option value="{{$category->id}}">{{$category->code}} - {{$category->name}}</option>
+                                    <option value="{{$category->id}}">{{$category->getCode()}} - {{$category->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -117,7 +117,6 @@
                 content: $('input[name="search_content"]').val(),
                 page: page,
             };
-            console.log(data_filter);
             $.ajax({
                 url: '{{route("reload_question")}}',
                 method: "GET",
@@ -127,6 +126,28 @@
                 }
             })
         }
+        var isHide = true;
+        $("td").css("white-space","nowrap");
+        $( "td" ).click(function() {
+        if(isHide){
+            $( this ).css("white-space", "");
+            isHide = false;
+        }else{
+            $( this ).css("white-space", "nowrap");
+            isHide = true;
+        }
+
+        });
     })
 </script>
+<style>
+    td {
+        word-wrap:break-word; 
+        word-break:break-all; 
+        max-width: 200px;
+        /* max-height: 100px; */
+        overflow:hidden;
+        text-overflow: ellipsis;
+    }
+</style>
 @endsection

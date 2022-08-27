@@ -10,7 +10,7 @@ class Question extends Model
     protected $table = 'questions';
 
     protected $fillable = [
-        'code',
+        // 'code',
         'category_id',
         'guide_attachment',
         'sample_attachment',
@@ -19,8 +19,10 @@ class Question extends Model
         'term',
         'penalty',
         'guide',
+        'required',
         'answer_expression',
         'tags',
+        'order',
         'status',
     ];
 
