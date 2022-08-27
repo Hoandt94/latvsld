@@ -42,7 +42,7 @@
                         <li class="m-portlet__nav-item">
                             <a href="#"
                                 class="m-portlet__nav-link btn btn-secondary m-btn m-btn--hover-brand m-btn--icon m-btn--icon-only m-btn--pill" id="save_config">
-                                <i class="la la-plus"></i>
+                                <i class="la la-save"></i>
                             </a>
                         </li>
                     </ul>

@@ -49,7 +49,6 @@ class SetQuestionController extends Controller
                 $rules = [
                     'name' => 'required',
                     'code' => 'required',
-                    'order' => 'required'
                 ];
                 $messages = [
                     'required'  => ':attribute không được để trống.',
@@ -90,7 +89,7 @@ class SetQuestionController extends Controller
 
     public function reload(){
         $setQuestions = SetQuestion::paginate(10);
-        return view('admin.set_question.index', ['setQuestions' => $setQuestions])->render();
+        return view('admin.set_question.list', ['setQuestions' => $setQuestions])->render();
     }
 
     public function config($id, Request $request){

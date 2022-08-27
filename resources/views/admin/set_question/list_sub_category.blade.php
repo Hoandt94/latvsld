@@ -3,7 +3,7 @@
     <li class="wtree-item">
         <span class="wtree-item-text">
             <label class="m-checkbox">
-                <input type="checkbox" name="categories" value="{{$category->id}}"> {{$category->code}} - {{$category->name}}
+                <input type="checkbox" name="categories" value="{{$category->id}}"> {{$category->getCode()}} - {{$category->name}}
                 <span></span>
             </label>
         </span>

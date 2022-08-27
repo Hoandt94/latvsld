@@ -130,11 +130,11 @@
                         $('#modal_set_question').modal('hide');
                         updateView();
                         showNotification("Thành công", edit_id ? "Sửa bộ câu hỏi thành công" : "Thêm bộ câu hỏi thành công", 'success');
+                        edit_id = '';
+                        $('input[name="name"]').val('');
+                        $('input[name="code"]').val('');
                     }
                     else showNotification("Lỗi", result.msg, 'danger');
-                    edit_id = '';
-                    $('input[name="name"]').val('');
-                    $('input[name="code"]').val('');
                 },
             })
         })
@@ -210,9 +210,9 @@
             $.ajax({
                 url: '{{route("reload_set_question")}}',
                 method: "GET",
-                data: data_filter
+                data: data_filter,
                 success: function (html) {
-                    $('.m-section__content').html(html)
+                    $('.m-section__content').html(html);
                 }
             })
         }
