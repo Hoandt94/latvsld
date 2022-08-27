@@ -102,6 +102,19 @@
                                     <input type="text" name="name" class="form-control m-input" placeholder="Tên nghề đặc thù">
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label for="message-text" class="col-3 col-form-label">Trạng thái</label>
+                                    <div class="col-9">
+                                        <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
+                                            <label>
+                                                <input type="checkbox" checked="checked" name="status">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">

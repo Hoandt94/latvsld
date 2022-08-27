@@ -31,6 +31,7 @@ class ManufacturingFieldController extends Controller
             $result = ManufacturingField::create([
                 'name' => $request->name,
                 'code' => $request->code,
+                'status' => isset($request->status) ? 1 : 0
             ]);
             return response()->json(['status' => $result], 200);
         }
@@ -58,6 +59,7 @@ class ManufacturingFieldController extends Controller
             $result = ManufacturingField::where(['id' => $id])->update([
                 'name' => $request->name,
                 'code' => $request->code,
+                'status' => isset($request->status) ? 1 : 0
             ]);
             return response()->json(['status' => $result], 200);
         }

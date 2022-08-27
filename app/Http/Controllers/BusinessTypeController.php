@@ -33,6 +33,7 @@ class BusinessTypeController extends Controller
             $result = BusinessType::create([
                 'name' => $request->name,
                 'code' => $request->code,
+                'status' => isset($request->status) ? 1 : 0
             ]);
             return response()->json(['status' => $result], 200);
         }
@@ -60,6 +61,7 @@ class BusinessTypeController extends Controller
             $result = BusinessType::where(['id' => $id])->update([
                 'name' => $request->name,
                 'code' => $request->code,
+                'status' => isset($request->status) ? 1 : 0
             ]);
             return response()->json(['status' => $result], 200);
         }
