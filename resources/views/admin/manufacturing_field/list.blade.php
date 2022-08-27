@@ -5,6 +5,7 @@
                                     <th>#</th>
                                     <th>Mã ngành kinh tế</th>
                                     <th>Tên ngành kinh tế</th>
+                                    <th>Trạng thái</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
@@ -15,8 +16,14 @@
                                     <td>{{$field->code}}</td>
                                     <td>{{$field->name}}</td>
                                     <td>
+                                    @if($type->status)
+                                    <span class="m-badge m-badge--success m-badge--wide m-badge--rounded mr-3">Đang hoạt động</span></td>
+                                    @else
+                                    <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded mr-3">Ngừng hoạt động</span></td>    
+                                    @endif
+                                    </td>
+                                    <td>
                                     <button class="btn btn-success btn-sm edit_manufacturing_field" data-id="{{$field->id}}">Edit</button>
-                                        <button class="btn btn-danger btn-sm delete_manufacturing_field" data-id="{{$field->id}}">Delete</button>
                                     </td>
                                 </tr>
                                 @endforeach
