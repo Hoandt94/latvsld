@@ -3,27 +3,29 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Mã công ty</th>
-                                    <th>Tên công ty</th>
+                                    <th>Tên</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá</th>
                                     <th>Trạng thái</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($companies as $company)
+                                @foreach($service_packs as $service_pack)
                                 <tr>
-                                    <th scope="row">{{$company->id}}</th>
-                                    <td>{{$company->code}}</td>
-                                    <td>{{$company->name}}</td>
+                                    <th scope="row">{{$service_pack->id}}</th>
+                                    <td>{{$service_pack->name}}</td>
+                                    <td>{{$service_pack->description}}</td>
+                                    <td>{{number_format($service_pack->price, 0)}}</td>
                                     <td>
-                                    @if($company->status)
+                                    @if($service_pack->status)
                                     <span class="m-badge m-badge--success m-badge--wide m-badge--rounded mr-3">Đang hoạt động</span></td>
                                     @else
                                     <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded mr-3">Ngừng hoạt động</span></td>    
                                     @endif
                                     </td>
                                     <td>
-                                        <button class="btn btn-success btn-sm edit_company" data-id="{{$company->id}}">Edit</button>
+                                        <button class="btn btn-success btn-sm edit_service_pack" data-id="{{$service_pack->id}}">Edit</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -31,6 +33,6 @@
                         </table>
                         <div class="row">
                             <div class="col-lg-12">
-                                {{ $companies->links() }}
+                                {{ $service_packs->links() }}
                             </div>
                         </div>
