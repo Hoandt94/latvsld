@@ -114,7 +114,7 @@
             <form method="post" action="{{route('create_user')}}" id="form_create_user">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm nhóm tài khoản</h5>
+                        <h5 class="modal-title" id="titleModalUser">Thêm tài khoản</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -124,7 +124,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="form-control-label">Tên đăng nhập:</label>
+                                    <label for="recipient-name" class="form-control-label">Tên đăng nhập <span class="m--font-danger">*</span></label>
                                     <input type="text" name="username" class="form-control m-input"
                                         placeholder="Tên đăng nhập">
                                     <input type="hidden" value="" name="parent_id">
@@ -132,14 +132,14 @@
                             </div>
                             <div class="col-md-6" id="row_password">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="form-control-label">Mật khẩu:</label>
+                                    <label for="recipient-name" class="form-control-label">Mật khẩu <span class="m--font-danger">*</span></label>
                                     <input type="password" name="password" class="form-control m-input"
                                         placeholder="Mật khẩu">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Họ và tên</label>
+                                    <label for="message-text" class="form-control-label">Họ và tên <span class="m--font-danger">*</span></label>
                                     <input type="text" name="name" class="form-control m-input" placeholder="Họ và tên">
                                 </div>
                             </div>
@@ -152,7 +152,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Email</label>
+                                    <label for="message-text" class="form-control-label">Email <span class="m--font-danger">*</span></label>
                                     <input type="text" name="email" class="form-control m-input" placeholder="Email">
                                 </div>
                             </div>
@@ -223,6 +223,45 @@
             </form>
         </div>
     </div>
+
+    <div class="modal fade" id="change_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form method="post" id="form_change_pass">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titleModalUser">Đổi mật khẩu tài khoản</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-control-label">Mật khẩu mới <span class="m--font-danger">*</span></label>
+                                    <input type="password" name="password" class="form-control m-input"
+                                        placeholder="Mật khẩu mới">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-control-label">Xác nhận mật khẩu <span class="m--font-danger">*</span></label>
+                                    <input type="password" name="re_password" class="form-control m-input"
+                                        placeholder="Xác nhận mật khẩu">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary" id="save_password">Lưu</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
 @section('footer_asset')
@@ -247,14 +286,14 @@
                         $('#modal_user').modal('hide');
                         updateView();
                         showNotification("Thành công", edit_id ? "Sửa tài khoản thành công" : "Thêm tài khoản thành công", 'success');
+                        edit_id = '';
+                        $('input[name="parent_name"]').val('');
+                        $('input[name="parent_id"]').val('');
+                        $('input[name="name"]').val('');
+                        $('input[name="code"]').val('');
+                        $('input[name="order"]').val('');
                     }
                     else showNotification("Lỗi", result.msg, 'danger');
-                    edit_id = '';
-                    $('input[name="parent_name"]').val('');
-                    $('input[name="parent_id"]').val('');
-                    $('input[name="name"]').val('');
-                    $('input[name="code"]').val('');
-                    $('input[name="order"]').val('');
                 },
             })
         })
@@ -299,6 +338,7 @@
                 success: function (result) {
                     if (result.data) {
                         user = result.data;
+                        $('#titleModalUser').text('Sửa tài khoản');
                         $('input[name="username"]').val(user.username);
                         $('input[name="name"]').val(user.name);
                         $('input[name="password"]').val('');
@@ -317,9 +357,11 @@
         })
 
         $('#add_user').on('click', function () {
+            $('#titleModalUser').text('Thêm tài khoản');
             $('input[name="username"]').val('');
             $('input[name="name"]').val('');
             $('input[name="password"]').val('');
+            $('#row_password').show();
             $('input[name="phone"]').val('');
             $('input[name="email"]').val('');
             $('input[name="specific_profession"]').val('');
@@ -331,6 +373,36 @@
 
         $('#search_user').on('click', function () {
             updateView();
+        })
+
+        $('.m-section__content').on('click', '.reset_password', function () {
+            id = $(this).attr('data-id');
+            edit_id = id;
+            $('#change_password').modal('show');
+        })
+
+        $('#form_change_pass').on('submit', function (event) {
+            event.preventDefault();
+            dataSending = $(this).serializeArray();
+            url = '{{ route("change_password_user", ":id") }}';
+            url = url.replace(':id', edit_id);
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: dataSending,
+                success: function (result) {
+                    if (result.status) {
+                        $('#change_password').modal('hide');
+                        showNotification("Thành công", "Thay đổi mật khẩu tài khoản thành công");
+                        edit_id = '';
+                        $('input[name="password"]').val('');
+                        $('input[name="re_password"]').val('');
+                    }
+                    else {
+                        showNotification("Lỗi", result.msg, 'danger');
+                    }
+                },
+            })
         })
 
         function updateView() {

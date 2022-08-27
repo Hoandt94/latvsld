@@ -13,7 +13,7 @@ class Category extends Model
     ];
 
     public function getSubCategory(){
-        return $this->hasMany('App\Category', 'parent_id', 'id');
+        return $this->hasMany('App\Category', 'parent_id', 'id')->orderBy('order', 'ASC');
     }
 
     public function getQuestion(){

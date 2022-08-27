@@ -4,8 +4,8 @@
             <div class="m-stack__item m-brand  m-brand--skin-light ">
                 <div class="m-stack m-stack--ver m-stack--general">
                     <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                        <a href="index.html" class="m-brand__logo-wrapper">
-                            <img alt="" src="{{asset('images/logos/logo_default_light.png')}}" />
+                        <a href="{{route('admin')}}" class="m-brand__logo-wrapper">
+                            <img alt="" src="{{asset('images/logos/logo-atld.png')}}" width="160"/>
                         </a>
                     </div>
                     <div class="m-stack__item m-stack__item--middle m-brand__tools">

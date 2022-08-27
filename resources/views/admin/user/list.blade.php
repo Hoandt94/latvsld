@@ -21,9 +21,9 @@
                                     <td>{{$user->company}}</td>
                                     <td>{{$user->phone}}</td>
                                     @if($user->status)
-                                    <td><button class="btn btn-success btn-sm">Đang hoạt động</button></td>
+                                    <td><span class="m-badge m-badge--success m-badge--wide m-badge--rounded">Đang hoạt động</span></td>
                                     @else
-                                    <td><button class="btn btn-danger btn-sm">Ngừng hoạt động</button></td>
+                                    <td><span class="m-badge m-badge--danger m-badge--wide m-badge--rounded">Ngừng hoạt động</span></td>
                                     @endif
                                     @if($user->role == 'system_admin')
                                     <td>Tài khoản admin hệ thống</td>
@@ -34,8 +34,10 @@
                                     @endif
                                     <td>{{$user->created_at}}</td>
                                     <td>
-                                    <button class="btn btn-success btn-sm edit_user"
+                                        <button class="btn btn-success btn-sm edit_user"
                                             data-id="{{$user->id}}">Edit</button>
+                                        <button class="btn btn-primary btn-sm reset_password"
+                                            data-id="{{$user->id}}">Đổi mật khẩu</button>
                                     </td>
                                 </tr>
                                 @endforeach

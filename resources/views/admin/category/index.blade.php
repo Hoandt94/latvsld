@@ -63,7 +63,7 @@
             <form method="post" action="{{route('create_category')}}" id="form_create_category">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Thêm nhóm danh mục</h5>
+                        <h5 class="modal-title" id="title_modal_category">Thêm nhóm danh mục</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -82,25 +82,25 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="form-control-label">Tên nhóm danh mục:</label>
+                                    <label for="recipient-name" class="form-control-label">Tên nhóm danh mục <span class="m--font-danger">*</span></label>
                                     <input type="text" class="form-control" name="name" placeholder="Tên danh mục">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Mã danh mục:</label>
+                                    <label for="message-text" class="form-control-label">Mã danh mục <span class="m--font-danger">*</span></label>
                                     <input type="text" class="form-control" name="code" placeholder="Mã danh mục">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Thứ tự hiển thị:</label>
+                                    <label for="message-text" class="form-control-label">Thứ tự hiển thị <span class="m--font-danger">*</span></label>
                                     <input type="text" class="form-control" name="order" placeholder="Thứ tự hiển thị">
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group row">
-                                    <label for="message-text" class="col-3 col-form-label">Trạng thái:</label>
+                                    <label for="message-text" class="col-3 col-form-label">Trạng thái</label>
                                     <div class="col-9">
                                         <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                                             <label>
@@ -146,18 +146,19 @@
                         $('#modal_category').modal('hide');
                         updateView();
                         showNotification("Thành công", edit_id ? "Sửa danh mục thành công" : "Thêm danh mục thành công", 'success');
+                        edit_id = '';
+                        $('input[name="parent_name"]').val('');
+                        $('input[name="parent_id"]').val('');
+                        $('input[name="name"]').val('');
+                        $('input[name="code"]').val('');
+                        $('input[name="order"]').val('');
                     }
                     else showNotification("Lỗi", result.msg, 'danger');
-                    edit_id = '';
-                    $('input[name="parent_name"]').val('');
-                    $('input[name="parent_id"]').val('');
-                    $('input[name="name"]').val('');
-                    $('input[name="code"]').val('');
-                    $('input[name="order"]').val('');
                 },
             })
         })
         $('.m-section__content').on('click', '.create_sub', function () {
+            $('#title_modal_category').text('Thêm nhóm danh mục');
             id = $(this).attr('data-id');
             url = '{{ route("get_category", ":id") }}';
             url = url.replace(':id', id);
@@ -208,6 +209,7 @@
         })
 
         $('.m-section__content').on('click', '.edit_category', function () {
+            $('#title_modal_category').text('Sửa nhóm danh mục');
             id = $(this).attr('data-id');
             edit_id = id;
             url = '{{ route("get_category", ":id") }}';
@@ -229,6 +231,7 @@
         })
 
         $('#add_category').on('click', function () {
+            $('#title_modal_category').text('Thêm nhóm danh mục');
             $('input[name="name"]').val('');
             $('input[name="parent_name"]').val('Không có');
             $('input[name="code"]').val('');

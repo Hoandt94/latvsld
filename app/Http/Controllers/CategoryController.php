@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     //
     public function index(){
-        $categories = Category::whereNull('parent_id')->get();
+        $categories = Category::whereNull('parent_id')->orderBy('order', 'ASC')->get();
         return view('admin.category.index', ['categories' => $categories]);
     }
 

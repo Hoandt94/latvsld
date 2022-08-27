@@ -20,7 +20,7 @@ Route::get('/logout', 'UserController@logout')->name('logout');
 Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () {
     Route::get('/', function () {
         return view('admin.template.index');
-    });
+    })->name('admin');
 
     Route::prefix('set_question')->group(function () {
         Route::get('/', 'SetQuestionController@index')->name('set_question');
@@ -39,6 +39,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['adminLogin']], function () 
         Route::get('/{id}/detail', 'UserController@detail')->name('get_user');
         Route::get('/{id}/delete', 'UserController@delete')->name('delete_user');
         Route::get('/reload', 'UserController@reload')->name('reload_user');
+        Route::post('/{id}/change_password', 'UserController@changePassword')->name('change_password_user');
     });
 
     Route::prefix('category')->group(function () {

@@ -21,7 +21,8 @@ class UserController extends Controller
             $rules = [
                 'username' => 'required|unique:users',
                 'password' => 'required|min:6',
-                'name' => 'required'
+                'name' => 'required',
+                'email' => 'required|unique:users',
             ];
               
             $messages = [
@@ -58,7 +59,8 @@ class UserController extends Controller
         try{
             $rules = [
                 'username' => 'required|unique:users,username,' . $user_id,
-                'name' => 'required'
+                'name' => 'required',
+                'email' => 'required|unique:users,username,' . $user_id,
             ];
               
             $messages = [
@@ -106,15 +108,52 @@ class UserController extends Controller
         return view('admin.user.list', ['users' => $users])->render();
     }
 
+    public function changePassword($user_id, Request $request){
+        try{
+            $rules = [
+                'password'         => 'required|min:6',
+                're_password'      => 'required|same:password'  
+            ];
+              
+            $messages = [
+                'password.required'  => 'Mật khẩu không được để trống.',
+                're_password.required'  => 'Xác nhận mật khẩu không được để trống.',
+                're_password.same'    => 'Xác nhận mật khẩu không khớp',
+                'password.min'       => 'Mật khẩu tối thiểu :min ký tự',
+            ];
+            $validator = Validator::make($request->all(), $rules, $messages);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                return response()->json(['status' => 0, 'msg' => $errors->all()[0]], 200);
+            }
+            $result = User::where(['id' => $user_id])->update([
+                'password' => bcrypt($request->password),
+            ]);
+            return response()->json(['status' => $result], 200);
+        }
+        catch(Exception $ex){
+            return response()->json(['status' => 0, 'msg' => $ex->getMesssage()], 200);
+        }
+    }
+
     public function login(){
         return view('login');
     }
 
     public function postLogin(Request $request){
-        $login = [
-            'username' => $request->username,
-            'password' => $request->password,
-        ];
+        $username = $request->username;
+        if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $login = [
+                'email' => $request->username,
+                'password' => $request->password,
+            ];
+        }
+        else{
+            $login = [
+                'username' => $request->username,
+                'password' => $request->password,
+            ];
+        }
         if (Auth::attempt($login)) {
             return redirect('/admin');
         } else {
