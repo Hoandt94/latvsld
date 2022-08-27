@@ -16,7 +16,7 @@
                                     <td>{{$field->code}}</td>
                                     <td>{{$field->name}}</td>
                                     <td>
-                                    @if($type->status)
+                                    @if($field->status)
                                     <span class="m-badge m-badge--success m-badge--wide m-badge--rounded mr-3">Đang hoạt động</span></td>
                                     @else
                                     <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded mr-3">Ngừng hoạt động</span></td>    
