@@ -71,8 +71,12 @@
                         <div class="row mt-2">
                             <div class="col-lg-4">
                                 <label>Công ty:</label>
-                                <input type="text" name="search_company" class="form-control m-input"
-                                    placeholder="Tên công ty">
+                                <select class="form-control m-select2" id="search_company_id" name="search_company" style="width: 100%">
+                                    <option value="" disabled>Chọn công ty</option>
+                                    @foreach( $companies as $company)
+                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-lg-4">
                                 <label class="">Loại tài khoản:</label>
@@ -173,8 +177,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Công ty</label>
-                                    <input type="text" name="company" class="form-control m-input"
-                                        placeholder="Công ty">
+                                    <select class="form-control m-select2" id="company_id" name="company" style="width: 100%">
+                                        <option value="" disabled>Chọn công ty</option>
+                                        @foreach( $companies as $company)
+                                        <option value="{{$company->id}}">{{$company->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -269,6 +277,12 @@
 <script>
     edit_id = '';
     $(document).ready(function () {
+        $('#company_id').select2({
+			placeholder: "Chọn công ty"
+		});
+        $('#search_company_id').select2({
+			placeholder: "Chọn công ty"
+		});
         $('#form_create_user').on('submit', function (event) {
             event.preventDefault();
             dataSending = $(this).serializeArray();

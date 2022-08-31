@@ -40,7 +40,7 @@
                                 m-dropdown-toggle="click">
                                 <a href="#" class="m-nav__link m-dropdown__toggle">
                                     <span class="m-topbar__userpic">
-                                        <img src="{{asset('images/users/user4.jpg')}}" class="m--img-rounded m--marginless" alt="" />
+                                        <img src="{{asset('images/users/user.png')}}" class="m--img-rounded m--marginless" alt="" />
                                     </span>
                                     <span class="m-topbar__username m--hide">{{Auth::user()->name}}</span>
                                 </a>

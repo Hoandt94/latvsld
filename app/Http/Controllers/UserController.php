@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\Company;
 use DB;
 use Validator;
 
@@ -13,7 +14,8 @@ class UserController extends Controller
     //
     public function index(){
         $users = User::paginate(10);
-        return view('admin.user.index', ['users' => $users]);
+        $companies = Company::all();
+        return view('admin.user.index', ['users' => $users, 'companies' => $companies]);
     }
 
     public function create(Request $request){

@@ -26,7 +26,7 @@ class CreateQuestionsTable extends Migration
             $table->string('term');
             $table->string('penalty');
             $table->string('guide');
-            $table->string('required');
+            // $table->string('required');
             $table->string('answer_expression')->nullable();
             $table->string('tags')->nullable();
             $table->integer('status')->nullable();

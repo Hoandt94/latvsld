@@ -92,7 +92,7 @@ class CategoryController extends Controller
     }
 
     public function reload(){
-        $categories = Category::whereNull('parent_id')->get();
+        $categories = Category::whereNull('parent_id')->orderBy('order', 'ASC')->get();
         return view('admin.category.list_category', ['categories' => $categories])->render();
     }
 }
