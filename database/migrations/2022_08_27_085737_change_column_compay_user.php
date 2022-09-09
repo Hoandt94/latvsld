@@ -16,7 +16,7 @@ class ChangeColumnCompayUser extends Migration
         //
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('company');
-            $table->integer('company_id')->unsigned()->nullable()->change();
+            $table->integer('company_id')->unsigned()->nullable();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
         });
     }
