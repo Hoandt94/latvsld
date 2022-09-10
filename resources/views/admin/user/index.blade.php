@@ -72,7 +72,7 @@
                             <div class="col-lg-4">
                                 <label>Công ty:</label>
                                 <select class="form-control m-select2" id="search_company_id" name="search_company" style="width: 100%">
-                                    <option value="" disabled>Chọn công ty</option>
+                                    <option value="">Chọn công ty</option>
                                     @foreach( $companies as $company)
                                     <option value="{{$company->id}}">{{$company->name}}</option>
                                     @endforeach
@@ -177,8 +177,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="message-text" class="form-control-label">Công ty</label>
-                                    <select class="form-control m-select2" id="company_id" name="company" style="width: 100%">
-                                        <option value="" disabled>Chọn công ty</option>
+                                    <select class="form-control m-select2" id="company_id" name="company_id" style="width: 100%">
+                                        <option value="">Chọn công ty</option>
                                         @foreach( $companies as $company)
                                         <option value="{{$company->id}}">{{$company->name}}</option>
                                         @endforeach
@@ -278,11 +278,16 @@
     edit_id = '';
     $(document).ready(function () {
         $('#company_id').select2({
-			placeholder: "Chọn công ty"
+			placeholder: "Chọn công ty",
+            allowClear: true,
+            dropdownParent: $('#modal_user')
 		});
+
         $('#search_company_id').select2({
-			placeholder: "Chọn công ty"
+			placeholder: "Chọn công ty",
+            allowClear: true
 		});
+
         $('#form_create_user').on('submit', function (event) {
             event.preventDefault();
             dataSending = $(this).serializeArray();
@@ -425,7 +430,7 @@
                 name: $('input[name="search_name"]').val(),
                 username: $('input[name="search_username"]').val(),
                 phone: $('input[name="search_phone"]').val(),
-                company: $('input[name="search_company"]').val(),
+                company: $('select[name="search_company"]').val(),
                 status: $('select[name="search_status"]').val(),
             };
             $.ajax({

@@ -52,7 +52,7 @@
                                             style="background: url(assets/app/media/img/misc/user_profile_bg.jpg); background-size: cover;">
                                             <div class="m-card-user m-card-user--skin-light">
                                                 <div class="m-card-user__pic">
-                                                    <img src="{{asset('images/users/user4.jpg')}}"
+                                                    <img src="{{asset('images/users/user.png')}}"
                                                         class="m--img-rounded m--marginless" alt="" />
 
                                                     <!--

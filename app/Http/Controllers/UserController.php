@@ -42,7 +42,7 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'name' => $request->name,
                 'phone' => !empty($request->phone) ? $request->phone : '',
-                'company' => !empty($request->company) ? $request->company : '',
+                'company_id' => !empty($request->company_id) ? $request->company_id : '',
                 'position' => !empty($request->position) ? $request->position : '',
                 'email' => !empty($request->email) ? $request->email : '',
                 'role' => !empty($request->role) ? $request->role : 'user',
@@ -78,7 +78,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'name' => $request->name,
                 'phone' => !empty($request->phone) ? $request->phone : '',
-                'company' => !empty($request->company) ? $request->company : '',
+                'company_id' => !empty($request->company_id) ? $request->company_id : '',
                 'position' => !empty($request->position) ? $request->position : '',
                 'email' => !empty($request->email) ? $request->email : '',
                 'role' => !empty($request->role) ? $request->role : 'user',
@@ -103,8 +103,8 @@ class UserController extends Controller
         if(!empty($request->name)) $result->where('name', 'like', '%' . $request->name . '%');
         if(!empty($request->username)) $result->where('username', 'like', '%' . $request->username . '%');
         if(!empty($request->phone)) $result->where('phone', 'like', '%' . $request->phone . '%');
-        if(!empty($request->company)) $result->where('company', 'like', '%' . $request->company . '%');
-        if(!empty($request->status)) $result->where('status', (int)$request->company);
+        if(!empty($request->company)) $result->where('company_id', $request->company);
+        if(!empty($request->status)) $result->where('status', (int)$request->status);
         if(!empty($request->role)) $result->where('role', (int)$request->role);
         $users = $result->paginate(10);
         return view('admin.user.list', ['users' => $users])->render();

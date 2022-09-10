@@ -18,7 +18,7 @@
                                     <th scope="row">{{$user->id}}</th>
                                     <td>{{$user->username}}</td>
                                     <td>{{$user->name}}</td>
-                                    <td>{{$user->company}}</td>
+                                    <td>{{!empty($user->company_id) ? $user->company->name : ''}}</td>
                                     <td>{{$user->phone}}</td>
                                     @if($user->status)
                                     <td><span class="m-badge m-badge--success m-badge--wide m-badge--rounded">Đang hoạt động</span></td>
