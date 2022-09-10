@@ -123,14 +123,14 @@
                             <label class="col-lg-2 col-form-label">Yêu cầu thực hiện <span class="m--font-danger">*</span></label>
                             <div class="col-lg-10">
                                 <textarea type="text" name="guide" class="form-control m-input"
-                                    placeholder="Yêu cầu/Hướng dẫn thực hiện"></textarea>
+                                    placeholder="Yêu cầu thực hiện"></textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Hướng dẫn thực hiện <span class="m--font-danger">*</span></label>
                             <div class="col-lg-10">
                                 <textarea type="text" name="required" class="form-control m-input"
-                                    placeholder="Yêu cầu/Hướng dẫn thực hiện"></textarea>
+                                    placeholder="Hướng dẫn thực hiện"></textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">

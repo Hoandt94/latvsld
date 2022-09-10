@@ -38,6 +38,13 @@
 							<div class="m-login__head">
 								<h3 class="m-login__title">Đăng nhập hệ thống</h3>
 							</div>
+							@if(!empty($errors->any()))
+							<div class="alert alert-danger" role="alert">
+								@foreach ($errors->all() as $error)
+								<strong>Lỗi!</strong> {{ $error }}
+								@endforeach
+							</div>
+							@endif
 							<form class="m-login__form m-form" action="{{route('post_login')}}" method="post">
 								<input type="hidden" name="_token" value="{{ csrf_token() }}" />
 								<div class="form-group m-form__group">

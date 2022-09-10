@@ -14,7 +14,7 @@ class AddFieldRequiredQuestion extends Migration
     public function up()
     {
         //
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('questions', function (Blueprint $table) {
             $table->string('required');
         });
     }
