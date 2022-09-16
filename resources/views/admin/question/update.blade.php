@@ -214,9 +214,11 @@
 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
 <script>
     $(document).ready(function () {
+        currentQuestion = JSON.parse('{{$question->category_id}}');
         $('#category_id').select2({
 			placeholder: "Chọn danh mục"
 		});
+        $("#category_id").val(currentQuestion).trigger('change');
         $("#tag").select2({
 			placeholder: "Thêm tag câu hỏi",
 			tags: !0

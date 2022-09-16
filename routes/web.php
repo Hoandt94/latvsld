@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main.template.index');
 });
+Route::group(['prefix' => 'assessment'], function () {
+    Route::get('/', 'AssessmentController@index');
+});
+
 Route::get('/login', 'UserController@login')->name('login');
 Route::post('/login', 'UserController@postLogin')->name('post_login');
 Route::get('/logout', 'UserController@logout')->name('logout');
