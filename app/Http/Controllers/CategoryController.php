@@ -77,6 +77,7 @@ class CategoryController extends Controller
 
     public function detail($id){
         $category = Category::find($id);
+        $category->parent_category = !empty($category->parentCategory) ? $category->parentCategory : [];
         return response()->json(['data' => $category], 200);
     }
 

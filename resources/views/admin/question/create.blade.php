@@ -104,14 +104,20 @@
                                         <textarea type="text" name="term[]" class="form-control m-input"
                                             placeholder="Điều khoản căn cứ"></textarea>
                                     </div>
-                                    <label class="col-lg-2 col-form-label">Hình thức xử phạt <span class="m--font-danger">*</span></label>
-                                    <div class="col-lg-3">
-                                        <textarea type="text" name="penalty[]" class="form-control m-input"
-                                            placeholder="Hình thức xử phạt"></textarea>
-                                    </div>
-                                    <div class="col-lg-2">
-                                        <button type="button" class="btn btn-success btn-sm add_term"><i class="fa fa-plus"></i></button>
-                                        <button type="button" class="btn btn-danger btn-sm remove_term"><i class="fa fa-times"></i></button>
+                                    <div class="col-md-7">
+                                        <div class="row">
+                                            <label class="col-lg-3 col-form-label">Hình thức xử phạt <span class="m--font-danger">*</span></label>
+                                            <div class="col-lg-3">
+                                                <input type="number" class="form-control" placeholder="Nhỏ nhất" name="penalty_min[]">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <input type="number" class="form-control" placeholder="Lớn nhất" name="penalty_max[]">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <button type="button" class="btn btn-success btn-sm add_term"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-danger btn-sm remove_term"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -218,12 +224,12 @@
         $('#choose_sample_attachment').filemanager('file');
 
         $('.m-form').on('click', '.add_term', function(){
-            parent = $(this).parent().parent();
+            parent = $(this).parent().parent().parent().parent();
             $($(parent).parent()).append($(parent).clone());
         })
 
         $('.m-form').on('click', '.remove_term', function(){
-            parent = $(this).parent().parent();
+            parent = $(this).parent().parent().parent().parent();
             if($($(parent).parent()).find('.form-term').length > 1) $(parent).remove();
         })
     })

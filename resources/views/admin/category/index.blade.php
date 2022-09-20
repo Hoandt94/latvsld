@@ -224,6 +224,14 @@
                         $('input[name="code"]').val(category.code);
                         $('input[name="order"]').val(category.order);
                         $('input[name="status"]').prop('checked', category.status ? true : false);
+                        if(category.parent_category){
+                            $('input[name="parent_name"]').val(category.parent_category.name);
+                            $('input[name="parent_id"]').val(category.parent_category.id);
+                        }
+                        else{
+                            $('input[name="parent_name"]').val('Không có');
+                            $('input[name="parent_id"]').val('');
+                        }
                         $('#modal_category').modal('show');
                     }
                 }

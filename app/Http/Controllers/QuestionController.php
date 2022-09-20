@@ -24,7 +24,8 @@ class QuestionController extends Controller
                     'content' => 'required',
                     'approve_help' => 'required',
                     'term' => 'required',
-                    'penalty' => 'required',
+                    'penalty_min' => 'required',
+                    'penalty_max' => 'required',
                     'guide' => 'required',
                     'required' => 'required',
                 ];
@@ -33,7 +34,8 @@ class QuestionController extends Controller
                     'content.required'  => 'Nội dung không được để trống.',
                     'approve_help.required'  => 'Bằng chứng tuân thủ không được để trống.',
                     'term.required'  => 'Điều khoản căn cứ không được để trống.',
-                    'penalty.required'  => 'Hình thức xử phạt không được để trống.',
+                    'penalty_min.required'  => 'Hình thức xử phạt không được để trống.',
+                    'penalty_max.required'  => 'Hình thức xử phạt không được để trống.',
                     'guide.required'  => 'Hướng dẫn thực hiện không được để trống.',
                     'required.required'  => 'Yêu cầu thực hiện không được để trống.',
                     'order.required'  => 'Vị trí không được để trống.',
@@ -43,7 +45,7 @@ class QuestionController extends Controller
                     $errors = $validator->errors();
                     return redirect()->back()->withErrors(['msg' => $errors->all()[0]]);
                 }
-                if(count($request->penalty) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
+                if(count($request->penalty_min) != count($request->term) || count($request->penalty_max) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
                 $result = Question::create([
                     'code' => $request->code,
                     'category_id' => $request->category_id,
@@ -52,7 +54,8 @@ class QuestionController extends Controller
                     'content' => $request->content,
                     'approve_help' => $request->approve_help,
                     'term' => json_encode($request->term),
-                    'penalty' => json_encode($request->penalty),
+                    'penalty_min' => json_encode($request->penalty_min),
+                    'penalty_max' => json_encode($request->penalty_max),
                     'guide' => $request->guide,
                     'required' => $request->required,
                     'order' => $request->order,
@@ -81,7 +84,8 @@ class QuestionController extends Controller
                     'content' => 'required',
                     'approve_help' => 'required',
                     'term' => 'required',
-                    'penalty' => 'required',
+                    'penalty_min' => 'required',
+                    'penalty_max' => 'required',
                     'guide' => 'required',
                     'required' => 'required',
                     'order' => 'required',
@@ -91,7 +95,8 @@ class QuestionController extends Controller
                     'content.required'  => 'Nội dung không được để trống.',
                     'approve_help.required'  => 'Bằng chứng tuân thủ không được để trống.',
                     'term.required'  => 'Điều khoản căn cứ không được để trống.',
-                    'penalty.required'  => 'Hình thức xử phạt không được để trống.',
+                    'penalty_min.required'  => 'Hình thức xử phạt không được để trống.',
+                    'penalty_max.required'  => 'Hình thức xử phạt không được để trống.',
                     'guide.required'  => 'Hướng dẫn thực hiện không được để trống.',
                     'required.required'  => 'Yêu cầu thực hiện không được để trống.',
                     'order.required'  => 'Vị trí không được để trống.',
@@ -101,7 +106,7 @@ class QuestionController extends Controller
                     $errors = $validator->errors();
                     return redirect()->back()->withErrors(['msg' => $errors->all()[0]]);
                 }
-                if(count($request->penalty) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
+                if(count($request->penalty_min) != count($request->term) || count($request->penalty_max) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
                 $result = Question::where(['id' => $id])->update([
                     'code' => $request->code,
                     'category_id' => $request->category_id,
@@ -110,7 +115,8 @@ class QuestionController extends Controller
                     'content' => $request->content,
                     'approve_help' => $request->approve_help,
                     'term' => json_encode($request->term),
-                    'penalty' => json_encode($request->penalty),
+                    'penalty_min' => json_encode($request->penalty_min),
+                    'penalty_max' => json_encode($request->penalty_max),
                     'guide' => $request->guide,
                     'required' => $request->required,
                     'order' => $request->order,
