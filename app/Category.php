@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Question;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
@@ -34,5 +36,19 @@ class Category extends Model
             $parent = $this->parentCategory;
             return $parent->getCode() . '.' . $this->order;
         }
+    }
+
+    public function getQuestionInSet($listQuestion){
+        $questions = Question::whereIn('id', $listQuestion)->where('category_id', $this->id)->get();
+        return $questions;
+    }
+
+    public function getCategoryInSet($listCategory){
+        $questions = Category::whereIn('id', $listCategory)->where('parent_id', $this->id)->get();
+        return $questions;
+    }
+
+    public function slug(){
+        return Str::slug($this->name);
     }
 }

@@ -15,7 +15,14 @@ Route::get('/', function () {
     return view('main.template.index');
 });
 Route::group(['prefix' => 'assessment'], function () {
-    Route::get('/', 'AssessmentController@index');
+    Route::get('/', 'AssessmentController@index')->name('assessment');
+    Route::any('/create', 'AssessmentController@create')->name('create_assessment');
+    Route::any('/{id}/update', 'AssessmentController@update')->name('update_assessment');
+    Route::any('/{id}/detail', 'AssessmentController@detail')->name('get_assessment');
+    Route::get('/{id}/delete', 'AssessmentController@delete')->name('delete_assessment');
+    Route::get('/reload', 'AssessmentController@reload')->name('reload_assessment');
+    Route::get('/{slug}/process', 'AssessmentController@run')->name('run_assessment');
+    Route::get('/{slug_assessment}/process/{slug_category}', 'AssessmentController@runCategory')->name('run_category_assessment');
 });
 
 Route::get('/login', 'UserController@login')->name('login');

@@ -1,7 +1,7 @@
 @extends('main.template.index')
 @section('meta_section')
-<title>ATVSLD | Đánh giá an toàn lao động</title>
-<meta name="description" content="Đánh giá an toàn lao động">
+<title>ATVSLD | Khảo sát thực hiện pháp luật</title>
+<meta name="description" content="Khảo sát thực hiện pháp luật">
 @endsection
 @section('subheader')
 <div class="m-subheader ">
@@ -28,6 +28,15 @@
 @section('content')
 <div class="row">
     <div class="col-xl-12">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>A1.1 - NGƯỜI/BỘ PHẬN LÀM CÔNG TÁC ATVSLĐ</h3>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary pull-right">Xem khảo sát</button>
+                <button class="btn btn-primary pull-right">Trả lời nhanh</button>
+            </div>
+        </div>
         <div class="m-portlet">
             <div class="m-portlet__head">
                 <div class="m-portlet__head-caption">

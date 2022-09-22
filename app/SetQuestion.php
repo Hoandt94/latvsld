@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class SetQuestion extends Model
 {
@@ -10,4 +11,20 @@ class SetQuestion extends Model
     protected $fillable = [
         'name', 'code', 'questions', 'categories', 'status'
     ];
+
+    public function getCategories(){
+        $category_ids = json_decode($this->categories);
+        $categories = Category::whereNull('parent_id')->whereIn('id', $category_ids)->orderBy('order', 'ASC')->get();
+        return $categories;
+    }
+
+    public function getQuestions(){
+        $questions_ids = json_decode($this->questions);
+        $questions = Question::whereIn('id', $category_ids)->orderBy('order', 'ASC')->get();
+        return $questions;
+    }
+    
+    public function slug(){
+        return Str::slug($this->name);
+    }
 }

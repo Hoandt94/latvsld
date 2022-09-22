@@ -13,8 +13,8 @@
 					<span class="m-menu__link-text">Thông tin chung</span>
 				</a>
 			</li>
-            <li class="m-menu__item  m-menu__item--active" aria-haspopup="true">
-				<a href="index.html" class="m-menu__link ">
+            <li class="m-menu__item  m-menu__item" aria-haspopup="true">
+				<a href="{{route('assessment')}}" class="m-menu__link ">
 					<i class="m-menu__link-icon flaticon-line-graph"></i>
 					<span class="m-menu__link-title">
 					<span class="m-menu__link-wrap">

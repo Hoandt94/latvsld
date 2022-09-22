@@ -15,6 +15,7 @@ class CreateAssessmentsTable extends Migration
     {
         Schema::create('assessments', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->integer('set_question_id')->unsigned();

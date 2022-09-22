@@ -11,31 +11,22 @@
         </tr>
     </thead>
     <tbody>
+        @foreach($assessments as $key => $assessment)
         <tr>
-            <th scope="row">1</th>
-            <td>Kỳ đánh đầu cuối năm 2022</td>
-            <td>Bộ câu hỏi 1</td>
-            <td>15/09/2022</td>
-            <td>15/09/2022</td>
-            <td>15/09/2022</td>
+            <th scope="row">{{$key + 1}}</th>
             <td>
-                <button class="btn btn-success btn-sm edit_form" data-id="1">Edit</button>
-                <a href="" class="btn btn-primary btn-sm" data-id="1">Đánh giá</a>
+                <a href="{{route('run_assessment', $assessment->id . '-' . $assessment->slug())}}">{{$assessment->name}}</a>
+            </td>
+            <td>{{$assessment->setQuestion->name}}</td>
+            <td>{{$assessment->created_at}}</td>
+            <td>{{$assessment->updated_at}}</td>
+            <td>{{$assessment->last_time_update}}</td>
+            <td>
+                <button class="btn btn-success btn-sm edit_assessment" data-id="{{$assessment->id}}">Edit</button>
+                <a href="{{route('run_assessment', $assessment->id . '-' . $assessment->slug())}}" class="btn btn-primary btn-sm" data-id="1">Đánh giá</a>
                 <a href="" class="btn btn-primary btn-sm" data-id="2">Xem kết quả</a>
             </td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Kỳ đánh giá cuối năm 2022</td>
-            <td>Bộ câu hỏi 1</td>
-            <td>15/09/2022</td>
-            <td>15/09/2022</td>
-            <td>15/09/2022</td>
-            <td>
-                <button class="btn btn-success btn-sm edit_form" data-id="2">Edit</button>
-                <a href="" class="btn btn-primary btn-sm" data-id="2">Đánh giá</a>
-                <a href="" class="btn btn-primary btn-sm" data-id="2">Xem kết quả</a>
-            </td>
-        </tr>
+        @endforeach
     </tbody>
 </table>
