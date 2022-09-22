@@ -21,11 +21,11 @@ class CreateQuestionsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('guide_attachment')->nullable();
             $table->string('sample_attachment')->nullable();
-            $table->string('content');
-            $table->string('approve_help');
-            $table->string('term');
+            $table->text('content');
+            $table->text('approve_help');
+            $table->text('term');
             $table->string('penalty');
-            $table->string('guide');
+            $table->text('guide');
             // $table->string('required');
             $table->string('answer_expression')->nullable();
             $table->string('tags')->nullable();
