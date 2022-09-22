@@ -99,7 +99,7 @@ class UserController extends Controller
     }
 
     public function reload(Request $request){
-        $result = DB::table('users');
+        $result = User::query();
         if(!empty($request->name)) $result->where('name', 'like', '%' . $request->name . '%');
         if(!empty($request->username)) $result->where('username', 'like', '%' . $request->username . '%');
         if(!empty($request->phone)) $result->where('phone', 'like', '%' . $request->phone . '%');
