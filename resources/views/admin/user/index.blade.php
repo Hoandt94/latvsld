@@ -366,9 +366,10 @@
                         $('input[name="email"]').val(user.email);
                         $('input[name="specific_profession"]').val(user.specific_profession);
                         $('input[name="position"]').val(user.position);
-                        $('input[name="company"]').val(user.company);
                         $('input[name="status"]').prop('checked', parseInt(user.status) ? true : false);
                         $('input[name="role"][value="' + user.role + '"]').prop('checked', true);
+                        $('#company_id').val(user.company_id);
+                        $('#company_id').trigger('change');
                         $('#modal_user').modal('show');
                     }
                 }
