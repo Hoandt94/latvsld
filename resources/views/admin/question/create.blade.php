@@ -171,7 +171,7 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Tag:</label>
                             <div class="col-lg-10">
-                                <select class="form-control m-select2" id="tag" multiple name="tag">
+                                <select class="form-control m-select2" id="tag" multiple name="tag[]">
                                 </select>
                             </div>
                         </div>
