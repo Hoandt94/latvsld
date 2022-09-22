@@ -132,14 +132,14 @@
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Yêu cầu thực hiện <span class="m--font-danger">*</span></label>
                             <div class="col-lg-10">
-                                <textarea type="text" name="required" class="form-control m-input"
+                                <textarea type="text" id="required" name="required" class="form-control m-input"
                                     placeholder="Yêu cầu thực hiện">{{$question->required}}</textarea>
                             </div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Hướng dẫn thực hiện <span class="m--font-danger">*</span></label>
                             <div class="col-lg-10">
-                                <textarea type="text" name="guide" class="form-control m-input"
+                                <textarea type="text" id="guide" name="guide" class="form-control m-input"
                                     placeholder="Hướng dẫn thực hiện">{{$question->guide}}</textarea>
                             </div>
                         </div>
@@ -219,10 +219,11 @@
 @endsection
 @section('footer_asset')
 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
+<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
 <script>
     $(document).ready(function () {
         currentQuestion = JSON.parse('{{$question->category_id}}');
-        tags = JSON.parse('{!!$question->tags!!}');
+        tags = '{!!$question->tags!!}';
         $('#category_id').select2({
 			placeholder: "Chọn danh mục"
 		});
@@ -236,6 +237,9 @@
         $('#tag').trigger('change');
         $('#choose_guide_attachments').filemanager('file');
         $('#choose_sample_attachment').filemanager('file');
+        
+        CKEDITOR.replace( 'guide' );
+        CKEDITOR.replace( 'required' );
 
         $('.m-form').on('click', '.add_term', function(){
             parent = $(this).parent().parent().parent().parent();
