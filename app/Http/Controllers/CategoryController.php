@@ -32,7 +32,7 @@ class CategoryController extends Controller
                 }
                 $result = Category::create([
                     'name' => $request->name,
-                    // 'code' => $request->code,
+                    'code' => !empty($request->code) ? $request->code : '',
                     'parent_id' => !empty($request->parent_id) ? $request->parent_id : null,
                     'order' => (int)$request->order,
                     'status' => isset($request->status) ? 1 : 0
@@ -63,7 +63,7 @@ class CategoryController extends Controller
                 }
                 $result = Category::where(['id' => $id])->update([
                     'name' => $request->name,
-                    // 'code' => $request->code,
+                    'code' => !empty($request->code) ? $request->code : '',
                     'order' => (int)$request->order,
                     'status' => isset($request->status) ? 1 : 0
                 ]);

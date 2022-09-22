@@ -47,7 +47,7 @@ class QuestionController extends Controller
                 }
                 if(count($request->penalty_min) != count($request->term) || count($request->penalty_max) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
                 $result = Question::create([
-                    'code' => $request->code,
+                    'code' => !empty($request->code) ? $request->code : '',
                     'category_id' => $request->category_id,
                     'guide_attachment' => !empty($request->guide_attachment) ? $request->guide_attachment : '',
                     'sample_attachment' => !empty($request->sample_attachment) ? $request->sample_attachment : '',
@@ -108,7 +108,7 @@ class QuestionController extends Controller
                 }
                 if(count($request->penalty_min) != count($request->term) || count($request->penalty_max) != count($request->term)) return redirect()->back()->withErrors(['msg' => 'Vui lòng nhập đầy đủ điều khoản căn cứ và hình thức xử phạt.']);
                 $result = Question::where(['id' => $id])->update([
-                    'code' => $request->code,
+                    'code' => !empty($request->code) ? $request->code : '',
                     'category_id' => $request->category_id,
                     'guide_attachment' => !empty($request->guide_attachment) ? $request->guide_attachment : '',
                     'sample_attachment' => !empty($request->sample_attachment) ? $request->sample_attachment : '',
