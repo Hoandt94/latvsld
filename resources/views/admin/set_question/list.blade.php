@@ -17,8 +17,8 @@
                                     <th scope="row">{{$setQuestion->id}}</th>
                                     <td>{{$setQuestion->code}}</td>
                                     <td>{{$setQuestion->name}}</td>
-                                    <td>{{count(json_decode($setQuestion->categories))}}</td>
-                                    <td>{{count(json_decode($setQuestion->questions))}}</td>
+                                    <td>{{!empty($setQuestion->categories) ? count(json_decode($setQuestion->categories)) : 0}}</td>
+                                    <td>{{!empty($setQuestion->categories) ? count(json_decode($setQuestion->questions)) : 0}}</td>
                                     <td>
                                     @if($setQuestion->status)
                                     <span class="m-badge m-badge--success m-badge--wide m-badge--rounded mr-3">Đang hoạt động</span></td>
