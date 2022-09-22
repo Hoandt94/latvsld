@@ -224,16 +224,25 @@
     $(document).ready(function () {
         currentQuestion = JSON.parse('{{$question->category_id}}');
         tags = '{!!$question->tags!!}';
+        if(tags){
+            tags = JSON.parse('{!!$question->tags!!}');
+            $("#tag").select2({
+                placeholder: "Thêm tag câu hỏi",
+                tags: !0,
+                data: tags,
+            });
+            $("#tag").val(tags);
+        }
+        else{
+            $("#tag").select2({
+                placeholder: "Thêm tag câu hỏi",
+                tags: !0,
+            })
+        }
         $('#category_id').select2({
 			placeholder: "Chọn danh mục"
 		});
         $("#category_id").val(currentQuestion).trigger('change');
-        $("#tag").select2({
-			placeholder: "Thêm tag câu hỏi",
-			tags: !0,
-            data: tags,
-		})
-        $("#tag").val(tags);
         $('#tag').trigger('change');
         $('#choose_guide_attachments').filemanager('file');
         $('#choose_sample_attachment').filemanager('file');
