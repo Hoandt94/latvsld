@@ -243,7 +243,7 @@
             $('input[name="name"]').val('');
             $('input[name="parent_name"]').val('Không có');
             $('input[name="code"]').val('');
-            $('input[name="order"]').val();
+            $('input[name="order"]').val('');
             $('input[name="status"]').prop('checked', true);
             $('#modal_category').modal('show');
         })

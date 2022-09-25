@@ -64,9 +64,12 @@
 <script>
     $(document).ready(function () {
         setQuestion = JSON.parse('{!!json_encode($setQuestion)!!}');
-        
+        allQuestion = {!!json_encode($allQuestion)!!};
+        allCategory = {!!json_encode($allCategory)!!};
         if(!setQuestion.categories){
-            $("input:checkbox[name=categories]").prop('checked', true);
+            $.each(allCategory, function(key, value){
+                if(value.status) $("input:checkbox[name=categories][value="+value.id+"]").prop('checked', true);
+            })
         }
         else{
             categories = JSON.parse(setQuestion.categories);
@@ -75,7 +78,9 @@
             })
         }
         if(!setQuestion.questions){
-            $("input:checkbox[name=questions]").prop('checked', true);
+            $.each(allQuestion, function(key, value){
+                if(value.status) $("input:checkbox[name=questions][value="+value.id+"]").prop('checked', true);
+            })
         }
         else{
             questions = JSON.parse(setQuestion.questions);
@@ -122,15 +127,10 @@
                     'X-CSRF-TOKEN': "{{csrf_token()}}",
                 },
                 success: function (result) {
-                    // if (result.data) {
-                    //     category = result.data;
-                    //     $('input[name="parent_name"]').val(category.name);
-                    //     $('input[name="parent_id"]').val(category.id);
-                    //     $('input[name="name"]').val('');
-                    //     $('input[name="code"]').val('');
-                    //     $('input[name="order"]').val('');
-                    //     $('#modal_category').modal('show');
-                    // }
+                    if (result.status) {
+                        showNotification("Thành công", "Cài đặt bộ câu hỏi thành công", 'success');
+                    }
+                    else showNotification("Lỗi", result.msg, 'danger');
                 }
             })
         })

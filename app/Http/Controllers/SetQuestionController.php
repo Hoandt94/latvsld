@@ -6,6 +6,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\SetQuestion;
 use App\Category;
+use App\Question;
 
 class SetQuestionController extends Controller
 {
@@ -96,19 +97,26 @@ class SetQuestionController extends Controller
         if($request->isMethod('GET')){
             $categories = Category::whereNull('parent_id')->get();
             $setQuestion = SetQuestion::find($id);
-            return view('admin.set_question.config', ['categories' => $categories, 'setQuestion' => $setQuestion]);
+            $allQuestion = Question::all();
+            $allCategory = Category::all();
+            return view('admin.set_question.config', ['categories' => $categories, 'setQuestion' => $setQuestion, 'allQuestion' => $allQuestion, 'allCategory' => $allCategory]);
         }
         else{
-            $categories = !empty($request->categories) ? $request->categories : [];
-            $categories = array_map(function($o){return (int)$o;}, $categories);
-            $questions = !empty($request->questions) ? $request->questions : [];
-            $questions = array_map(function($o){return (int)$o;}, $questions);
-            $dataUpdate = [
-                'categories' => json_encode($categories),
-                'questions' => json_encode($questions),
-            ];
-            $result = SetQuestion::where(['id' => $id])->update($dataUpdate);
-            return response()->json(['status' => $result], 200);
+            try{
+                $categories = !empty($request->categories) ? $request->categories : [];
+                $categories = array_map(function($o){return (int)$o;}, $categories);
+                $questions = !empty($request->questions) ? $request->questions : [];
+                $questions = array_map(function($o){return (int)$o;}, $questions);
+                $dataUpdate = [
+                    'categories' => json_encode($categories),
+                    'questions' => json_encode($questions),
+                ];
+                $result = SetQuestion::where(['id' => $id])->update($dataUpdate);
+                return response()->json(['status' => $result], 200);
+            }
+            catch(Exception $ex){
+                return response()->json(['status' => 0, 'msg' => $ex->getMesssage()], 200);
+            }
         }
     }
 }
