@@ -114,13 +114,13 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal-update-personel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="modal-update-personnel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form method="post" action="{{route('update_personel')}}" id="form_update_personel">
+            <form method="post" action="{{route('update_personnel')}}" id="form_update_personnel">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="titleModalUser">Thêm tài khoản</h5>
+                        <h5 class="modal-title" id="titleModalUser">Thông tin lao động</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -130,37 +130,57 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="recipient-name" class="form-control-label">Tên đăng nhập <span class="m--font-danger">*</span></label>
-                                    <input type="text" name="username" class="form-control m-input"
-                                        placeholder="Tên đăng nhập">
-                                    <input type="hidden" value="" name="parent_id">
-                                </div>
-                            </div>
-                            <div class="col-md-6" id="row_password">
-                                <div class="form-group">
-                                    <label for="recipient-name" class="form-control-label">Mật khẩu <span class="m--font-danger">*</span></label>
-                                    <input type="password" name="password" class="form-control m-input"
-                                        placeholder="Mật khẩu">
+                                    <label for="recipient-name" class="form-control-label">Tổng số lao động <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_personnel" class="form-control m-input"
+                                        placeholder="Tổng số lao động">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Họ và tên <span class="m--font-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control m-input" placeholder="Họ và tên">
+                                    <label for="recipient-name" class="form-control-label">Tổng số lao động nữ <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_women_personnel" class="form-control m-input"
+                                        placeholder="Tổng số lao động nữ">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="message-text" class="form-control-label">Điện thoại</label>
-                                    <input type="text" name="phone" class="form-control m-input"
-                                        placeholder="Điện thoại">
+                                    <label for="message-text" class="form-control-label">Tổng số cán bộ quản lý(Nhóm 1) <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_group1" class="form-control m-input" placeholder="Tổng số cán bộ quản lý(Nhóm 1)">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Tổng nhân viên làm công tác ATVSLĐ (Nhóm 2) <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_group2" class="form-control m-input"
+                                        placeholder="Tổng nhân viên làm công tác ATVSLĐ (Nhóm 2)">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Tổng số nhân viên làm công việc có yêu cầu nghiêm ngặt về ATVSLĐ (Nhóm 3) <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_group3" class="form-control m-input"
+                                        placeholder="Tổng số nhân viên làm công việc có yêu cầu nghiêm ngặt về ATVSLĐ (Nhóm 3)">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Tổng số nhân viên làm còn lại (Nhóm 4) <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_group4" class="form-control m-input"
+                                        placeholder="Tổng số nhân viên làm còn lại (Nhóm 4)">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Tổng số nhân viên làm công tác y tế (Nhóm 5) <span class="m--font-danger">*</span></label>
+                                    <input type="number" min="0" name="total_group5" class="form-control m-input"
+                                        placeholder="Tổng số nhân viên làm công tác y tế (Nhóm 5)">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                        <button type="submit" class="btn btn-primary" id="save_user">Lưu</button>
+                        <button type="submit" class="btn btn-primary" id="save_update_personnel">Lưu</button>
                     </div>
                 </div>
             </form>
@@ -172,6 +192,7 @@
 <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 <script>
     edit_id = '';
+
     $(document).ready(function () {
         $('#set_question').select2({
 			placeholder: "Chọn bộ câu hỏi"
@@ -289,7 +310,58 @@
             })
         }
 
+        $('.m-section__content').on('click', '#update_personnel', function(){
+            id = $(this).attr('data-id');
+            edit_id = id;
+            url = '{{ route("get_company_info", ":id") }}';
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                method: "GET",
+                success: function (result) {
+                    data = result.data;
+                    $('input[name="total_personnel"]').val(data.total_employee);
+                    $('input[name="total_women_personnel"]').val(data.total_female_employee);
+                    $('input[name="total_group1"]').val(data.total_type_1);
+                    $('input[name="total_group2"]').val(data.total_type_2);
+                    $('input[name="total_group3"]').val(data.total_type_3);
+                    $('input[name="total_group4"]').val(data.total_type_4);
+                    $('input[name="total_group5"]').val(data.total_type_5);
+                    $('#modal-update-personnel').modal('show');
+                },
+            })
+        })
 
+        $('#form_update_personnel').on('submit', function (event) {
+            event.preventDefault();
+            dataSending = $(this).serializeArray();
+            dataSending.push({
+                name: "assessment_id",
+                value: edit_id
+            })
+            console.log(dataSending);
+            url = '{{route("update_personnel")}}'
+            $.ajax({
+                url: url,
+                method: "POST",
+                data: dataSending,
+                success: function (result) {
+                    if (result.status) {
+                        $('#modal-update-personnel').modal('hide');
+                        showNotification("Thành công", "Cập nhật thông tin nhắn sự thành công", 'success');
+                        edit_id = '';
+                        $('input[name="total_personnel"]').val();
+                        $('input[name="total_women_personnel"]').val();
+                        $('input[name="total_group1"]').val();
+                        $('input[name="total_group2"]').val();
+                        $('input[name="total_group3"]').val();
+                        $('input[name="total_group4"]').val();
+                        $('input[name="total_group5"]').val();
+                    }
+                    else showNotification("Lỗi", result.msg, 'danger');
+                },
+            })
+        })
     })
 </script>
 @endsection

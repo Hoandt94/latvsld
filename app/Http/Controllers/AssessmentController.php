@@ -11,6 +11,7 @@ use DB;
 use Validator;
 use Auth;
 use App\User;
+use App\CompanyInfo;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -171,7 +172,61 @@ class AssessmentController extends Controller
         }
     }
 
-    public function updatePersonel(Request $request){
-        
+    public function updatePersonnel(Request $request){
+        try{
+            $user = Auth::user();
+            $rules = [
+                'assessment_id' => 'required',
+                'total_personnel' => 'required',
+                'total_women_personnel' => 'required',
+                'total_group1' => 'required',
+                'total_group2' => 'required',
+                'total_group3' => 'required',
+                'total_group4' => 'required',
+                'total_group5' => 'required',
+            ];
+            $messages = [
+                'assessment_id.required' => 'Kỳ đánh giá không được để trống',
+                'total_personnel.required' => 'Tổng số lao động không được để trống',
+                'total_women_personnel.required' => 'Tổng số lao động nữ không được để trống',
+                'total_group1.required' => 'Tổng số cán bộ quản lý không được để trống',
+                'total_group2.required' => 'Tổng nhân viên làm công tác ATVSLĐ không được để trống',
+                'total_group3.required' => 'Tổng số nhân viên làm công việc có yêu cầu nghiêm ngặt về ATVSLĐ không được để trống',
+                'total_group4.required' => 'Tổng số nhân viên làm còn lại không được để trống',
+                'total_group5.required' => 'Tổng số nhân viên làm công tác y tế không được để trống',
+            ];
+            $validator = Validator::make($request->all(), $rules, $messages);
+            if ($validator->fails()) {
+                $errors = $validator->errors();
+                return response()->json(['status' => 0, 'msg' => $errors->all()[0]], 200);
+            }
+            $data = [
+                'user_id' => $user->id,
+                'total_employee' => (int)$request->total_personnel, 
+                'total_female_employee' => (int)$request->total_women_personnel, 
+                'total_type_1' => (int)$request->total_group1, 
+                'total_type_2' => (int)$request->total_group2, 
+                'total_type_3' => (int)$request->total_group3, 
+                'total_type_4' => (int)$request->total_group4, 
+                'total_type_5' => (int)$request->total_group5
+            ];
+            $filter = [
+                'assessment_id' => (int)$request->assessment_id,
+                'company_id' => $user->company_id,
+            ];
+
+            $result = CompanyInfo::updateOrCreate($filter, $data);
+            return response()->json(['status' => $result], 200);
+        }
+        catch(Exception $ex){
+            return response()->json(['status' => 0, 'msg' => $ex->getMesssage()], 200);
+        }
+    }
+
+    public function getCompanyInfo($assessment_id){
+        $user = Auth::user();
+        $companyID = $user->company_id;
+        $companyInfo = CompanyInfo::where(['company_id' => $companyID, 'assessment_id' => $assessment_id])->first();
+        return response()->json(['data' => $companyInfo], 200); 
     }
 }

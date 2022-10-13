@@ -24,7 +24,8 @@ Route::group(['prefix' => 'assessment', 'middleware' => ['adminLogin']], functio
     Route::get('/{slug}/process', 'AssessmentController@run')->name('run_assessment');
     Route::get('/{slug_assessment}/process/{slug_category}', 'AssessmentController@runCategory')->name('run_category_assessment');
     Route::post('/save', 'AssessmentController@saveLog')->name('save_log_assessment');
-    Route::post('/update_personel', 'AssessmentController@updatePersonel')->name('update_personel');
+    Route::post('/update_personnel', 'AssessmentController@updatePersonnel')->name('update_personnel');
+    Route::get('/{assessment_id}/company_info', 'AssessmentController@getCompanyInfo')->name('get_company_info');
 });
 
 Route::get('/login', 'UserController@login')->name('login');

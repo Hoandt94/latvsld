@@ -265,8 +265,7 @@
                 <button type="button" id="submitAnswer" class="btn btn-success">Lưu Trả Lời</button>
                 <a type="button" class="btn btn-primary" href="/">Quay lại</a>
                 <a type="button" class="btn btn-info"
-                    href="/">Tiếp
-                    theo</a>
+                    href="/">Tiếp theo</a>
             </div>
             <div class="col-md-4">
                 <div>Tổng số câu hỏi: {{count($category->getQuestionInSet($listQuestions))}}</div>
