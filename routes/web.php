@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('main.template.index');
 });
-Route::group(['prefix' => 'assessment'], function () {
+Route::group(['prefix' => 'assessment', 'middleware' => ['adminLogin']], function () {
     Route::get('/', 'AssessmentController@index')->name('assessment');
     Route::any('/create', 'AssessmentController@create')->name('create_assessment');
     Route::any('/{id}/update', 'AssessmentController@update')->name('update_assessment');
@@ -23,6 +23,8 @@ Route::group(['prefix' => 'assessment'], function () {
     Route::get('/reload', 'AssessmentController@reload')->name('reload_assessment');
     Route::get('/{slug}/process', 'AssessmentController@run')->name('run_assessment');
     Route::get('/{slug_assessment}/process/{slug_category}', 'AssessmentController@runCategory')->name('run_category_assessment');
+    Route::post('/save', 'AssessmentController@saveLog')->name('save_log_assessment');
+    Route::post('/update_personel', 'AssessmentController@updatePersonel')->name('update_personel');
 });
 
 Route::get('/login', 'UserController@login')->name('login');

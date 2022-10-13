@@ -67,7 +67,7 @@
                                 </td>
                             </tr>
                             @if(!empty($subCategories))
-                            @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listQuestions' => $listQuestions, 'listCategories' => $listCategories])
+                            @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listQuestions' => $listQuestions, 'listCategories' => $listCategories, 'assessment' => $assessment])
                             @endif
                             @endforeach
                         </tbody>

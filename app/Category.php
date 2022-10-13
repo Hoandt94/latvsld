@@ -49,6 +49,6 @@ class Category extends Model
     }
 
     public function slug(){
-        return Str::slug($this->name);
+        return $this->id . '-' . Str::slug($this->name);
     }
 }

@@ -25,6 +25,14 @@ class Assessment extends Model
     }
 
     public function slug(){
-        return Str::slug($this->name);
+        return $this->id . '-' . Str::slug($this->name);
+    }
+
+    public function getQuestionAnswered($categoryID){
+        $category = Category::find($categoryID);
+        $listQuestionID = $category->getQuestion->modelKeys();
+
+        $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->get();
+        return $answers;
     }
 }

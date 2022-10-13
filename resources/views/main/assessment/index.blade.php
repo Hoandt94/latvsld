@@ -113,6 +113,126 @@
             </form>
         </div>
     </div>
+
+    <div class="modal fade" id="modal-update-personel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <form method="post" action="{{route('create_user')}}" id="form_create_user">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titleModalUser">Thêm tài khoản</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-control-label">Tên đăng nhập <span class="m--font-danger">*</span></label>
+                                    <input type="text" name="username" class="form-control m-input"
+                                        placeholder="Tên đăng nhập">
+                                    <input type="hidden" value="" name="parent_id">
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="row_password">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="form-control-label">Mật khẩu <span class="m--font-danger">*</span></label>
+                                    <input type="password" name="password" class="form-control m-input"
+                                        placeholder="Mật khẩu">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Họ và tên <span class="m--font-danger">*</span></label>
+                                    <input type="text" name="name" class="form-control m-input" placeholder="Họ và tên">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Điện thoại</label>
+                                    <input type="text" name="phone" class="form-control m-input"
+                                        placeholder="Điện thoại">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Email <span class="m--font-danger">*</span></label>
+                                    <input type="text" name="email" class="form-control m-input" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Ngành nghề đặc thù</label>
+                                    <input type="text" name="specific_profession" class="form-control m-input"
+                                        placeholder="Ngành nghề đặc thù">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Bộ phận chức vụ</label>
+                                    <input type="text" name="position" class="form-control m-input"
+                                        placeholder="Bộ phận chức vụ">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Công ty</label>
+                                    <select class="form-control m-select2" id="company_id" name="company_id" style="width: 100%">
+                                        <option value="">Chọn công ty</option>
+                                        @foreach( $companies as $company)
+                                        <option value="{{$company->id}}">{{$company->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="m-form__group form-group">
+                                    <label for="">Tình trạng:</label>
+                                    <div class="m-checkbox-list">
+                                        <span class="m-switch m-switch--outline m-switch--success">
+                                            <label>
+                                                <input type="checkbox" name="status" checked="1" value="1">
+                                                <span></span>
+                                            </label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-3 col-form-label">Loại tài khoản</label>
+                                    <div class="col-9">
+                                        <div class="m-radio-list">
+                                            <label class="m-radio">
+                                                <input type="radio" name="role" value="user" checked="1"> Tài khoản
+                                                thường
+                                                <span></span>
+                                            </label>
+                                            <label class="m-radio">
+                                                <input type="radio" name="role" value="admin"> Tài khoản admin công ty
+                                                <span></span>
+                                            </label>
+                                            <label class="m-radio">
+                                                <input type="radio" name="role" value="system_admin"> Tài khoản admin hệ
+                                                thống
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-primary" id="save_user">Lưu</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection
 @section('footer_asset')
@@ -235,6 +355,8 @@
                 }
             })
         }
+
+
     })
 </script>
 @endsection
