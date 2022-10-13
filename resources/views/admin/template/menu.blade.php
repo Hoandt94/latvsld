@@ -101,6 +101,14 @@
                     </ul>
                 </div>
             </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+                <a href="{{route('assessment')}}" class="m-menu__link m-menu__toggle">
+                    <button class="btn btn-danger ml-1 mr-1">
+                        <!-- <i class="m-menu__link-icon flaticon-layers" style="color: unset"></i> -->
+                        <span class="m-menu__link-text" style="color: unset">ĐÁNH GIÁ TUÂN THỦ</span>
+                    </button>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
