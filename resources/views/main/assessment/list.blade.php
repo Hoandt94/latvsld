@@ -25,7 +25,7 @@
                 <button class="btn btn-success btn-sm edit_assessment" data-id="{{$assessment->id}}">Edit</button>
                 <a href="{{route('run_assessment', $assessment->id . '-' . $assessment->slug())}}" class="btn btn-primary btn-sm" data-id="1">Đánh giá</a>
                 <a href="" class="btn btn-primary btn-sm" data-id="2">Xem kết quả</a>
-                <button class="btn btn-primary" id="update_personnel">Nhân sự</button>
+                <button class="btn btn-primary btn-sm" id="update_personnel">Nhân sự</button>
             </td>
         </tr>
         @endforeach
