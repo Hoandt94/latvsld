@@ -219,7 +219,7 @@
 @endsection
 @section('footer_asset')
 <script src="/vendor/laravel-filemanager/js/lfm.js"></script>
-<script src="https://cdn.ckeditor.com/4.19.1/standard/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.19.1/full/ckeditor.js"></script>
 <script>
     $(document).ready(function () {
         currentQuestion = JSON.parse('{{$question->category_id}}');

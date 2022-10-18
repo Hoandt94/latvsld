@@ -392,8 +392,10 @@
             switch (answer) {
                 case 'yes':
                     element.find('.yes-note').val(value.yes_note);
-                    fileName = value.yes_attachment.split('/')
-                    element.find('.attachment-name').val(fileName[fileName.length - 1]);
+                    if(!value.yes_attachment){
+                        fileName = value.yes_attachment.split('/')
+                        element.find('.attachment-name').val(fileName[fileName.length - 1]);
+                    }
 
                     break;
                 case 'no':
@@ -408,9 +410,10 @@
                     element.find('.improve-note').val(value.improve_note);
                     element.find('.select-improve-employee').val(value.improve_employee_id).trigger('change');
                     element.find('.date-improve').datepicker("setDate", date);
-
-                    fileName = value.improve_attachment.split('/')
-                    element.find('.attachment-name').val(fileName[fileName.length - 1]);
+                    if(!value.improve_attachment){
+                        fileName = value.improve_attachment.split('/')
+                        element.find('.attachment-name').val(fileName[fileName.length - 1]);
+                    }
 
                     break;
                 default:
