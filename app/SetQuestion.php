@@ -13,9 +13,12 @@ class SetQuestion extends Model
     ];
 
     public function getCategories(){
-        $category_ids = json_decode($this->categories);
-        $categories = Category::whereNull('parent_id')->whereIn('id', $category_ids)->orderBy('order', 'ASC')->get();
-        return $categories;
+        if(!empty($this->categories)){
+            $category_ids = json_decode($this->categories, true);
+            $categories = Category::whereNull('parent_id')->whereIn('id', $category_ids)->orderBy('order', 'ASC')->get();
+            return $categories;
+        }
+        return [];
     }
 
     public function getQuestions(){

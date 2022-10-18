@@ -362,6 +362,13 @@
                 },
             })
         })
+        $("#modal-update-personnel").on('hide.bs.modal', function(){
+            edit_id = '';
+        });
+
+        $("#modal_assessment").on('hide.bs.modal', function(){
+            edit_id = '';
+        });
     })
 </script>
 @endsection

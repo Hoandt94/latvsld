@@ -12,6 +12,7 @@
     </thead>
     <tbody>
         @foreach($assessments as $key => $assessment)
+        @if($assessment->setQuestion->getCategories())
         <tr>
             <th scope="row">{{$key + 1}}</th>
             <td>
@@ -28,6 +29,7 @@
                 <button class="btn btn-primary btn-sm" id="update_personnel" data-id="{{$assessment->id}}">Nhân sự</button>
             </td>
         </tr>
+        @endif
         @endforeach
     </tbody>
 </table>
