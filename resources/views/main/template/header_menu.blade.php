@@ -35,7 +35,11 @@
                 </button>
                 <div id="m_header_topbar" class="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
                     <div class="m-stack__item m-topbar__nav-wrapper">
-                        <span class="m-badge m-badge--danger m-badge--wide">completed</span>
+                        @if(Auth::user()->company)
+                        <span class="m-badge m-badge--success m-badge--wide">{{Auth::user()->company->name}}</span>
+                        @else
+                        <span class="m-badge m-badge--danger m-badge--wide">Chưa có công ty</span>
+                        @endif
                         <ul class="m-topbar__nav m-nav m-nav--inline">
                             <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
                                 m-dropdown-toggle="click">

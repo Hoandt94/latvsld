@@ -400,11 +400,10 @@
                     break;
                 case 'no':
                     if(value.no_finish_date){
-                        console.log(value.no_finish_date);
                         date = new Date(value.no_finish_date);
+                        element.find('.date-no').datepicker("setDate", date);
                     }
                     element.find('.select-no-employee').val(value.no_employee_id).trigger('change');
-                    element.find('.date-no').datepicker("setDate", date);
 
                     break;
                 case 'improve':
