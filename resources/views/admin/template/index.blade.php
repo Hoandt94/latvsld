@@ -4,17 +4,23 @@
 		<meta charset="utf-8" />
 		@yield('meta_section')
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-		<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
 		<script>
 			WebFont.load({
 				google: {
-					"families": ["Roboto:300,400,500,600,700"]
+					"families": ["Arial:300,400,500,600,700"]
 				},
 				active: function() {
 					sessionStorage.fonts = true;
 				}
 			});
-		</script>
+		</script> -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+		<style>
+			* {
+				font-family: 'Open Sans' !important;
+			}
+		</style>
         @include('admin.template.header_asset')
         @yield('header_asset')
 	</head>

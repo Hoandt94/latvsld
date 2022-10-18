@@ -133,25 +133,34 @@ class AssessmentController extends Controller
             ];
             switch ($answer) {
                 case 'yes':
-                    $log['yes_note'] = $request->yes_note;
-                    $fileName = time() . '_' . $request->file('yes_attachment')->getClientOriginalName();  
-                    $request->yes_attachment->move(public_path('uploads'), $fileName);
-                    $log['yes_attachment'] = 'uploads/' . $fileName;
+                    if(!empty($request->yes_note))$log['yes_note'] = $request->yes_note;
+                    if(empty($request->yes_attachment_name)) $log['yes_attachment'] = '';
+                    if(!empty($request->file('yes_attachment'))){
+                        $fileName = time() . '_' . $request->file('yes_attachment')->getClientOriginalName();  
+                        $request->yes_attachment->move(public_path('uploads'), $fileName);
+                        $log['yes_attachment'] = 'uploads/' . $fileName;
+                    }
                     break;
                 case 'no':
                     # code...
-                    $log['no_employee_id'] = (int)$request->no_employee;
-                    $log['no_finish_date'] = Carbon::parse(strtotime(str_replace('/', '-', $request->no_date )))->setTimezone(config('app.timezone'));
+                    if(!empty($request->no_employee))$log['no_employee_id'] = (int)$request->no_employee;
+                    if(!empty($request->no_date)){
+                        $log['no_finish_date'] = Carbon::parse(strtotime(str_replace('/', '-', $request->no_date )))->setTimezone(config('app.timezone'));
+                    }
                     break;
                 case 'improve':
-                    $log['improve_note'] = $request->improve_note;
-                    $fileName = time() . '_' . $request->file('improve_attachment')->getClientOriginalName();  
-                    $request->improve_attachment->move(public_path('uploads'), $fileName);
-                    $log['improve_attachment'] = 'uploads/' . $fileName;
-                    $log['improve_employee_id'] = (int)$request->improve_employee;
-    
-                    $improve_date = Carbon::parse(strtotime(str_replace('/', '-', $request->improve_date )))->setTimezone(config('app.timezone'));
-                    $log['improve_finish_date'] = $improve_date->format('Y-m-d H:i:s');
+                    if(!empty($request->improve_note))$log['improve_note'] = $request->improve_note;
+                    if(empty($request->improve_attachment_name)) $log['improve_attachment'] = '';
+                    if(!empty($request->file('improve_attachment'))){
+                        $fileName = time() . '_' . $request->file('improve_attachment')->getClientOriginalName();  
+                        $request->improve_attachment->move(public_path('uploads'), $fileName);
+                        $log['improve_attachment'] = 'uploads/' . $fileName;
+                    }
+                    if(!empty($request->improve_employee))$log['improve_employee_id'] = (int)$request->improve_employee;
+                    if(!empty($request->improve_date)) {
+                        $improve_date = Carbon::parse(strtotime(str_replace('/', '-', $request->improve_date )))->setTimezone(config('app.timezone'));
+                        $log['improve_finish_date'] = $improve_date;
+                    }
                     # code...
                     break;  
                 default:

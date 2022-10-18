@@ -33,7 +33,7 @@
                 <div class="m-portlet__head-caption">
                     <div class="m-portlet__head-title">
                         <h3 class="m-portlet__head-text">
-                            Danh mục đánh giá
+                            Danh mục đánh giá: {{$assessment->name}}
                         </h3>
                     </div>
                 </div>
@@ -57,17 +57,17 @@
                                 $listQuestions = json_decode($assessment->setQuestion->questions, true);
                                 $listCategories = json_decode($assessment->setQuestion->categories, true);
                             ?>
-                            @foreach($categories as $category)
+                            @foreach($categories as $key => $category)
                             <?php 
                                 $subCategories = $category->getCategoryInSet($listCategories);
                             ?>
                             <tr>
                                 <td colspan="5">
-                                    <a>{{$category->name}}</a>
+                                    <a>{{$key + 1}}. {{$category->name}}</a>
                                 </td>
                             </tr>
                             @if(!empty($subCategories))
-                            @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listQuestions' => $listQuestions, 'listCategories' => $listCategories, 'assessment' => $assessment])
+                            @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listQuestions' => $listQuestions, 'listCategories' => $listCategories, 'assessment' => $assessment, 'parent_key' => $key + 1])
                             @endif
                             @endforeach
                         </tbody>

@@ -131,7 +131,7 @@
                                             <label class="m-radio m-radio--primary">
                                                 <input type="radio" class="checkbox-answer"
                                                     name="responseAnswer[{{$question->id}}]" value="yes"
-                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}"> Có
+                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}"> Đạt
                                                 <span></span>
                                             </label>
                                             <label class="m-radio m-radio--primary">
@@ -146,14 +146,6 @@
                                                     name="responseAnswer[{{$question->id}}]" value="improve"
                                                     indexquestion="{{$question->id}}" questionid="{{$question->id}}">
                                                 Cải thiện
-                                                <span></span>
-                                            </label>
-                                            <label class="m-radio m-radio--primary">
-                                                <input type="radio" class="checkbox-answer"
-                                                    name="responseAnswer[{{$question->id}}]" value="ignore"
-                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}">
-                                                Không áp
-                                                dụng
                                                 <span></span>
                                             </label>
                                         </div>
@@ -176,7 +168,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control attachment-name"
+                                                        <input type="text" class="form-control attachment-name yes-attachment-name"
                                                             name="yes-attachment-name"
                                                             placeholder="Bằng chứng tuân thủ">
                                                         <div class="input-group-append">
@@ -277,14 +269,25 @@
                                             </label>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div></div>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control attachment-name improve-attachment-name"
+                                                            name="improve-attachment-name"
+                                                            placeholder="Bằng chứng tuân thủ">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-primary" type="button">
+                                                                <input type="file" name="improve-attachment"
+                                                                    class="custom-file-input improve-attachment"> Chọn
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div></div>
                                                     <div class="custom-file">
                                                         <input type="file" name="improve-attachment"
                                                             class="custom-file-input improve-attachment"
                                                             id="customFile_improve">
                                                         <label class="custom-file-label label-primary"
                                                             for="customFile">Choose file</label>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -390,7 +393,8 @@
             switch (answer) {
                 case 'yes':
                     element.find('.yes-note').val(value.yes_note);
-                    // attachment = element.find('.yes-attachment')[0].files[0];
+                    fileName = value.yes_attachment.split('/')
+                    element.find('.attachment-name').val(fileName[fileName.length - 1]);
 
                     break;
                 case 'no':
@@ -403,9 +407,11 @@
                 case 'improve':
                     date = new Date(value.improve_finish_date);
                     element.find('.improve-note').val(value.improve_note);
-                    // attachment = element.find('.improve-attachment')[0].files[0];
                     element.find('.select-improve-employee').val(value.improve_employee_id).trigger('change');
                     element.find('.date-improve').datepicker("setDate", date);
+
+                    fileName = value.improve_attachment.split('/')
+                    element.find('.attachment-name').val(fileName[fileName.length - 1]);
 
                     break;
                 default:
@@ -442,65 +448,35 @@
                 switch (answer) {
                     case 'yes':
                         note = element.find('.yes-note').val();
-                        attachment = element.find('.yes-attachment')[0].files[0];
-                        // if(!note){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Nội dung tuân thủ không được để trống.", 'danger');
-                        //     break;
-                        // }
-                        // if(typeof attachment == 'undefined'){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Bằng chứng tuân thủ không được để trống", 'danger');
-                        //     break;
-                        // }
+                        fileName = element.find('.yes-attachment-name').val();
+                        files = element.find('.yes-attachment')[0].files;
+                        if(files.length){
+                            attachment = files[0];
+                            formData.append("yes_attachment", attachment, attachment.name);
+                        }
                         formData.append("yes_note", note);
-                        formData.append("yes_attachment", attachment, attachment.name);
+                        formData.append("yes_attachment_name", fileName);
                         break;
                     case 'no':
                         employee = element.find('.select-no-employee').val();
                         date = element.find('.date-no').val();
-                        // if(!employee){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Nhân viên thực hiện không được để trống.", 'danger');
-                        //     break;
-                        // }
-                        // if(!date){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Thời gian hoàn thành không được để trống", 'danger');
-                        //     break;
-                        // }
                         formData.append("no_employee", employee);
                         formData.append("no_date", date);
                         break;
                     case 'improve':
                         note = element.find('.improve-note').val();
-                        attachment = element.find('.improve-attachment')[0].files[0];
+                        fileName = element.find('.improve-attachment-name').val();
+                        files = element.find('.improve-attachment')[0].files;
+                        if(files.length){
+                            attachment = files[0];
+                            formData.append("improve_attachment", attachment, attachment.name);
+                        }
                         employee = element.find('.select-improve-employee').val();
                         date = element.find('.date-improve').val();
-                        // if(!employee){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Nhân viên thực hiện không được để trống.", 'danger');
-                        //     break;
-                        // }
-                        // if(!date){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Thời gian hoàn thành không được để trống", 'danger');
-                        //     break;
-                        // }
-                        // if(!note){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Nội dung cần cải thiện không được để trống.", 'danger');
-                        //     break;
-                        // }
-                        // if(typeof attachment == 'undefined'){
-                        //     checkValidate = false;
-                        //     showNotification("Lỗi", "Tập tin nội dung cần cải thiện không được để trống", 'danger');
-                        //     break;
-                        // }
                         formData.append("improve_note", note);
-                        formData.append("improve_attachment", attachment, attachment.name);
                         formData.append("improve_employee", employee);
                         formData.append("improve_date", date);
+                        formData.append("improve_attachment_name", fileName);
                         break;
                     default:
                         break;
@@ -530,4 +506,10 @@
         })
     })
 </script>
+<style>
+    .m-portlet.m-portlet--primary.m-portlet--head-solid-bg .m-portlet__head {
+        background-color: #0086c4;
+        border-color: #0086c4;
+    }
+</style>
 @endsection

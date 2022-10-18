@@ -1,11 +1,17 @@
-@foreach($subCategories as $category)
+@foreach($subCategories as $key => $category)
 <?php 
     $questions = $category->getQuestionInSet($listQuestions);
     $subCategories = $category->getCategoryInSet($listCategories);
     $answers = $assessment->getQuestionAnswered($category->id);
 ?>
 <tr>
-    <td class="pl-5"><a href="{{route('run_category_assessment', ['slug_assessment' => $assessment->slug(), 'slug_category' => $category->slug()])}}">{{$category->name}}</a></td>
+    <td class="pl-5">
+        @if(count($questions) !=0)
+        <a href="{{route('run_category_assessment', ['slug_assessment' => $assessment->slug(), 'slug_category' => $category->slug()])}}">{{$parent_key}}.{{$key+1}}. {{$category->name}}</a>
+        @else
+        {{$parent_key}}.{{$key+1}}. {{$category->name}}
+        @endif
+    </td>
     <td>{{count($questions)}}</td>
     <td>{{count($answers)}}</td>
     @if(count($questions) !=0)
@@ -13,9 +19,17 @@
     @else
     <td>0%</td>
     @endif
-    <td>1</td>
+    <td>
+        @if(count($questions) !=0)
+        <a href="{{route('run_category_assessment', ['slug_assessment' => $assessment->slug(), 'slug_category' => $category->slug()])}}" class="btn btn-primary btn-sm">Đánh giá</a>
+        <a class="btn btn-primary btn-sm">Xem báo cáo</a>
+        @else
+        <button class="btn btn-primary btn-sm">Đánh giá</button>
+        <button class="btn btn-primary btn-sm">Xem báo cáo</button>
+        @endif
+    </td>
     <tr>
     @if(!empty($subCategories))
-        @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listQuestions' => $listQuestions, 'listCategories' => $listCategories, 'assessment' => $assessment])
+        @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listQuestions' => $listQuestions, 'listCategories' => $listCategories, 'assessment' => $assessment, 'parent_key' => $parent_key . '.' . ($key+1)])
     @endif
 @endforeach

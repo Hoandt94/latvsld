@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Company;
+use App\SetQuestion;
+use App\CompanySetQuestion;
 use Validator;
 
 class CompanyController extends Controller
@@ -11,7 +13,8 @@ class CompanyController extends Controller
     //
     public function index(){
         $companies = Company::paginate(10);
-        return view('admin.company.index', ['companies' => $companies]);
+        $setQuestion = SetQuestion::where(['status' => 1])->get();
+        return view('admin.company.index', ['companies' => $companies, 'set_questions' => $setQuestion]);
     }
 
     public function create(Request $request){
@@ -20,7 +23,6 @@ class CompanyController extends Controller
                 'name' => 'required|unique:users',
                 'code' => 'required|unique:companies',
             ];
-              
             $messages = [
                 'required'  => ':attribute không được để trống.',
                 'unique'    => ':attribute đã được sử dụng',
@@ -35,6 +37,14 @@ class CompanyController extends Controller
                 'code' => $request->code,
                 'status' => isset($request->status) ? 1 : 0
             ]);
+            if(!empty($request->set_question) && $result){
+                foreach($request->set_question as $setQuestion){
+                    $companySetQuestion = CompanySetQuestion::create([
+                        'company_id' => $result->id,
+                        'set_question_id' => $setQuestion,
+                    ]);
+                }
+            }
             return response()->json(['status' => $result], 200);
         }
         catch(Exception $ex){
@@ -63,6 +73,15 @@ class CompanyController extends Controller
                 'code' => $request->code,
                 'status' => isset($request->status) ? 1 : 0
             ]);
+            CompanySetQuestion::where('company_id', $id)->delete();
+            if(!empty($request->set_question) && $result){
+                foreach($request->set_question as $setQuestion){
+                    $companySetQuestion = CompanySetQuestion::create([
+                        'company_id' => $id,
+                        'set_question_id' => $setQuestion,
+                    ]);
+                }
+            }
             return response()->json(['status' => $result], 200);
         }
         catch(Exception $ex){
@@ -72,6 +91,7 @@ class CompanyController extends Controller
 
     public function detail($userID){
         $type = Company::find($userID);
+        $type->getSetQuestion;
         return response()->json(['data' => $type], 200);
     }
 

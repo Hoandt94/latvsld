@@ -14,4 +14,8 @@ class Company extends Model
         'code', 
         'status',
     ];
+
+    public function getSetQuestion(){
+        return $this->hasMany('App\CompanySetQuestion', 'company_id', 'id');
+    }
 }

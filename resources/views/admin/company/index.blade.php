@@ -103,6 +103,17 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="message-text" class="form-control-label">Bộ câu hỏi</label>
+                                    <select class="form-control m-select2" id="set_question" style="width: 100%" name="set_question[]" multiple="multiple">
+                                        <option value="" disabled>Chọn bộ câu hỏi</option>
+                                        @foreach( $set_questions as $set_question)
+                                        <option value="{{$set_question->id}}">{{$set_question->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
                                 <div class="form-group row">
                                     <label for="message-text" class="col-3 col-form-label">Trạng thái</label>
                                     <div class="col-9">
@@ -132,6 +143,10 @@
 <script>
     edit_id = '';
     $(document).ready(function () {
+        $('#set_question').select2({
+			placeholder: "Chọn bộ câu hỏi"
+		});
+
         $('#form_create_company').on('submit', function (event) {
             event.preventDefault();
             dataSending = $(this).serializeArray();
@@ -201,6 +216,16 @@
                         type = result.data;
                         $('input[name="code"]').val(type.code);
                         $('input[name="name"]').val(type.name);
+                        setQuestions = type.get_set_question;
+                        console.log(setQuestions);
+                        list = [];
+                        $.each(setQuestions, function(key, value){
+                            console.log(value);
+                            list.push(value.set_question_id);
+                        });
+                        console.log(list);
+                        $('#set_question').val(list);
+                        $('#set_question').trigger('change');
                         $('#modal_company').modal('show');
                     }
                 }
