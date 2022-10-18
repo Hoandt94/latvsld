@@ -399,17 +399,22 @@
 
                     break;
                 case 'no':
-                    date = new Date(value.no_finish_date);
-                    console.log(element.find('.select-no-employee'));
+                    if(value.no_finish_date){
+                        console.log(value.no_finish_date);
+                        date = new Date(value.no_finish_date);
+                    }
                     element.find('.select-no-employee').val(value.no_employee_id).trigger('change');
                     element.find('.date-no').datepicker("setDate", date);
 
                     break;
                 case 'improve':
-                    date = new Date(value.improve_finish_date);
+                    if(value.improve_finish_date){
+                        date = new Date(value.improve_finish_date);
+                        element.find('.date-improve').datepicker("setDate", date);
+                    }
+                    
                     element.find('.improve-note').val(value.improve_note);
                     element.find('.select-improve-employee').val(value.improve_employee_id).trigger('change');
-                    element.find('.date-improve').datepicker("setDate", date);
                     if(!value.improve_attachment){
                         fileName = value.improve_attachment.split('/')
                         element.find('.attachment-name').val(fileName[fileName.length - 1]);
@@ -432,6 +437,7 @@
             e.preventDefault();
             elQuestions = $('.m-content').find('.response-answer');
             token = $("input[name='_token']").val();
+            checkResult = true;
             $.each(elQuestions, function (key, element) {
                 element = $(element)
                 question_id = element.attr('data-id');
@@ -447,7 +453,6 @@
                 formData.append("answer", answer);
 
                 checkValidate = true;
-                checkResult = true;
                 switch (answer) {
                     case 'yes':
                         note = element.find('.yes-note').val();
@@ -503,10 +508,10 @@
                         },
                     });
                 }
-                if(checkResult){
-                    showNotification("Thành công", "Lưu đánh giá thành công", 'success');
-                }
             })
+            if(checkResult){
+                showNotification("Thành công", "Lưu đánh giá thành công", 'success');
+            }
         })
 
         $('.custom-file-input').on('change', function () {
