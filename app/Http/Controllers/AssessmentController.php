@@ -236,6 +236,23 @@ class AssessmentController extends Controller
         $user = Auth::user();
         $companyID = $user->company_id;
         $companyInfo = CompanyInfo::where(['company_id' => $companyID, 'assessment_id' => $assessment_id])->first();
-        return response()->json(['data' => $companyInfo], 200); 
+        return response()->json(['data' => !empty($companyInfo) ? $companyInfo : []], 200); 
+    }
+
+    public function result($slugAssessment, $slugCategory){
+        $slugAssessment = explode('-', $slugAssessment);
+        $assessmentID = $slugAssessment[0];
+        $assessment = Assessment::find($assessmentID);
+
+        $slugCategory = explode('-', $slugCategory);
+        $categoryID = $slugCategory[0];
+        $category = Category::find($categoryID);
+        
+        $user = Auth::user();
+        $users = User::where('company_id', $assessment->company_id)->get();
+        $listQuestionID = $category->getQuestion->modelKeys();
+
+        $answers = SurveyResult::where(['assessment_id' => $assessment->id])->whereIn('question_id', $listQuestionID)->get();
+        return view('main.assessment.result', ['assessment' => $assessment, 'category' => $category, 'users' => $users, 'answers' => $answers]);
     }
 }

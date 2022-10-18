@@ -22,10 +22,10 @@
     <td>
         @if(count($questions) !=0)
         <a href="{{route('run_category_assessment', ['slug_assessment' => $assessment->slug(), 'slug_category' => $category->slug()])}}" class="btn btn-primary btn-sm">Đánh giá</a>
-        <a href="{{route('run_category_assessment', ['slug_assessment' => $assessment->slug(), 'slug_category' => $category->slug()])}}" class="btn btn-primary btn-sm">Xem báo cáo</a>
+        <a href="{{route('result_category_assessment', ['slug_assessment' => $assessment->slug(), 'slug_category' => $category->slug()])}}" class="btn btn-primary btn-sm">Xem kết quả</a>
         @else
         <button class="btn btn-primary btn-sm">Đánh giá</button>
-        <button class="btn btn-primary btn-sm">Xem báo cáo</button>
+        <button class="btn btn-primary btn-sm">Xem kết quả</button>
         @endif
     </td>
     <tr>

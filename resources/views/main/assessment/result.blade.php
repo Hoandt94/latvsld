@@ -58,7 +58,7 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="m-section">
                     <div class="m-section__content">
-                        <div class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2 portlet-question">
+                        <div class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2">
                             <div class="m-portlet__head" style="background-color: initial; border-color: #ebedf2">
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
@@ -74,7 +74,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2 portlet-question">
+                        <div class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2">
                             <div class="m-portlet__head" style="background-color: initial; border-color: #ebedf2">
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
@@ -88,20 +88,20 @@
                                 {!!$question->required!!}
                             </div>
                         </div>
-                        <div class="m-accordion m-accordion--bordered" id="m_accordion_{{$index}}" role="tablist">
+                        <div class="m-accordion m-accordion--bordered" id="m_accordion_2" role="tablist">
 
                             <div class="m-accordion__item">
-                                <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_{{$index}}_head"
-                                    data-toggle="collapse" href="#m_accordion_{{$index}}_body" aria-expanded="    false">
+                                <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_2_item_3_head"
+                                    data-toggle="collapse" href="#m_accordion_2_item_3_body" aria-expanded="    false">
                                     <!-- <span class="m-accordion__item-icon">
                                     <i class="fa flaticon-alert-2"></i>
                                 </span> -->
                                     <span class="m-accordion__item-title">Hướng dẫn thực hiện</span>
                                     <span class="m-accordion__item-mode"></span>
                                 </div>
-                                <div class="m-accordion__item-body collapse" id="m_accordion_{{$index}}_body"
-                                    role="tabpanel" aria-labelledby="m_accordion_{{$index}}_head"
-                                    data-parent="#m_accordion_{{$index}}">
+                                <div class="m-accordion__item-body collapse" id="m_accordion_2_item_3_body"
+                                    role="tabpanel" aria-labelledby="m_accordion_2_item_3_head"
+                                    data-parent="#m_accordion_2">
                                     <div class="m-accordion__item-content">
                                         {!!$question->guide!!}
                                     </div>
@@ -337,7 +337,8 @@
         <div class="question-control fixed row" id="questionControl">
             <div class="col-md-8">
                 <button type="button" id="submitAnswer" class="btn btn-success">Lưu Trả Lời</button>
-                <a type="button" class="btn btn-primary" href="{{route('run_assessment', $assessment->slug())}}">Quay lại</a>
+                <a type="button" class="btn btn-primary" href="/">Quay lại</a>
+                <a type="button" class="btn btn-info" href="/">Tiếp theo</a>
             </div>
             <div class="col-md-4">
                 <div>Tổng số câu hỏi: {{count($category->getQuestionInSet($listQuestions))}}</div>
@@ -444,7 +445,6 @@
                 formData.append("answer", answer);
 
                 checkValidate = true;
-                checkResult = true;
                 switch (answer) {
                     case 'yes':
                         note = element.find('.yes-note').val();
@@ -489,19 +489,12 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            if(!data.status){
-                                checkResult = false;
-                                showNotification("Lỗi", "Lưu đánh giá câu hỏi thứ " + (key+1) + " không thành công" , 'danger');
-                            }
                             // your callback here
                         },
                         error: function (error) {
                             // handle error
                         },
                     });
-                }
-                if(checkResult){
-                    showNotification("Thành công", "Lưu đánh giá thành công", 'success');
                 }
             })
         })

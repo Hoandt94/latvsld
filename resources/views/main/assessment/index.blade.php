@@ -320,13 +320,15 @@
                 method: "GET",
                 success: function (result) {
                     data = result.data;
-                    $('input[name="total_personnel"]').val(data.total_employee);
-                    $('input[name="total_women_personnel"]').val(data.total_female_employee);
-                    $('input[name="total_group1"]').val(data.total_type_1);
-                    $('input[name="total_group2"]').val(data.total_type_2);
-                    $('input[name="total_group3"]').val(data.total_type_3);
-                    $('input[name="total_group4"]').val(data.total_type_4);
-                    $('input[name="total_group5"]').val(data.total_type_5);
+                    if(data){
+                        $('input[name="total_personnel"]').val(data.total_employee);
+                        $('input[name="total_women_personnel"]').val(data.total_female_employee);
+                        $('input[name="total_group1"]').val(data.total_type_1);
+                        $('input[name="total_group2"]').val(data.total_type_2);
+                        $('input[name="total_group3"]').val(data.total_type_3);
+                        $('input[name="total_group4"]').val(data.total_type_4);
+                        $('input[name="total_group5"]').val(data.total_type_5);
+                    }
                     $('#modal-update-personnel').modal('show');
                 },
             })
