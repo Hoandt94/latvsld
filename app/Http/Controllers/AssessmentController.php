@@ -255,4 +255,13 @@ class AssessmentController extends Controller
         $answers = SurveyResult::where(['assessment_id' => $assessment->id])->whereIn('question_id', $listQuestionID)->get();
         return view('main.assessment.result', ['assessment' => $assessment, 'category' => $category, 'users' => $users, 'answers' => $answers]);
     }
+
+    public function assessmentResult($slugAssessment){
+        $arraySlug = explode('-', $slugAssessment);
+        $id = $arraySlug[0];
+        $assessment = Assessment::find($id);
+        $user = Auth::user();
+        if($user->company_id == $assessment->company_id)return view('main.assessment.assessment_result', ['assessment' => $assessment]);
+        else return redirect()->route('assessment');
+    }
 }

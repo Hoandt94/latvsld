@@ -32,10 +32,6 @@
             <div class="col-md-6">
                 <h5>{{$category->name}}</h5>
             </div>
-            <div class="col-md-6">
-                <button class="btn btn-primary pull-right mr-3">Xem khảo sát</button>
-                <!-- <button class="btn btn-primary pull-right mr-3">Trả lời nhanh</button> -->
-            </div>
         </div>
         <?php 
             $categories = $assessment->setQuestion->getCategories();
@@ -92,7 +88,7 @@
 
                             <div class="m-accordion__item">
                                 <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_2_item_3_head"
-                                    data-toggle="collapse" href="#m_accordion_2_item_3_body" aria-expanded="    false">
+                                    data-toggle="collapse" href="#m_accordion_2_item_3_body" aria-expanded="false">
                                     <!-- <span class="m-accordion__item-icon">
                                     <i class="fa flaticon-alert-2"></i>
                                 </span> -->
@@ -131,20 +127,20 @@
                                             <label class="m-radio m-radio--primary">
                                                 <input type="radio" class="checkbox-answer"
                                                     name="responseAnswer[{{$question->id}}]" value="yes"
-                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}"> Đạt
+                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}" disabled="true"> Đạt
                                                 <span></span>
                                             </label>
                                             <label class="m-radio m-radio--primary">
                                                 <input type="radio" class="checkbox-answer"
                                                     name="responseAnswer[{{$question->id}}]" value="no"
-                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}">
+                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}" disabled="true">
                                                 Không
                                                 <span></span>
                                             </label>
                                             <label class="m-radio m-radio--primary">
                                                 <input type="radio" class="checkbox-answer"
                                                     name="responseAnswer[{{$question->id}}]" value="improve"
-                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}">
+                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}" disabled="true">
                                                 Cải thiện
                                                 <span></span>
                                             </label>
@@ -159,7 +155,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <textarea id="comment" name="yes-note" class="form-control yes-note"
-                                                        rows="5"></textarea>
+                                                        rows="5" disabled="true"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -170,11 +166,11 @@
                                                     <div class="input-group">
                                                         <input type="text" class="form-control attachment-name yes-attachment-name"
                                                             name="yes-attachment-name"
-                                                            placeholder="Bằng chứng tuân thủ">
+                                                            placeholder="Bằng chứng tuân thủ" disabled="true">
                                                         <div class="input-group-append">
-                                                            <button class="btn btn-primary" type="button">
+                                                            <button class="btn btn-primary" type="button" style="cursor: not-allowedd">
                                                                 <input type="file" name="yes-attachment"
-                                                                    class="custom-file-input yes-attachment"> Chọn
+                                                                    class="custom-file-input yes-attachment" disabled="true"> Chọn
                                                             </button>
                                                         </div>
                                                     </div>
@@ -206,15 +202,12 @@
                                         <div class="form-group">
                                             <label class="label-control">Mức Phạt Hành Chính: </label>
                                             <?php 
-                                                $penaltyMin = json_decode($question->penalty_min, true);
-                                                $penaltyMax = json_decode($question->penalty_max, true);
+                                                $penalty = $question->getPenalty();
                                             ?>
                                             <div class="row area_explain penaltyQuestion">
-                                                @foreach($penaltyMin as $key => $penalty)
                                                 <div class="col-sm-12">
-                                                    <p>{{$penalty}} - {{$penaltyMax[$key]}}</p>
+                                                    <p>{{number_format($penalty['min'], 2)}} - {{number_format($penalty['max'], 2)}}</p>
                                                 </div>
-                                                @endforeach
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -233,7 +226,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <select class="form-control select-employee select-no-employee"
-                                                        name="no-employee" style="width: 100%">
+                                                        name="no-employee" style="width: 100%" disabled="true">
                                                         <option value="" disabled>Nhân viên thực hiện</option>
                                                         @foreach( $users as $user)
                                                         <option value="{{$user->id}}">{{$user->name}} -
@@ -248,7 +241,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <input type="text" class="form-control date-selected date-no"
-                                                        name="no-date" readonly placeholder="Select date" />
+                                                        name="no-date" readonly placeholder="Select date" disabled="true"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -260,7 +253,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <textarea id="comment" name="improve-note"
-                                                        class="form-control improve-note" rows="5"></textarea>
+                                                        class="form-control improve-note" rows="5" disabled="true"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,11 +265,11 @@
                                                     <div class="input-group">
                                                         <input type="text" class="form-control attachment-name improve-attachment-name"
                                                             name="improve-attachment-name"
-                                                            placeholder="Bằng chứng tuân thủ">
+                                                            placeholder="Bằng chứng tuân thủ" disabled="true">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary" type="button">
                                                                 <input type="file" name="improve-attachment"
-                                                                    class="custom-file-input improve-attachment"> Chọn
+                                                                    class="custom-file-input improve-attachment" disabled="true"> Chọn
                                                             </button>
                                                         </div>
                                                     </div>
@@ -306,7 +299,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <select class="form-control select-employee select-improve-employee"
-                                                        name="improve-employee" style="width: 100%">
+                                                        name="improve-employee" style="width: 100%" disabled="true">
                                                         <option value="" disabled>Nhân viên thực hiện</option>
                                                         @foreach( $users as $user)
                                                         <option value="{{$user->id}}">{{$user->name}}</option>
@@ -321,7 +314,7 @@
                                                 <div class="col-md-12">
                                                     <input type="text" class="form-control date-selected date-improve"
                                                         name="improve-date" id="improve-{{$index}}-date" readonly
-                                                        placeholder="Select date" />
+                                                        placeholder="Select date" disabled="true"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -334,18 +327,6 @@
             </div>
         </div>
         @endforeach
-        <div class="question-control fixed row" id="questionControl">
-            <div class="col-md-8">
-                <button type="button" id="submitAnswer" class="btn btn-success">Lưu Trả Lời</button>
-                <a type="button" class="btn btn-primary" href="/">Quay lại</a>
-                <a type="button" class="btn btn-info" href="/">Tiếp theo</a>
-            </div>
-            <div class="col-md-4">
-                <div>Tổng số câu hỏi: {{count($category->getQuestionInSet($listQuestions))}}</div>
-                <div>Số câu đã trả lời: <span class="total-anser-label"
-                        yesno="1">{{count($assessment->getQuestionAnswered($category->id))}}</span></div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection

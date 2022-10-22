@@ -30,4 +30,20 @@ class Question extends Model
     public function getCategory(){
         return $this->belongsTo('App\Category', 'category_id', 'id');
     }
+
+    public function getPenalty(){
+        $min = 0;
+        $max = 0;
+        if(!empty($this->penalty_min)){
+            foreach(json_decode($this->penalty_min, true) as $penalty){
+                $min+=$penalty;
+            }
+        }
+        if(!empty($this->penalty_max)){
+            foreach(json_decode($this->penalty_max, true) as $penalty){
+                $max+=$penalty;
+            }
+        }
+        return ['min' => $min, 'max' => $max];
+    }
 }

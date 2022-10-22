@@ -35,4 +35,72 @@ class Assessment extends Model
         $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->get();
         return $answers;
     }
+
+    public function countQuestionAnswered($categoryID){
+        $category = Category::find($categoryID);
+        $subCategories = $category->getSubCategory;
+        $count = 0;
+        if(count($subCategories)){
+            foreach($subCategories as $subCategory){
+                $count+= $this->countQuestionAnswered($subCategory->id);
+            }
+            return $count;
+        }
+        else{
+            $listQuestionID = $category->getQuestion->modelKeys();
+            $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->get();
+            return count($answers);
+        }
+    }
+
+    public function countAnswerImprove($categoryID){
+        $category = Category::find($categoryID);
+        $subCategories = $category->getSubCategory;
+        $count = 0;
+        if(count($subCategories)){
+            foreach($subCategories as $subCategory){
+                $count+= $this->countAnswerImprove($subCategory->id);
+            }
+            return $count;
+        }
+        else{
+            $listQuestionID = $category->getQuestion->modelKeys();
+            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'improve'])->whereIn('question_id', $listQuestionID)->get();
+            return count($answers);
+        }
+    }
+
+    public function countAnswerYes($categoryID){
+        $category = Category::find($categoryID);
+        $subCategories = $category->getSubCategory;
+        $count = 0;
+        if(count($subCategories)){
+            foreach($subCategories as $subCategory){
+                $count+= $this->countAnswerYes($subCategory->id);
+            }
+            return $count;
+        }
+        else{
+            $listQuestionID = $category->getQuestion->modelKeys();
+            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'yes'])->whereIn('question_id', $listQuestionID)->get();
+            return count($answers);
+        }
+    }
+
+    public function countAnswerNo($categoryID){
+        $category = Category::find($categoryID);
+        $subCategories = $category->getSubCategory;
+        $count = 0;
+        if(count($subCategories)){
+            foreach($subCategories as $subCategory){
+                $count+= $this->countAnswerNo($subCategory->id);
+            }
+            return $count;
+        }
+        else{
+            $listQuestionID = $category->getQuestion->modelKeys();
+            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'no'])->whereIn('question_id', $listQuestionID)->get();
+            return count($answers);
+        }
+    }
 }
