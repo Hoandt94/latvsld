@@ -24,6 +24,6 @@
     </td>
 <tr>
 @if(!empty($subCategories))
-    @include('main.assessment.list_category', ['subCategories' => $subCategories, 'listCategories' => $listCategories, 'assessment' => $assessment, 'parent_key' => $parent_key . '.' . ($key+1)])
+    @include('main.assessment.list_category_result', ['subCategories' => $subCategories, 'listCategories' => $listCategories, 'assessment' => $assessment, 'parent_key' => $parent_key . '.' . ($key+1)])
 @endif
 @endforeach
