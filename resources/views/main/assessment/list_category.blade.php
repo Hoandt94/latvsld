@@ -15,7 +15,7 @@
     <td>{{count($questions)}}</td>
     <td>{{count($answers)}}</td>
     @if(count($questions) !=0)
-    <td>{{(count($answers) / count($questions)) * 100}}%</td>
+    <td>{{round((count($answers) / count($questions)) * 100)}}%</td>
     @else
     <td>0%</td>
     @endif

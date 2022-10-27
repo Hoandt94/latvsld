@@ -20,7 +20,8 @@ class AssessmentController extends Controller
     //
     public function index(){
         $setQuestions = SetQuestion::all();
-        $assessments = Assessment::paginate(10);
+        $user = Auth::user();
+        $assessments = Assessment::where('company_id', $user->company_id)->paginate(10);
         return view('main.assessment.index', ['set_questions' => $setQuestions, 'assessments' => $assessments]);
     }
 
@@ -262,6 +263,15 @@ class AssessmentController extends Controller
         $assessment = Assessment::find($id);
         $user = Auth::user();
         if($user->company_id == $assessment->company_id)return view('main.assessment.assessment_result', ['assessment' => $assessment]);
+        else return redirect()->route('assessment');
+    }
+
+    public function assessmentChart($slugAssessment){
+        $arraySlug = explode('-', $slugAssessment);
+        $id = $arraySlug[0];
+        $assessment = Assessment::find($id);
+        $user = Auth::user();
+        if($user->company_id == $assessment->company_id)return view('main.assessment.assessment_report', ['assessment' => $assessment]);
         else return redirect()->route('assessment');
     }
 }

@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('main.template.index');
+    return redirect()->route('assessment');
 });
-Route::group(['prefix' => 'assessment', 'middleware' => ['adminLogin']], function () {
+Route::group(['prefix' => 'assessment', 'middleware' => ['userLogin']], function () {
     Route::get('/', 'AssessmentController@index')->name('assessment');
     Route::any('/create', 'AssessmentController@create')->name('create_assessment');
     Route::any('/{id}/update', 'AssessmentController@update')->name('update_assessment');
@@ -28,6 +28,7 @@ Route::group(['prefix' => 'assessment', 'middleware' => ['adminLogin']], functio
     Route::post('/update_personnel', 'AssessmentController@updatePersonnel')->name('update_personnel');
     Route::get('/{assessment_id}/company_info', 'AssessmentController@getCompanyInfo')->name('get_company_info');
     Route::get('/{slug_assessment}/summary', 'AssessmentController@assessmentResult')->name('result_assessment');
+    Route::get('/{slug_assessment}/chart', 'AssessmentController@assessmentChart')->name('chart_assessment');
 });
 
 Route::get('/login', 'UserController@login')->name('login');

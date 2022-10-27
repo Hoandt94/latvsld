@@ -195,7 +195,8 @@
 
     $(document).ready(function () {
         $('#set_question').select2({
-			placeholder: "Chọn bộ câu hỏi"
+			placeholder: "Chọn bộ câu hỏi",
+            dropdownParent: $('#modal_assessment')
 		});
         $('#form_create_form').on('submit', function (event) {
             event.preventDefault();
