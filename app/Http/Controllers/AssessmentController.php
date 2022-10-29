@@ -274,4 +274,9 @@ class AssessmentController extends Controller
         if($user->company_id == $assessment->company_id)return view('main.assessment.assessment_report', ['assessment' => $assessment]);
         else return redirect()->route('assessment');
     }
+
+    public function reloadImproveAnswer($id, Request $request){
+        $answers = SurveyResult::where(['assessment_id' => $id, 'answer' => 'improve'])->paginate(10);
+        return view('main.assessment.list_improve', ['answers' => $answers])->render();
+    }
 }

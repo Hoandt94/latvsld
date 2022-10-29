@@ -25,4 +25,16 @@ class SurveyResult extends Model
         'improve_employee_id', 
         'improve_finish_date'
     ];
+
+    public function getQuestion(){
+        return $this->belongsTo('App\Question', 'question_id', 'id');
+    }
+
+    public function getImproveEmployee(){
+        return $this->belongsTo('App\User', 'improve_employee_id', 'id');
+    }
+
+    public function getNoEmployee(){
+        return $this->belongsTo('App\User', 'no_employee_id', 'id');
+    }
 }

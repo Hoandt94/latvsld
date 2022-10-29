@@ -29,6 +29,7 @@ Route::group(['prefix' => 'assessment', 'middleware' => ['userLogin']], function
     Route::get('/{assessment_id}/company_info', 'AssessmentController@getCompanyInfo')->name('get_company_info');
     Route::get('/{slug_assessment}/summary', 'AssessmentController@assessmentResult')->name('result_assessment');
     Route::get('/{slug_assessment}/chart', 'AssessmentController@assessmentChart')->name('chart_assessment');
+    Route::get('/{id}/improve_answer', 'AssessmentController@reloadImproveAnswer')->name('improve_answer_assessment');
 });
 
 Route::get('/login', 'UserController@login')->name('login');

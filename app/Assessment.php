@@ -103,4 +103,42 @@ class Assessment extends Model
             return count($answers);
         }
     }
+
+    public function countAllAnswered(){
+        $categories = $this->setQuestion->getAllCategories();
+        $result = [];
+        foreach($categories as $category){
+            $answersYes = $this->countAnswerYes($category->id);
+            $answersNo = $this->countAnswerNo($category->id);
+            $answersImprove = $this->countAnswerImprove($category->id);
+            $answers = $this->countQuestionAnswered($category->id);
+            $result[] = [
+                'name' => $category->name,
+                'yes' => $answersYes,
+                'no' => $answersNo,
+                'improve' => $answersImprove,
+                'total' => $answers,
+                'id' => $category->id,
+                'parent_id' => $category->parent_id
+            ];
+        }
+        return $this->parent_sort($result);
+    }
+
+    function getAllAnswerImprove(){
+        $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'improve'])->get();
+        return $answers;
+    }
+
+    public function parent_sort(array $objects, array &$result=array(), $parent=0, $depth=0) {
+        foreach ($objects as $key => $object) {
+            if ($object['parent_id'] == $parent) {
+                $object['depth'] = $depth;
+                array_push($result, $object);
+                unset($objects[$key]);
+                $this->parent_sort($objects, $result, $object['id'], $depth + 1);
+            }
+        }
+        return $result;
+    }
 }

@@ -21,6 +21,15 @@ class SetQuestion extends Model
         return [];
     }
 
+    public function getAllCategories(){
+        if(!empty($this->categories)){
+            $category_ids = json_decode($this->categories, true);
+            $categories = Category::whereIn('id', $category_ids)->orderBy('order', 'ASC')->get();
+            return $categories;
+        }
+        return [];
+    }
+
     public function getQuestions(){
         $questions_ids = json_decode($this->questions);
         $questions = Question::whereIn('id', $category_ids)->orderBy('order', 'ASC')->get();

@@ -6,13 +6,12 @@
     $countNo = $assessment->countAnswerNo($category->id);
     $countImprove = $assessment->countAnswerImprove($category->id);
 
-    $dataChartDetail[$category->id] = $count;
-    $dataChartDetailYes[$category->id] = $countYes;
-    $dataChartDetailNo[$category->id] = $countNo;
-    $dataChartDetailImprove[$category->id] = $countImprove;
-    $dataChartDetailLabel[$category->id] = $category->name;
+    // $dataChartDetail[$category->id] = $count;
+    // $dataChartDetailYes[$category->id] = $countYes;
+    // $dataChartDetailNo[$category->id] = $countNo;
+    // $dataChartDetailImprove[$category->id] = $countImprove;
+    // $dataChartDetailLabel[$category->id] = $category->name;
 ?>
-@dump($dataChartDetailLabel)
 @if($count!=0)
 <tr>
     <td class="pl-5">
