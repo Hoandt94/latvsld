@@ -21,6 +21,9 @@
                                         <a href="{{url('/') . $answer->getQuestion->sample_attachment}}">{{basename($answer->getQuestion->sample_attachment)}}</a>
                                     </td>
                                     <td>
+                                        {{$answer->improve_note}}
+                                    </td>
+                                    <td>
                                         {{$answer->getImproveEmployee->name}}
                                     </td>
                                     <td>

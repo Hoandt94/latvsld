@@ -174,11 +174,11 @@
                         </div>
                     </div>
                     <div class="tab-pane" id="m_portlet_base_demo_1_3_tab_content" role="tabpanel">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="list-improve-answer"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="list-improve-answer"></div>
+                            </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
