@@ -58,7 +58,8 @@
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                 <div class="m-section">
                     <div class="m-section__content">
-                        <div class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2 portlet-question">
+                        <div
+                            class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2 portlet-question">
                             <div class="m-portlet__head" style="background-color: initial; border-color: #ebedf2">
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
@@ -70,11 +71,12 @@
                             </div>
                             <div class="m-portlet__body">
                                 @foreach(json_decode($question->term, true) as $term)
-                                    <p>{{$term}}</p>
+                                <p>{{$term}}</p>
                                 @endforeach
                             </div>
                         </div>
-                        <div class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2 portlet-question">
+                        <div
+                            class="m-portlet m-portlet--bordered m-portlet--rounded  m-portlet--last mb-2 portlet-question">
                             <div class="m-portlet__head" style="background-color: initial; border-color: #ebedf2">
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
@@ -91,8 +93,9 @@
                         <div class="m-accordion m-accordion--bordered" id="m_accordion_{{$index}}" role="tablist">
 
                             <div class="m-accordion__item">
-                                <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_{{$index}}_head"
-                                    data-toggle="collapse" href="#m_accordion_{{$index}}_body" aria-expanded="    false">
+                                <div class="m-accordion__item-head collapsed" role="tab"
+                                    id="m_accordion_{{$index}}_head" data-toggle="collapse"
+                                    href="#m_accordion_{{$index}}_body" aria-expanded="    false">
                                     <!-- <span class="m-accordion__item-icon">
                                     <i class="fa flaticon-alert-2"></i>
                                 </span> -->
@@ -131,7 +134,8 @@
                                             <label class="m-radio m-radio--primary">
                                                 <input type="radio" class="checkbox-answer"
                                                     name="responseAnswer[{{$question->id}}]" value="yes"
-                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}"> Đạt
+                                                    indexquestion="{{$question->id}}" questionid="{{$question->id}}">
+                                                Đạt
                                                 <span></span>
                                             </label>
                                             <label class="m-radio m-radio--primary">
@@ -168,7 +172,8 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control attachment-name yes-attachment-name"
+                                                        <input type="text"
+                                                            class="form-control attachment-name yes-attachment-name"
                                                             name="yes-attachment-name"
                                                             placeholder="Bằng chứng tuân thủ">
                                                         <div class="input-group-append">
@@ -212,7 +217,8 @@
                                             <div class="row area_explain penaltyQuestion">
                                                 @foreach($penaltyMin as $key => $penalty)
                                                 <div class="col-sm-12">
-                                                    <p>{{number_format($penalty, 2)}} - {{number_format($penaltyMax[$key], 2)}}</p>
+                                                    <p>{{number_format($penalty, 2)}} -
+                                                        {{number_format($penaltyMax[$key], 2)}}</p>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -231,8 +237,8 @@
                                             <label class="label-control">Ghi Lại Những Nội Dung Cần Thực Hiện: </label>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <textarea id="comment" name="no-note"
-                                                        class="form-control no-note" rows="5"></textarea>
+                                                    <textarea id="comment" name="no-note" class="form-control no-note"
+                                                        rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -242,9 +248,9 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control attachment-name no-attachment-name"
-                                                            name="no-attachment-name"
-                                                            placeholder="Bằng chứng tuân thủ">
+                                                        <input type="text"
+                                                            class="form-control attachment-name no-attachment-name"
+                                                            name="no-attachment-name" placeholder="Bằng chứng tuân thủ">
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary" type="button">
                                                                 <input type="file" name="no-attachment"
@@ -305,7 +311,8 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="input-group">
-                                                        <input type="text" class="form-control attachment-name improve-attachment-name"
+                                                        <input type="text"
+                                                            class="form-control attachment-name improve-attachment-name"
                                                             name="improve-attachment-name"
                                                             placeholder="Bằng chứng tuân thủ">
                                                         <div class="input-group-append">
@@ -372,11 +379,12 @@
         <div class="question-control fixed row" id="questionControl">
             <div class="col-md-8">
                 <button type="button" id="submitAnswer" class="btn btn-success">Lưu Trả Lời</button>
-                <a type="button" class="btn btn-primary" href="{{route('run_assessment', $assessment->slug())}}">Quay lại</a>
+                <a type="button" class="btn btn-primary" href="{{route('run_assessment', $assessment->slug())}}">Quay
+                    lại</a>
             </div>
             <div class="col-md-4">
-                <div>Tổng số câu hỏi: {{count($category->getQuestionInSet($listQuestions))}}</div>
-                <div>Số câu đã trả lời: <span class="total-anser-label"
+                <div id="total-question">Tổng số câu hỏi: {{count($category->getQuestionInSet($listQuestions))}}</div>
+                <div id="total-answered">Số câu đã trả lời: <span class="total-anser-label"
                         yesno="1">{{count($assessment->getQuestionAnswered($category->id))}}</span></div>
             </div>
         </div>
@@ -387,8 +395,26 @@
 <link href="{{asset('css/custom.css')}}" rel="stylesheet" type="text/css" />
 <script>
     assessment_id = '{!!$assessment->id!!}';
+    category_id = '{!!$category->id!!}';
     answers = JSON.parse('{!!$answers!!}');
-    console.log(answers);
+    function reloadSummary(assessment_id, category_id) {
+        url = '{{ route("count_category_assessment", ["assessment_id" => ":assessment_id", "category_id" => ":category_id"]) }}';
+        url = url.replace(':assessment_id', assessment_id);
+        url = url.replace(':category_id', category_id);
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (data) {
+                // your callback here
+                $('#total-question').text(data.data.total)
+                $('#total-answered').text(data.data.answered)
+            },
+            error: function (error) {
+                // handle error
+            },
+        });
+    }
+
     $(document).ready(function () {
 
         var arrows;
@@ -427,31 +453,35 @@
             switch (answer) {
                 case 'yes':
                     element.find('.yes-note').val(value.yes_note);
-                    if(!value.yes_attachment){
+                    if (value.yes_attachment) {
                         fileName = value.yes_attachment.split('/')
-                        element.find('.attachment-name').val(fileName[fileName.length - 1]);
+                        element.find('.yes-attachment-name').val(fileName[fileName.length - 1]);
                     }
 
                     break;
                 case 'no':
-                    if(value.no_finish_date){
+                    if (value.no_finish_date) {
                         date = new Date(value.no_finish_date);
                         element.find('.date-no').datepicker("setDate", date);
                     }
                     element.find('.select-no-employee').val(value.no_employee_id).trigger('change');
-
+                    element.find('.no-note').val(value.no_note);
+                    if (value.no_attachment) {
+                        fileName = value.no_attachment.split('/');
+                        element.find('.no-attachment-name').val(fileName[fileName.length - 1]);
+                    }
                     break;
                 case 'improve':
-                    if(value.improve_finish_date){
+                    if (value.improve_finish_date) {
                         date = new Date(value.improve_finish_date);
                         element.find('.date-improve').datepicker("setDate", date);
                     }
-                    
+
                     element.find('.improve-note').val(value.improve_note);
                     element.find('.select-improve-employee').val(value.improve_employee_id).trigger('change');
-                    if(!value.improve_attachment){
+                    if (value.improve_attachment) {
                         fileName = value.improve_attachment.split('/')
-                        element.find('.attachment-name').val(fileName[fileName.length - 1]);
+                        element.find('.improve-attachment-name').val(fileName[fileName.length - 1]);
                     }
 
                     break;
@@ -492,7 +522,7 @@
                         note = element.find('.yes-note').val();
                         fileName = element.find('.yes-attachment-name').val();
                         files = element.find('.yes-attachment')[0].files;
-                        if(files.length){
+                        if (files.length) {
                             attachment = files[0];
                             formData.append("yes_attachment", attachment, attachment.name);
                         }
@@ -506,9 +536,10 @@
                         formData.append("no_date", date);
 
                         note = element.find('.no-note').val();
+                        formData.append("no_note", note);
                         fileName = element.find('.no-attachment-name').val();
                         files = element.find('.no-attachment')[0].files;
-                        if(files.length){
+                        if (files.length) {
                             attachment = files[0];
                             formData.append("no_attachment", attachment, attachment.name);
                         }
@@ -517,7 +548,7 @@
                         note = element.find('.improve-note').val();
                         fileName = element.find('.improve-attachment-name').val();
                         files = element.find('.improve-attachment')[0].files;
-                        if(files.length){
+                        if (files.length) {
                             attachment = files[0];
                             formData.append("improve_attachment", attachment, attachment.name);
                         }
@@ -539,11 +570,12 @@
                         contentType: false,
                         processData: false,
                         success: function (data) {
-                            if(!data.status){
+                            if (!data.status) {
                                 checkResult = false;
-                                showNotification("Lỗi", "Lưu đánh giá câu hỏi thứ " + (key+1) + " không thành công" , 'danger');
+                                showNotification("Lỗi", "Lưu đánh giá câu hỏi thứ " + (key + 1) + " không thành công", 'danger');
                             }
                             // your callback here
+                            reloadSummary(assessment_id, category_id);
                         },
                         error: function (error) {
                             // handle error
@@ -551,7 +583,7 @@
                     });
                 }
             })
-            if(checkResult){
+            if (checkResult) {
                 showNotification("Thành công", "Lưu đánh giá thành công", 'success');
             }
         })
@@ -561,6 +593,8 @@
             value = $(this).val();
             elementName = element.find('.attachment-name').val(value.replace("C:\\fakepath\\", ""));
         })
+
+        reloadSummary(assessment_id, category_id);
     })
 </script>
 <style>

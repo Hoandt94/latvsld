@@ -242,7 +242,7 @@
                 text: 'Biểu đồ chung'
             },
             xAxis: {
-                categories: dataLabel
+                categories: dataChartLabel
             },
             yAxis: {
                 min: 0,
@@ -274,7 +274,7 @@
 
         $.each(dataChartTotal, function(index, value){
             if(!value.total) return;
-            // dataLabel.push(value.name);
+            dataLabel.push(value.name);
             percentYes = (value.yes / value.total) * 100;
             percentNo = (value.no / value.total) * 100;
             percentImprove = (value.improve / value.total) * 100;

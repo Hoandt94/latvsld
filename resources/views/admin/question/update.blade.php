@@ -53,11 +53,16 @@
                 <div class="m-portlet__body">
                     <div class="m-form__section m-form__section--first">
                         @if(!empty($errors->any()))
-                        <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                            <div class="alert alert-danger mb-2" role="alert">
+						        <strong>Lỗi!</strong> {{ $error }}
+						    </div>
                             @endforeach
-                            </ul>
+                        @endif
+                        @if(Session::has('success'))
+                        <div class="alert alert-success" role="alert">
+						    <strong>Thành công!</strong> {!! \Session::get('success') !!}
+						</div>
                         @endif
                         <div class="form-group m-form__group row">
                             <label class="col-lg-2 col-form-label">Mã danh mục <span class="m--font-danger">*</span></label>

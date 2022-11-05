@@ -20,6 +20,8 @@ class SurveyResult extends Model
         'yes_attachment', 
         'no_employee_id', 
         'no_finish_date', 
+        'no_attachment', 
+        'no_note', 
         'improve_note', 
         'improve_attachment', 
         'improve_employee_id', 

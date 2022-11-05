@@ -290,4 +290,13 @@ class AssessmentController extends Controller
         $answers = SurveyResult::where(['assessment_id' => $id, 'answer' => 'improve'])->paginate(10);
         return view('main.assessment.list_improve', ['answers' => $answers])->render();
     }
+
+    public function countTotalAnsered($assessment_id, $category_id){
+        $assessment = Assessment::find($assessment_id);
+        $listQuestions = json_decode($assessment->setQuestion->questions, true);
+        $category = Category::find($category_id);
+        $totalQuestion = $category->getQuestionInSet($listQuestions);
+        $totalAnswered = $assessment->countQuestionAnswered($category_id);
+        return response()->json(['status' => 1, 'data' => ['total' => count($totalQuestion), 'answered' => $totalAnswered]], 200);
+    }
 }

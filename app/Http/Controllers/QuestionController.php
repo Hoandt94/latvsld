@@ -124,7 +124,7 @@ class QuestionController extends Controller
                     'tags' => !empty($request->tag) ? json_encode($request->tag) : '',
                     'status' => isset($request->status) ? 1 : 0
                 ]);
-                return redirect()->back();
+                return redirect()->back()->with('success', 'Update câu hỏi thành công');   ;
             }
             else{
                 $categories = Category::doesntHave('getSubCategory')->get();

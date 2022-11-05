@@ -30,6 +30,7 @@ Route::group(['prefix' => 'assessment', 'middleware' => ['userLogin']], function
     Route::get('/{slug_assessment}/summary', 'AssessmentController@assessmentResult')->name('result_assessment');
     Route::get('/{slug_assessment}/chart', 'AssessmentController@assessmentChart')->name('chart_assessment');
     Route::get('/{id}/improve_answer', 'AssessmentController@reloadImproveAnswer')->name('improve_answer_assessment');
+    Route::get('/{assessment_id}/total_answered/{category_id}', 'AssessmentController@countTotalAnsered')->name('count_category_assessment');
 });
 
 Route::get('/login', 'UserController@login')->name('login');

@@ -79,6 +79,18 @@
                     </div>
                 </div>
                 <div class="m-section">
+                    @if(!empty($errors->any()))
+                        @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger mb-2" role="alert">
+					        <strong>Lỗi!</strong> {{ $error }}
+					    </div>
+                        @endforeach
+                    @endif
+                    @if(Session::has('success'))
+                    <div class="alert alert-success" role="alert">
+					    <strong>Thành công!</strong> {!! \Session::get('success') !!}
+					</div>
+                    @endif
                     <div class="m-section__content">
                         @include('admin.question.list', ['questions' => $questions])
                     </div>
