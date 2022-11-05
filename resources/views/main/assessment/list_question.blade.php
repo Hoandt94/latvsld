@@ -168,7 +168,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label-control">Bằng chứng tuân thủ: </label>
+                                            <label class="label-control">Bằng chứng tuân thủ:
+                                                <a href="" class="yes-attachment-link" style="display: none"></a>
+                                            </label>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="input-group">
@@ -179,7 +181,7 @@
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary" type="button">
                                                                 <input type="file" name="yes-attachment"
-                                                                    class="custom-file-input yes-attachment"> Chọn
+                                                                    class="custom-file-input yes-attachment" data-answer="yes"> Chọn
                                                             </button>
                                                         </div>
                                                     </div>
@@ -211,16 +213,13 @@
                                         <div class="form-group">
                                             <label class="label-control">Mức Phạt Hành Chính: </label>
                                             <?php 
-                                                $penaltyMin = json_decode($question->penalty_min, true);
-                                                $penaltyMax = json_decode($question->penalty_max, true);
+                                                $penalty = $question->getPenalty();
                                             ?>
                                             <div class="row area_explain penaltyQuestion">
-                                                @foreach($penaltyMin as $key => $penalty)
                                                 <div class="col-sm-12">
-                                                    <p>{{number_format($penalty, 2)}} -
-                                                        {{number_format($penaltyMax[$key], 2)}}</p>
+                                                    <p>{{number_format($penalty['min'], 0)}} -
+                                                        {{number_format($penalty['max'], 0)}}</p>
                                                 </div>
-                                                @endforeach
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -244,6 +243,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="label-control">Đính Kèm Tập Tin Nội Dung Cần Thực Hiện:
+                                                <a href="" class="no-attachment-link" style="display: none"></a>
                                             </label>
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -254,7 +254,7 @@
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary" type="button">
                                                                 <input type="file" name="no-attachment"
-                                                                    class="custom-file-input no-attachment"> Chọn
+                                                                    class="custom-file-input no-attachment" data-answer="no"> Chọn
                                                             </button>
                                                         </div>
                                                     </div>
@@ -307,6 +307,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="label-control">Đính Kèm Tập Tin Nội Dung Cần Cải Thiện:
+                                                <a href="" class="improve-attachment-link" style="display: none"></a>
                                             </label>
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -318,7 +319,7 @@
                                                         <div class="input-group-append">
                                                             <button class="btn btn-primary" type="button">
                                                                 <input type="file" name="improve-attachment"
-                                                                    class="custom-file-input improve-attachment"> Chọn
+                                                                    class="custom-file-input improve-attachment" data-answer="improve"> Chọn
                                                             </button>
                                                         </div>
                                                     </div>
@@ -383,8 +384,9 @@
                     lại</a>
             </div>
             <div class="col-md-4">
-                <div id="total-question">Tổng số câu hỏi: {{count($category->getQuestionInSet($listQuestions))}}</div>
-                <div id="total-answered">Số câu đã trả lời: <span class="total-anser-label"
+                <div>Tổng số câu hỏi: <span id="total-question-label"
+                        yesno="1">{{count($category->getQuestionInSet($listQuestions))}}</div>
+                <div>Số câu đã trả lời: <span id="total-answered-label"
                         yesno="1">{{count($assessment->getQuestionAnswered($category->id))}}</span></div>
             </div>
         </div>
@@ -406,8 +408,8 @@
             url: url,
             success: function (data) {
                 // your callback here
-                $('#total-question').text(data.data.total)
-                $('#total-answered').text(data.data.answered)
+                $('#total-question-label').text(data.data.total)
+                $('#total-answered-label').text(data.data.answered)
             },
             error: function (error) {
                 // handle error
@@ -456,6 +458,10 @@
                     if (value.yes_attachment) {
                         fileName = value.yes_attachment.split('/')
                         element.find('.yes-attachment-name').val(fileName[fileName.length - 1]);
+                        url = '{{url('/')}}\/' + value.yes_attachment;
+                        element.find('.yes-attachment-link').attr('href', url);
+                        element.find('.yes-attachment-link').text(fileName[fileName.length - 1]);
+                        element.find('.yes-attachment-link').show();
                     }
 
                     break;
@@ -469,6 +475,10 @@
                     if (value.no_attachment) {
                         fileName = value.no_attachment.split('/');
                         element.find('.no-attachment-name').val(fileName[fileName.length - 1]);
+                        url = '{{url('/')}}\/' + value.no_attachment;
+                        element.find('.no-attachment-link').attr('href', url);
+                        element.find('.no-attachment-link').text(fileName[fileName.length - 1]);
+                        element.find('.no-attachment-link').show();
                     }
                     break;
                 case 'improve':
@@ -482,6 +492,10 @@
                     if (value.improve_attachment) {
                         fileName = value.improve_attachment.split('/')
                         element.find('.improve-attachment-name').val(fileName[fileName.length - 1]);
+                        url = '{{url('/')}}\/' + value.improve_attachment;
+                        element.find('.improve-attachment-link').attr('href', url);
+                        element.find('.improve-attachment-link').text(fileName[fileName.length - 1]);
+                        element.find('.improve-attachment-link').show();
                     }
 
                     break;
@@ -543,6 +557,7 @@
                             attachment = files[0];
                             formData.append("no_attachment", attachment, attachment.name);
                         }
+                        formData.append("no_attachment_name", fileName);
                         break;
                     case 'improve':
                         note = element.find('.improve-note').val();
@@ -574,8 +589,8 @@
                                 checkResult = false;
                                 showNotification("Lỗi", "Lưu đánh giá câu hỏi thứ " + (key + 1) + " không thành công", 'danger');
                             }
-                            // your callback here
                             reloadSummary(assessment_id, category_id);
+                            // your callback here
                         },
                         error: function (error) {
                             // handle error
@@ -594,7 +609,6 @@
             elementName = element.find('.attachment-name').val(value.replace("C:\\fakepath\\", ""));
         })
 
-        reloadSummary(assessment_id, category_id);
     })
 </script>
 <style>

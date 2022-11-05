@@ -32,7 +32,7 @@ class Assessment extends Model
         $category = Category::find($categoryID);
         $listQuestionID = $category->getQuestion->modelKeys();
 
-        $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->get();
+        $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->whereNull('history')->get();
         return $answers;
     }
 
@@ -48,7 +48,7 @@ class Assessment extends Model
         }
         else{
             $listQuestionID = $category->getQuestion->modelKeys();
-            $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->get();
+            $answers = SurveyResult::where(['assessment_id' => $this->id])->whereIn('question_id', $listQuestionID)->whereNull('history')->get();
             return count($answers);
         }
     }
@@ -65,7 +65,7 @@ class Assessment extends Model
         }
         else{
             $listQuestionID = $category->getQuestion->modelKeys();
-            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'improve'])->whereIn('question_id', $listQuestionID)->get();
+            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'improve'])->whereNull('history')->whereIn('question_id', $listQuestionID)->get();
             return count($answers);
         }
     }
@@ -82,7 +82,7 @@ class Assessment extends Model
         }
         else{
             $listQuestionID = $category->getQuestion->modelKeys();
-            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'yes'])->whereIn('question_id', $listQuestionID)->get();
+            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'yes'])->whereNull('history')->whereIn('question_id', $listQuestionID)->get();
             return count($answers);
         }
     }
@@ -99,7 +99,7 @@ class Assessment extends Model
         }
         else{
             $listQuestionID = $category->getQuestion->modelKeys();
-            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'no'])->whereIn('question_id', $listQuestionID)->get();
+            $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'no'])->whereNull('history')->whereIn('question_id', $listQuestionID)->get();
             return count($answers);
         }
     }
@@ -126,7 +126,7 @@ class Assessment extends Model
     }
 
     function getAllAnswerImprove(){
-        $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'improve'])->get();
+        $answers = SurveyResult::where(['assessment_id' => $this->id, 'answer' => 'improve'])->whereNull('history')->get();
         return $answers;
     }
 

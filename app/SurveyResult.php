@@ -32,6 +32,10 @@ class SurveyResult extends Model
         return $this->belongsTo('App\Question', 'question_id', 'id');
     }
 
+    public function getAssessment(){
+        return $this->belongsTo('App\Assessment', 'assessment_id', 'id');
+    }
+
     public function getImproveEmployee(){
         return $this->belongsTo('App\User', 'improve_employee_id', 'id');
     }

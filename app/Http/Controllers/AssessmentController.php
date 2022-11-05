@@ -118,7 +118,7 @@ class AssessmentController extends Controller
         $users = User::where('company_id', $assessment->company_id)->get();
         $listQuestionID = $category->getQuestion->modelKeys();
 
-        $answers = SurveyResult::where(['assessment_id' => $assessment->id])->whereIn('question_id', $listQuestionID)->get();
+        $answers = SurveyResult::where(['assessment_id' => $assessment->id])->whereIn('question_id', $listQuestionID)->whereNull('history')->get();
         return view('main.assessment.list_question', ['assessment' => $assessment, 'category' => $category, 'users' => $users, 'answers' => $answers]);
     }
 
@@ -184,7 +184,19 @@ class AssessmentController extends Controller
                 'assessment_id' => (int)$request->assessment_id,
                 'set_question_id' => $assessment->setQuestion->id,
             ];
-            $result = SurveyResult::updateOrCreate($filter, $log);
+            $currentResult = SurveyResult::where($filter)->whereNull('history')->first();
+            if(!empty($currentResult)){
+                if($currentResult->answer != $log['answer']){
+                    $currentResult = SurveyResult::where($filter)->whereNull('history')->update(['history' => 1]);
+                    $log = array_merge($log, $filter);
+                    $result = SurveyResult::insert($log);
+                }
+                else $result = SurveyResult::where($filter)->whereNull('history')->update($log);
+            }
+            else{
+                $log = array_merge($log, $filter);
+                $result = SurveyResult::insert($log);
+            }
             if($result) return response()->json(['status' => $result], 200);
             else return response()->json(['status' => 0, 'msg' => 'Failed'], 200);
         }
@@ -264,7 +276,7 @@ class AssessmentController extends Controller
         $users = User::where('company_id', $assessment->company_id)->get();
         $listQuestionID = $category->getQuestion->modelKeys();
 
-        $answers = SurveyResult::where(['assessment_id' => $assessment->id])->whereIn('question_id', $listQuestionID)->get();
+        $answers = SurveyResult::where(['assessment_id' => $assessment->id])->whereIn('question_id', $listQuestionID)->whereNull('history')->get();
         return view('main.assessment.result', ['assessment' => $assessment, 'category' => $category, 'users' => $users, 'answers' => $answers]);
     }
 
@@ -287,7 +299,7 @@ class AssessmentController extends Controller
     }
 
     public function reloadImproveAnswer($id, Request $request){
-        $answers = SurveyResult::where(['assessment_id' => $id, 'answer' => 'improve'])->paginate(10);
+        $answers = SurveyResult::where(['assessment_id' => $id])->whereIn('answer', ['improve', 'no'])->whereNull('history')->paginate(10);
         return view('main.assessment.list_improve', ['answers' => $answers])->render();
     }
 
