@@ -256,7 +256,8 @@
             },
             plotOptions: {
                 series: {
-                    stacking: 'normal'
+                    stacking: 'normal',
+                    pointWidth: 20
                 }
             },
             series: dataChart,
@@ -270,7 +271,7 @@
         dataYes = []
         dataNo = []
         dataImprove = [];
-        dataLabel = ['Có', 'Không', 'Cải thiện'];
+        dataLabel = [];
 
         $.each(dataChartTotal, function(index, value){
             if(!value.total) return;
@@ -324,7 +325,8 @@
             },
             plotOptions: {
                 series: {
-                    stacking: 'normal'
+                    stacking: 'normal',
+                    pointWidth: 20
                 }
             },
             series: dataChart,
