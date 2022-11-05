@@ -157,8 +157,11 @@ class UserController extends Controller
             ];
         }
         if (Auth::attempt($login)) {
-            return redirect('/admin');
+            $user = Auth::user();
+            if($user->role == 'system_admin')return redirect('/admin');
+            else return redirect('/');
         } else {
+            dd(2);
             return redirect()->back()->withErrors(['msg' => 'Email hoặc Password không chính xác']);
         }
     }

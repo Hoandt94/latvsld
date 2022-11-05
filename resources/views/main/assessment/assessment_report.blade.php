@@ -201,7 +201,7 @@
         dataYes = []
         dataNo = []
         dataImprove = [];
-        dataLabel = [];
+        dataLabel = ['Có', 'Không', 'Cải thiện'];
 
         $.each(dataChartLabel, function(index, label){
             if(!dataChartTotal[index]) return;
@@ -212,21 +212,24 @@
             dataYes.push(percentYes ? Number(percentYes.toFixed(2)) : 0);
             dataNo.push(percentNo ? Number(percentNo.toFixed(2)) : 0)
             dataImprove.push(percentImprove ? Number(percentImprove.toFixed(2)) : 0);
-            dataLabel.push(label);
+            // dataLabel.push(label);
 
         })
 
         dataChart = [
             {
                 name: "Có",
+                color: '#4E9458',
                 data: dataYes
             },
             {
                 name: "Không",
+                color: '#FFE45C',
                 data: dataNo
             },
             {
                 name: "Cải thiện",
+                color: '#B91D23',
                 data: dataImprove
             }
         ];
@@ -239,7 +242,7 @@
                 text: 'Biểu đồ chung'
             },
             xAxis: {
-                categories: dataChartLabel
+                categories: dataLabel
             },
             yAxis: {
                 min: 0,
@@ -267,12 +270,11 @@
         dataYes = []
         dataNo = []
         dataImprove = [];
-        dataLabel = [];
+        dataLabel = ['Có', 'Không', 'Cải thiện'];
 
         $.each(dataChartTotal, function(index, value){
             if(!value.total) return;
-            dataLabel.push(value.name);
-            console.log(value)
+            // dataLabel.push(value.name);
             percentYes = (value.yes / value.total) * 100;
             percentNo = (value.no / value.total) * 100;
             percentImprove = (value.improve / value.total) * 100;
@@ -285,18 +287,21 @@
         dataChart = [
             {
                 name: "Có",
+                color: '#4E9458',
                 data: dataYes
             },
             {
                 name: "Không",
+                color: '#FFE45C',
                 data: dataNo
             },
             {
                 name: "Cải thiện",
+                color: '#B91D23',
                 data: dataImprove
             }
         ];
-        
+
         Highcharts.chart('chart-detail', {
             chart: {
                 type: 'bar'
@@ -305,7 +310,7 @@
                 text: 'Biểu đồ chi tiết'
             },
             xAxis: {
-                categories: dataChartLabel
+                categories: dataLabel
             },
             yAxis: {
                 min: 0,

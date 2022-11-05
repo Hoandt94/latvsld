@@ -14,12 +14,15 @@ use App\User;
 use App\CompanyInfo;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use App\CompanySetQuestion;
 
 class AssessmentController extends Controller
 {
     //
     public function index(){
-        $setQuestions = SetQuestion::all();
+        $user = Auth::user();
+        $companySetquestion = CompanySetQuestion::where('company_id', $user->company_id)->pluck('set_question_id')->toArray();
+        $setQuestions = SetQuestion::whereIn('id', $companySetquestion)->get();
         $user = Auth::user();
         $assessments = Assessment::where('company_id', $user->company_id)->paginate(10);
         return view('main.assessment.index', ['set_questions' => $setQuestions, 'assessments' => $assessments]);
@@ -89,7 +92,7 @@ class AssessmentController extends Controller
 
     public function reload(Request $request){
         $result = Assessment::query();
-        $assessments = $result->paginate(10);
+        $assessments = $result->where('company_id', $user->company_id)->paginate(10);
         return view('main.assessment.list', ['assessments' => $assessments])->render();
     }
 
@@ -147,6 +150,14 @@ class AssessmentController extends Controller
                     if(!empty($request->no_employee))$log['no_employee_id'] = (int)$request->no_employee;
                     if(!empty($request->no_date)){
                         $log['no_finish_date'] = Carbon::parse(strtotime(str_replace('/', '-', $request->no_date )))->setTimezone(config('app.timezone'));
+                    }
+
+                    if(!empty($request->no_note))$log['no_note'] = $request->no_note;
+                    if(empty($request->no_attachment_name)) $log['no_attachment'] = '';
+                    if(!empty($request->file('no_attachment'))){
+                        $fileName = time() . '_' . $request->file('no_attachment')->getClientOriginalName();  
+                        $request->no_attachment->move(public_path('uploads'), $fileName);
+                        $log['no_attachment'] = 'uploads/' . $fileName;
                     }
                     break;
                 case 'improve':

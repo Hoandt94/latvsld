@@ -10,7 +10,7 @@ use DB;
 class QuestionController extends Controller
 {
     public function index(){
-        $questions = Question::paginate(20);
+        $questions = Question::paginate(15);
         $categories = Category::doesntHave('getSubCategory')->get();
         return view('admin.question.index', ['questions' => $questions, 'categories' => $categories]);
     }
@@ -124,7 +124,7 @@ class QuestionController extends Controller
                     'tags' => !empty($request->tag) ? json_encode($request->tag) : '',
                     'status' => isset($request->status) ? 1 : 0
                 ]);
-                return redirect()->route('question');
+                return redirect()->back();
             }
             else{
                 $categories = Category::doesntHave('getSubCategory')->get();
@@ -158,7 +158,7 @@ class QuestionController extends Controller
         if(!empty($request->category_id)) $result->where('category_id', (int)$request->category_id);
         if(!empty($request->code)) $result->where('code', 'like', '%' . $request->code . '%');
         if(!empty($request->content)) $result->where('content', 'like', '%' . $request->content . '%');
-        $questions = $result->paginate(10);
+        $questions = $result->paginate(15);
         return view('admin.question.list', ['questions' => $questions])->render();
     }
 }

@@ -212,7 +212,7 @@
                                             <div class="row area_explain penaltyQuestion">
                                                 @foreach($penaltyMin as $key => $penalty)
                                                 <div class="col-sm-12">
-                                                    <p>{{$penalty}} - {{$penaltyMax[$key]}}</p>
+                                                    <p>{{number_format($penalty, 2)}} - {{number_format($penaltyMax[$key], 2)}}</p>
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -227,7 +227,42 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="label-control">Ghi Lại Những Nội Dung Cần Thực Hiện: </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <textarea id="comment" name="no-note"
+                                                        class="form-control no-note" rows="5"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label-control">Đính Kèm Tập Tin Nội Dung Cần Thực Hiện:
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control attachment-name no-attachment-name"
+                                                            name="no-attachment-name"
+                                                            placeholder="Bằng chứng tuân thủ">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-primary" type="button">
+                                                                <input type="file" name="no-attachment"
+                                                                    class="custom-file-input no-attachment"> Chọn
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div></div>
+                                                    <div class="custom-file">
+                                                        <input type="file" name="improve-attachment"
+                                                            class="custom-file-input improve-attachment"
+                                                            id="customFile_improve">
+                                                        <label class="custom-file-label label-primary"
+                                                            for="customFile">Choose file</label>
+                                                    </div> -->
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="label-control">Nhân Viên Thực Hiện</label>
                                             <div class="row">
@@ -469,6 +504,14 @@
                         date = element.find('.date-no').val();
                         formData.append("no_employee", employee);
                         formData.append("no_date", date);
+
+                        note = element.find('.no-note').val();
+                        fileName = element.find('.no-attachment-name').val();
+                        files = element.find('.no-attachment')[0].files;
+                        if(files.length){
+                            attachment = files[0];
+                            formData.append("no_attachment", attachment, attachment.name);
+                        }
                         break;
                     case 'improve':
                         note = element.find('.improve-note').val();
